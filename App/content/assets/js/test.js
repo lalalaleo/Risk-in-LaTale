@@ -42,10 +42,33 @@ var man = {
             });            
         },
         "jumpRight":function(){
-            this.action.stop();
+            $(".man").stop(true,false);
+            var man = document.getElementById("man");
+            var bottom = 50;
+            var left = 0;
+            if(man.style.bottom != ""){
+                bottom = parseInt(man.style.bottom) + 100;
+            }
+            if(man.style.left != ""){
+                left = parseInt(man.style.left);
+            }
+            $(".man").animate({
+                "bottom":bottom,
+                "left":left+80
+            },200,"linear",function(){
+                bottom = 50;
+                $(".man").animate({
+                    "bottom":bottom,
+                    "left":left+80
+                },200,"linear",function(){
+                    $(".man").animate({
+                        "left":20000
+                    },100000,"linear",function(){;});
+                });
+            });
         },
         "stop":function(){
-            $(".man").stop();
+            $(".man").stop(true,false);
         }
     }
 }
@@ -65,6 +88,7 @@ function keydown(){
         }
     }
     else if(event.keyCode==67){
+        console.log(man.actionStete);            
         if(man.actionStete == 1){
             man.action.jumpRight();
         }
@@ -76,13 +100,14 @@ function keydown(){
 function keyup(){
     if(event.keyCode==39){
         man.action.stop();
+        man.actionStete = 0;
     }
     else if(event.keyCode==37){
         man.action.stop();
+        man.actionStete = 0;
     }
     else if(event.keyCode==67){
     }
-    man.actionStete = 0;
 }
 
 document.onkeydown = keydown;
