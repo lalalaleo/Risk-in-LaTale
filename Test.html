@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        body{
+            padding:0;
+            margin: 0;
+        }
+        .map {
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+        }
+        .material {
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+        .grass {
+            background-color:lightgreen;
+        }
+        .ice {
+            background-color:skyblue;
+        }
+        .none {
+            background-color: none;
+        }
+        .man {
+            position: absolute;
+            width:100px;
+            height: 200px;
+            left: 0px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="man" id="man"></div>
+    <div class = "map">
+
+        <div class = "material grass"></div>
+        <div class = "material grass"></div>
+        <div class = "material grass"></div>
+        <div class = "material grass"></div>
+        <div class = "material none"></div>
+        <div class = "material ice"></div>
+        <div class = "material ice"></div>
+        <div class = "material grass"></div>
+        <div class = "material grass"></div>
+        <div class = "material grass"></div>
+    </div>
+</body>
+<script>
+    init();
+    function init(){
+        var man = document.getElementById("man");
+        man.style.bottom = 100+"px";
+    }
+    function goRight(){
+        var man = document.getElementById("man");
+        var left = 0;
+        if(man.style.left != ""){
+            left = parseInt(man.style.left) + 100;
+        }
+        man.style.left = left + "px";
+    }
+    function goLeft(){
+        var man = document.getElementById("man");
+        var left = 0;
+        if(man.style.left != ""){
+            left = parseInt(man.style.left) - 100;
+        }
+        man.style.left = left + "px";
+    }
+    function keyevent(){
+     if(event.keyCode==39)
+        goRight();
+    else if(event.keyCode==37)
+        goLeft();
+     }
+     document.onkeydown = keyevent;
+</script>
+</html>
