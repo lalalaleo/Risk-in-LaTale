@@ -55,78 +55,96 @@ var map = {
     }
 }
 var man = {
+    name:"Leo",
     initLayout:function(){
         var man = document.getElementById("man");
         man.style.bottom = world.unitSize+"px";
         man.style.width = world.unitSize+"px";
         man.style.height = 2*world.unitSize+"px";
     },
-    "actionStete":0,
-    "action":{
-        "goLeft":function(){
-            var man = document.getElementById("man");
-            var left = 0;
-            if(man.style.left != ""){
-                left = parseInt(man.style.left) - 10;
-            }
-            $(".man").animate({
-                "left":-20000
-            },100000,"linear",function(){;});
-        },
-        "goRight":function(){
-            var man = document.getElementById("man");
-            var left = 0;
-            if(man.style.left != ""){
-                left = parseInt(man.style.left) + 10;
-            }
-            $(".man").animate({
-                "left":20000
-            },100000,"linear",function(){;});            
-        },
-        "jump":function(){
-            var man = document.getElementById("man");
-            var bottom = world.unitSize;
-            if(man.style.bottom != ""){
-                bottom = parseInt(man.style.bottom) + 100;
-            }
-            $(".man").animate({
-                "bottom":bottom
-            },200,"linear",function(){
-                bottom = world.unitSize;
-                $(".man").animate({
-                    "bottom":bottom
-                },200,"linear",function(){;});
-            });            
-        },
-        "jumpRight":function(){
-            $(".man").stop(true,false);
-            var man = document.getElementById("man");
-            var bottom = world.unitSize;
-            var left = 0;
-            if(man.style.bottom != ""){
-                bottom = parseInt(man.style.bottom) + 100;
-            }
-            if(man.style.left != ""){
-                left = parseInt(man.style.left);
-            }
-            $(".man").animate({
-                "bottom":bottom,
-                "left":left+80
-            },200,"linear",function(){
-                bottom = world.unitSize;
-                $(".man").animate({
-                    "bottom":bottom,
-                    "left":left+80
-                },200,"linear",function(){
-                    $(".man").animate({
-                        "left":20000
-                    },100000,"linear",function(){;});
-                });
-            });
-        },
-        "stop":function(){
-            $(".man").stop(true,false);
+    moveFlag:0,
+    jumpFlag:0,
+    speedX:0,
+    speedY:0,
+    setSpeedX:3,
+    setSpeedY:15,
+    moveID:null,
+    actionState:function(){
+        if(this.moveFlag==0){
+            this.speedX = 0;
+            this.speedY = 0;
         }
+        else if(this.moveFlag==1){
+            this.speedX = - this.setSpeedX;
+            this.speedY = 0;
+        }
+        else if(this.moveFlag==2){
+            this.speedX = this.setSpeedX;
+            this.speedY = 0;
+        }
+        else if(this.moveFlag==3){
+            this.speedX = 0;
+            this.speedY = 0;
+        }
+        else if(this.moveFlag==4){
+            this.speedX = 0;
+            if(this.speedY!=- this.setSpeedY){
+            this.speedY = this.setSpeedY;
+            }
+        }
+        else if(this.moveFlag==5){
+            this.speedX = - this.setSpeedX;
+            if(this.speedY!=- this.setSpeedY){
+            this.speedY = this.setSpeedY;
+            }
+        }
+        else if(this.moveFlag==6){
+            this.speedX = this.setSpeedX;
+            if(this.speedY!=- this.setSpeedY){
+            this.speedY = this.setSpeedY;
+            }
+        }
+        else if(this.moveFlag==7){
+            this.speedX = 0;
+            if(this.speedY!=- this.setSpeedY){
+            this.speedY = this.setSpeedY;
+            }
+        }
+        console.log(this.speedX);
+        cancelAnimationFrame(this.moveID);
+        this.moveID=requestAnimationFrame(this.move);
+    },
+    move:function(){
+        alert(man.name);
+        var man = document.querySelector("#man");
+        var bottom = man.style.bottom;
+        var left = man.style.left;
+        if(left == '') left='0';
+        if(bottom == '') bottom='100px';
+        left = parseInt(left) + man.speedX;
+        bottom = parseInt(bottom) + man.speedY;
+        man.style.left = left + "px";
+        man.style.bottom = bottom + "px";
+        if(man.speedY<0){
+            if(man.jumpFlag>=15){
+                man.speedY=0;
+                man.moveFlag -=4;
+                man.jumpFlag=0;
+            }
+            else{
+                man.jumpFlag++;
+            }
+        }
+        if(this.speedY>0){
+            if(man.jumpFlag>=15){
+                man.speedY=- man.setSpeedY;
+                man.jumpFlag=0;
+            }
+            else{
+                man.jumpFlag++;
+            }
+        }
+        man.actionState();
     }
 }
 var keyEvent = {
@@ -135,41 +153,33 @@ var keyEvent = {
         document.onkeyup = this.keyup;
     },
     keydown:function(){
-        if(event.keyCode==37){
-            if(man.actionStete == 1){;}
-            else{
-                man.actionStete = 1;
-                man.action.goLeft();
+        if(event.keyCode==39){
+            if(man.moveFlag==0||man.moveFlag==1||man.moveFlag==4||man.moveFlag==5){
+                man.moveFlag+=2;
             }
         }
-        else if(event.keyCode==39){
-            if(man.actionStete == 1){;}
-            else{
-                man.actionStete = 1;
-                man.action.goRight();
+        else if(event.keyCode==37){
+            if(man.moveFlag==0||man.moveFlag==2||man.moveFlag==4||man.moveFlag==6){
+                man.moveFlag+=1;
             }
         }
         else if(event.keyCode==67){
-            console.log(man.actionStete);
-            if(man.actionStete == 1){
-                man.action.jumpRight();
-            }
-            else{
-                man.action.jump();
+            if(man.moveFlag==0||man.moveFlag==1||man.moveFlag==2||man.moveFlag==3){
+                man.moveFlag+=4;
             }
         }
+        man.actionState();
     },
     keyup:function(){
         if(event.keyCode==39){
-            man.action.stop();
-            man.actionStete = 0;
+            man.moveFlag -= 2;
         }
         else if(event.keyCode==37){
-            man.action.stop();
-            man.actionStete = 0;
+            man.moveFlag -= 1;
         }
         else if(event.keyCode==67){
         }
+        man.actionState();
     }
 }
 $(document).ready(function(){
