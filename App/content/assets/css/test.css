@@ -1,0 +1,27 @@
+body{
+    padding:0;
+    margin: 0;
+}
+.map {
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+}
+.material {
+    float: left;
+    background-size: cover;    
+}
+.grass {
+    background-image: url(../../../image/grass.png);
+}
+.ice {
+    background-image: url(../../../image/ice.png);
+}
+.air {
+    background-color: none;
+}
+.man {
+    position: absolute;
+    left: 0px;
+    background-color: black;
+}
