@@ -15,7 +15,7 @@ body{
     background-image: url(../../../image/grass.png);
 }
 .ice {
-    background-color:skyblue;
+    background-image: url(../../../image/ice.png);
 }
 .air {
     background-color: none;

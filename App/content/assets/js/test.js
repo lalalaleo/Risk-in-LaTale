@@ -2,6 +2,29 @@ var world = {
     "unitSize":30
 }
 var map = {
+    load:function(){
+        var mapDiv = $(".map");
+        for(var i=0;i<7;i++){
+            $('<div />',{
+                "class":map.material.grass.class
+            }).appendTo(mapDiv);
+        }
+        for(var i=0;i<2;i++){
+            $('<div />',{
+                "class":map.material.air.class
+            }).appendTo(mapDiv);
+        }
+        for(var i=0;i<4;i++){
+            $('<div />',{
+                "class":map.material.ice.class
+            }).appendTo(mapDiv);
+        }
+        for(var i=0;i<7;i++){
+            $('<div />',{
+                "class":map.material.grass.class
+            }).appendTo(mapDiv);
+        }
+    },
     initLayout:function(){
         $(".map").css({
             "height":world.unitSize+"px"
@@ -18,11 +41,16 @@ var map = {
             "penetrateAble":false
             
         },        
+        "ice":{
+            "class":"material ice",
+            "speedFactor":1,
+            "penetrateAble":false
+            
+        },        
         "grass":{
             "class":"material grass",
             "speedFactor":1,
             "penetrateAble":false
-
         }
     }
 }
@@ -145,6 +173,7 @@ var keyEvent = {
     }
 }
 $(document).ready(function(){
+    map.load();
     map.initLayout();
     man.initLayout();
     keyEvent.set();
