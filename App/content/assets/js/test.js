@@ -110,21 +110,19 @@ var man = {
             this.speedY = this.setSpeedY;
             }
         }
-        console.log(this.speedX);
         cancelAnimationFrame(this.moveID);
         this.moveID=requestAnimationFrame(this.move);
     },
     move:function(){
-        alert(man.name);
-        var man = document.querySelector("#man");
-        var bottom = man.style.bottom;
-        var left = man.style.left;
+        var manDiv = document.querySelector("#man");
+        var bottom = manDiv.style.bottom;
+        var left = manDiv.style.left;
         if(left == '') left='0';
         if(bottom == '') bottom='100px';
         left = parseInt(left) + man.speedX;
         bottom = parseInt(bottom) + man.speedY;
-        man.style.left = left + "px";
-        man.style.bottom = bottom + "px";
+        manDiv.style.left = left + "px";
+        manDiv.style.bottom = bottom + "px";
         if(man.speedY<0){
             if(man.jumpFlag>=15){
                 man.speedY=0;
@@ -135,7 +133,7 @@ var man = {
                 man.jumpFlag++;
             }
         }
-        if(this.speedY>0){
+        if(man.speedY>0){
             if(man.jumpFlag>=15){
                 man.speedY=- man.setSpeedY;
                 man.jumpFlag=0;
