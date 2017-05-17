@@ -25,3 +25,8 @@ body{
     left: 0px;
     background-color: black;
 }
+.monster {
+    position: absolute;
+    left: 0px;
+    background-color: grey;
+}

@@ -170,9 +170,46 @@ var keyEvent = {
         man.actionState();
     }
 }
+var monster = {
+    name:"Leo Hu",
+    initLayout:function(){
+        var monster = document.getElementById("monster");
+        monster.style.bottom = world.unitSize+"px";
+        monster.style.width = world.unitSize+"px";
+        monster.style.height = 2*world.unitSize+"px";
+    },
+    angle : 0 , 
+    lastTime : null ,
+    animate  : function(time) {
+        var monsterDiv = document.querySelector("#monster");
+        if (this.lastTime != null)
+            this.angle += (time - this.lastTime) * 0.0015;
+        this.lastTime = time;
+        monsterDiv.style.left = (Math.cos(this.angle) * 200 + 400) + "px";
+        monster.actionState();
+    },
+    actionState:function(){
+        requestAnimationFrame(this.animate);
+    }
+}
+var angle = 0, lastTime = 0;
+function monstermove(time) {
+    var monster = document.getElementById("monster");
+    monster.style.bottom = world.unitSize+"px";
+    monster.style.width = world.unitSize+"px";
+    monster.style.height = 2*world.unitSize+"px";
+    monster.style.left  = 200 + "px";
+    if (lastTime != 0)
+      this.angle += (time - lastTime) * 0.0015;
+    lastTime = time;
+    monster.style.left = (Math.cos(this.angle) * 150 + 420) + "px";
+    requestAnimationFrame(monstermove);
+}
 $(document).ready(function(){
     map.load();
     map.initLayout();
     man.initLayout();
+     // monster.initLayout();
+    requestAnimationFrame(monstermove);
     keyEvent.set();
 });
