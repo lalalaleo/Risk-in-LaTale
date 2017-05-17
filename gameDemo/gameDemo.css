@@ -1,0 +1,18 @@
+.background    { background: rgb(0, 0, 0);
+                 table-layout: fixed;
+                 border-spacing: 0;   }
+.background td { padding: 0;          }
+.grass {
+            background-color:lightgreen;
+        }
+.ice {
+            background-color:skyblue;
+        }
+
+.actor  { position: absolute;  background: blue; }
+
+.map {
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+        }
