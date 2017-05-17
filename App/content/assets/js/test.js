@@ -67,47 +67,48 @@ var man = {
     speedX:0,
     speedY:0,
     setSpeedX:3,
-    setSpeedY:15,
+    setSpeedY:20,
+    acceleration:1,
     moveID:null,
     actionState:function(){
-        if(this.moveFlag==0){
+        if(this.moveFlag==0){//不动
             this.speedX = 0;
             this.speedY = 0;
         }
-        else if(this.moveFlag==1){
+        else if(this.moveFlag==1){//左移
             this.speedX = - this.setSpeedX;
             this.speedY = 0;
         }
-        else if(this.moveFlag==2){
+        else if(this.moveFlag==2){//右移
             this.speedX = this.setSpeedX;
             this.speedY = 0;
         }
-        else if(this.moveFlag==3){
+        else if(this.moveFlag==3){//左右一起（不动）
             this.speedX = 0;
             this.speedY = 0;
         }
-        else if(this.moveFlag==4){
+        else if(this.moveFlag==4){//跳跃
             this.speedX = 0;
-            if(this.speedY!=- this.setSpeedY){
-            this.speedY = this.setSpeedY;
+            if(this.jumpFlag == 0){
+                this.speedY = this.setSpeedY;
             }
         }
-        else if(this.moveFlag==5){
+        else if(this.moveFlag==5){//左跳
             this.speedX = - this.setSpeedX;
-            if(this.speedY!=- this.setSpeedY){
-            this.speedY = this.setSpeedY;
+            if(this.jumpFlag == 0){
+                this.speedY = this.setSpeedY;
             }
         }
-        else if(this.moveFlag==6){
+        else if(this.moveFlag==6){//右跳
             this.speedX = this.setSpeedX;
-            if(this.speedY!=- this.setSpeedY){
-            this.speedY = this.setSpeedY;
+            if(this.jumpFlag == 0){
+                this.speedY = this.setSpeedY;
             }
         }
-        else if(this.moveFlag==7){
+        else if(this.moveFlag==7){//左右一起（不动）跳跃
             this.speedX = 0;
-            if(this.speedY!=- this.setSpeedY){
-            this.speedY = this.setSpeedY;
+            if(this.jumpFlag == 0){
+                this.speedY = this.setSpeedY;
             }
         }
         cancelAnimationFrame(this.moveID);
@@ -123,24 +124,13 @@ var man = {
         bottom = parseInt(bottom) + man.speedY;
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
-        if(man.speedY<0){
-            if(man.jumpFlag>=15){
-                man.speedY=0;
-                man.moveFlag -=4;
-                man.jumpFlag=0;
-            }
-            else{
-                man.jumpFlag++;
-            }
+        if((man.moveFlag==4||man.moveFlag==5||man.moveFlag==6||man.moveFlag==7)&&(man.jumpFlag<(man.setSpeedY/man.acceleration*2))){
+            man.speedY -= man.acceleration;
+            man.jumpFlag++;
         }
-        if(man.speedY>0){
-            if(man.jumpFlag>=15){
-                man.speedY=- man.setSpeedY;
-                man.jumpFlag=0;
-            }
-            else{
-                man.jumpFlag++;
-            }
+        else if(man.jumpFlag==(man.setSpeedY/man.acceleration*2)){
+            man.jumpFlag=0;
+            man.moveFlag -= 4;
         }
         man.actionState();
     }
