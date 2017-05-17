@@ -1,4 +1,5 @@
-.background    { background: rgb(0, 0, 0);
+
+.background    { background: rgb(255, 255, 255);
                  table-layout: fixed;
                  border-spacing: 0;   }
 .background td { padding: 0;          }
@@ -7,6 +8,9 @@
         }
 .ice {
             background-color:skyblue;
+        }
+.none {
+            background-color: none;
         }
 
 .actor  { position: absolute;  background: blue; }

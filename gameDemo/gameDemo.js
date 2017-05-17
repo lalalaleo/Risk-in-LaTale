@@ -27,6 +27,8 @@ function Level(plan) {
         fieldType = "grass ";
       else if (ch == "!")
         fieldType = "ice ";
+      else if (ch == " ")
+        fieldType = "none ";
       gridLine.push(fieldType);
     }
     this.grid.push(gridLine);
@@ -55,12 +57,12 @@ Vector.prototype.times = function(factor) {
  * actorChars对象来讲字符和构造函数关联起来
  */
 var actorChars = {
-  "@": Player,
+  "@": Player
 };
 
 function Player(pos) {
-  this.pos = pos.plus(new Vector(0, -0.5));
-  this.size = new Vector(0.8, 1.5);
+  this.pos = pos.plus(new Vector(0, 0));
+  this.size = new Vector(1, 1);
   this.speed = new Vector(0, 0);
 }
 Player.prototype.type = "player";
