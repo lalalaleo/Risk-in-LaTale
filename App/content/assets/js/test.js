@@ -170,40 +170,92 @@ var keyEvent = {
         man.actionState();
     }
 }
-var monster = {
-    name:"Leo Hu",
-    initLayout:function(){
-        var monster = document.getElementById("monster");
-        monster.style.bottom = world.unitSize+"px";
-        monster.style.width = world.unitSize+"px";
-        monster.style.height = 2*world.unitSize+"px";
-    },
-    angle : 0 , 
-    lastTime : null ,
-    animate  : function(time) {
-        var monsterDiv = document.querySelector("#monster");
-        if (this.lastTime != null)
-            this.angle += (time - this.lastTime) * 0.0015;
-        this.lastTime = time;
-        monsterDiv.style.left = (Math.cos(this.angle) * 200 + 400) + "px";
-        monster.actionState();
-    },
-    actionState:function(){
-        requestAnimationFrame(this.animate);
-    }
-}
-var angle = 0, lastTime = 0;
+// var monster = {
+//     name:"Leo Hu",
+//     initLayout:function(){
+//         var monster = document.getElementById("monster");
+//         monster.style.bottom = world.unitSize+"px";
+//         monster.style.width = world.unitSize+"px";
+//         monster.style.height = 2*world.unitSize+"px";
+//     },
+//     angle : 0 , 
+//     lastTime : null ,
+//     animate  : function(time) {
+//         var monsterDiv = document.querySelector("#monster");
+//         if (this.lastTime != null)
+//             this.angle += (time - this.lastTime) * 0.0015;
+//         this.lastTime = time;
+//         monsterDiv.style.left = (Math.cos(this.angle) * 200 + 400) + "px";
+//         monster.actionState();
+//     },
+//     actionState:function(){
+//         requestAnimationFrame(this.animate);
+//     }
+// }
+var angle = 0, lastTime = 0 ,jumpflag = 0;
 function monstermove(time) {
     var monster = document.getElementById("monster");
     monster.style.bottom = world.unitSize+"px";
     monster.style.width = world.unitSize+"px";
     monster.style.height = 2*world.unitSize+"px";
-    monster.style.left  = 200 + "px";
+
+    var monster2 = document.getElementById("monster2");
+    monster2.style.bottom = world.unitSize+"px";
+    monster2.style.width = world.unitSize+"px";
+    monster2.style.height = 2*world.unitSize+20+"px";
+    monster2.style.left = 560 + "px";
+
+    var monster3 = document.getElementById("monster3");
+    monster3.style.bottom = world.unitSize+"px";
+    monster3.style.width = world.unitSize+"px";
+    monster3.style.height = 2*world.unitSize+20+"px";
+    monster3.style.left = 640 + "px";
+
+    var monster4 = document.getElementById("monster4");
+    monster4.style.bottom = world.unitSize+"px";
+    monster4.style.width = world.unitSize+"px";
+    monster4.style.height = 2*world.unitSize+20+"px";
+    monster4.style.left = 720 + "px";
+  
     if (lastTime != 0)
       this.angle += (time - lastTime) * 0.0015;
     lastTime = time;
     monster.style.left = (Math.cos(this.angle) * 150 + 420) + "px";
+
+    monster2.style.bottom = (Math.cos(this.angle) * 40 + 90) + "px";
+
+    var anglenow = this.angle + Math.PI/3;
+    monster3.style.bottom = (Math.cos(anglenow) * 40 + 70) + "px";
+    
+    anglenow += Math.PI/3;
+    monster4.style.bottom = (Math.cos(anglenow) * 40 + 70) + "px";
+    //碰撞判断
+    if(knock("monster2")||knock("monster3")||knock("monster4")||knock("monster")){
+        alert("游戏结束");
+    }
+    // if( top - height < monstertop && top > monsterbottom){
+    //     alert(1);
+    // }
     requestAnimationFrame(monstermove);
+}
+function  knock(monster){
+    var man = document.getElementById("man");
+    var left = parseInt(man.style.left);
+    var width = parseInt(man.style.width);
+    var bottom = parseInt(man.style.bottom);
+    var height = parseInt(man.style.height);
+    var top = bottom + height;
+    var monster2 = document.getElementById(monster);
+    var monsterleft = parseInt(monster2.style.left);
+    var monsterwidth = parseInt(monster2.style.width);
+    var monsterbottom = parseInt(monster2.style.bottom);
+    var monsterheight = parseInt(monster2.style.height);
+    var monstertop = monsterbottom + monsterheight;
+    if(left + width >= monsterleft && left <= monsterwidth+monsterleft && top - height < monstertop && top > monsterbottom){
+         return true;
+    }else{
+        return false;
+    }
 }
 $(document).ready(function(){
     map.load();
