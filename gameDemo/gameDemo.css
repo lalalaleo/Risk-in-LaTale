@@ -16,7 +16,10 @@
 .actor  { position: absolute;  background: blue; }
 
 .map {
-            position: absolute;
-            bottom: 0;
+            position: relative;
             overflow: hidden;
+            max-width: 600px;
+            max-height: 450px;
+            bottom: 0;
+            
         }

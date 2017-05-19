@@ -134,6 +134,39 @@ DOMDisplay.prototype.drawFrame = function() {
   this.wrap.className = "map " + (this.level.status || "");
 };
 
+/**
+ * 地图跟随者人物的走动而走动
+ */
+DOMDisplay.prototype.scrollPlayerIntoView = function() {
+  
+  var width = this.wrap.clientWidth;
+  var height = this.wrap.clientHeight;
+  var margin = width / 3;
+
+  // 视窗口大小
+  var left = this.wrap.scrollLeft, right = left + width;
+  var top = this.wrap.scrollTop, bottom = top + height;
+
+  var player = this.level.player;
+ 
+  //设置中心区域，人物在这个区域内不会滚动地图
+  var center = player.pos.plus(player.size.times(0.5))
+                 .times(scale);
+
+  if (center.x < left + margin)
+    this.wrap.scrollLeft = center.x - margin;
+  else if (center.x > right - margin)
+    this.wrap.scrollLeft = center.x + margin - width;
+  if (center.y < top + margin)
+    this.wrap.scrollTop = center.y - margin;
+  else if (center.y > bottom - margin)
+    this.wrap.scrollTop = center.y + margin - height;
+};
+
+DOMDisplay.prototype.clear = function() {
+  this.wrap.parentNode.removeChild(this.wrap);
+};
+
 
 
 
