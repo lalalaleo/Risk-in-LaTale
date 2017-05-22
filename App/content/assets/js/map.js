@@ -26,7 +26,7 @@ function mapLevel ( plan )
       }
         
       else if (ch == "!"){
-        fieldType = "css/material/ice ";  
+        fieldType = ".material.ice ";  
       }
       /*
       //关卡传送门出现的初始位置   
@@ -52,7 +52,6 @@ function mapLevel ( plan )
 /** Vector 获取活动元素的位置
  *  
  */
-
 function Vector(x, y) {
   this.x = x; this.y = y;
 }
@@ -62,3 +61,53 @@ Vector.prototype.plus = function(other) {
 Vector.prototype.times = function(factor) {
   return new Vector(this.x * factor, this.y * factor);
 };
+
+/*定义活动元素
+*
+*/
+var actorChars = {
+  "@": Player,
+  "o": NextLevel,
+  "q": Monster
+};
+
+/*创建元素，并且赋予class属性
+*
+*/
+function elt(name, className) {
+  var elt = document.createElement(name);
+  if (className) elt.className = className;
+  return elt;
+}
+
+function DOMDisplay(parent, level) {
+  this.wrap = parent.appendChild(elt("div", " "));//添加地图静态界面
+  this.level = level;
+
+  this.wrap.appendChild(this.drawBackground());
+  this.actorLayer = null;
+  this.drawFrame();
+}
+
+/**
+ * 一个像素点=20像素
+ */
+var scale = 20;
+
+/**
+ * 打印出背景 scale=20 相乘之后可以控制背景的大小
+ */
+DOMDisplay.prototype.drawBackground = function() {
+  var table = elt("table", "background");
+  table.style.width = this.level.width * scale + "px";
+  this.level.grid.forEach(function(row) {
+    var rowElt = table.appendChild(elt("tr")); //tr指的是网格中每一行对应表格中的一行
+    rowElt.style.height = scale + "px";
+    row.forEach(function(type) {
+      rowElt.appendChild(elt("td", type)); //td指的是网格中每个字符串对应表格的单元格元素的类型名
+    });
+  });
+  return table;
+};
+
+
