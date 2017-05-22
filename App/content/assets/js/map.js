@@ -22,11 +22,11 @@ function mapLevel ( plan )
         this.actors.push(new Actor (new Vector(x, y), ch));
       }      
       else if (ch == "x"){
-        fieldType = "css/material/grass ";
+        fieldType = "material grass ";
       }
         
       else if (ch == "!"){
-        fieldType = ".material.ice ";  
+        fieldType = "material ice ";  
       }
       /*
       //关卡传送门出现的初始位置   
