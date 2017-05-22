@@ -1,0 +1,10 @@
+.material {
+}
+.grass {
+    background-image: url(../../../image/material/grass.png);
+    background-size:cover;
+}
+.ice {
+    background-image: url(../../../image/material/ice.png);
+    background-size:cover;
+}
