@@ -35,3 +35,8 @@ body{
     left: 0px;
     background-color: red;
 }
+.bridge {
+    position: absolute;
+    left: 0px;
+    background-color: goldenrod;
+}

@@ -69,8 +69,13 @@ var man = {
     setSpeedX:3,
     setSpeedY:20,
     acceleration:1,
+    stop:0,
+    nextstop :0,
+    startbottom : "30px",
     moveID:null,
     actionState:function(){
+        nextstop = stop;
+        stop = 0;
         if(this.moveFlag==0){//不动
             this.speedX = 0;
             this.speedY = 0;
@@ -78,6 +83,7 @@ var man = {
         else if(this.moveFlag==1){//左移
             this.speedX = - this.setSpeedX;
             this.speedY = 0;
+            stop = 0;
         }
         else if(this.moveFlag==2){//右移
             this.speedX = this.setSpeedX;
@@ -118,21 +124,44 @@ var man = {
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
+        var thingbottom = 149 + "px";
         if(left == '') left='0';
         if(bottom == '') bottom='100px';
         left = parseInt(left) + man.speedX;
-        bottom = parseInt(bottom) + man.speedY;
+        if(nextstop==1){
+            manDiv.style.bottom  = thingbottom;
+        }
+        else{
+            bottom = parseInt(bottom) + man.speedY;
+        }
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
         if((man.moveFlag==4||man.moveFlag==5||man.moveFlag==6||man.moveFlag==7)&&(man.jumpFlag<(man.setSpeedY/man.acceleration*2))){
             man.speedY -= man.acceleration;
+            if(man.speedY<0){
+
+                var bridge = document.getElementById("bridge");
+                var thingbottom = parseInt(bridge.style.bottom);
+                var thingheight = parseInt(bridge.style.height);
+                var thingleft = parseInt(bridge.style.left);
+                var thingtop = thingbottom + thingheight;
+
+                if(thingbottom<=bottom&&thingtop+5>=bottom){
+                    // alert(bottom);
+                     if(on("bridge")){
+                         bottom = thingbottom;
+                         stop = 1;jumpflag =0 ;
+                     }
+                }
+            }
             man.jumpFlag++;
         }
         else if(man.jumpFlag==(man.setSpeedY/man.acceleration*2)){
-            man.jumpFlag=0;
+            man.jumpFlag=0;        
             man.moveFlag -= 4;
         }
         man.actionState();
+      
     }
 }
 var keyEvent = {
@@ -216,6 +245,8 @@ function monstermove(time) {
     monster4.style.width = world.unitSize+"px";
     monster4.style.height = 2*world.unitSize+20+"px";
     monster4.style.left = 720 + "px";
+
+    var bridge = document.getElementById("bridge");
   
     if (lastTime != 0)
       this.angle += (time - lastTime) * 0.0015;
@@ -229,6 +260,17 @@ function monstermove(time) {
     
     anglenow += Math.PI/3;
     monster4.style.bottom = (Math.cos(anglenow) * 40 + 70) + "px";
+
+    bridge.style.left = (Math.cos(anglenow) * 150 + 420) + "px";
+    var thingbottom = parseInt(bridge.style.bottom);
+    var thingheight = parseInt(bridge.style.height);
+    var thingtop = thingbottom + thingheight;
+    var manDiv = document.querySelector("#man");
+    var bottom = parseInt(manDiv.style.bottom);
+    if(on("bridge")==true&&bottom >= thingbottom && bottom<=thingtop ){
+        manDiv.bottom = thingbottom;
+        manDiv.style.left =  bridge.style.left;
+    }
     //碰撞判断
     if(knock("monster2")||knock("monster3")||knock("monster4")||knock("monster")){
         alert("游戏结束");
@@ -257,9 +299,40 @@ function  knock(monster){
         return false;
     }
 }
+function bridgeInit(){
+    var bridge = document.getElementById("bridge");
+    bridge.style.bottom = 4* world.unitSize+"px";
+    bridge.style.width = 4*world.unitSize+"px";
+    bridge.style.height = world.unitSize+"px";
+    // on("bridge");
+}
+
+function on (thing){
+    var man = document.getElementById("man");
+    var left = parseInt(man.style.left);
+    var width = parseInt(man.style.width);
+    var bottom = parseInt(man.style.bottom);
+    var height = parseInt(man.style.height);
+    var top = bottom + height;
+
+    var things = document.getElementById(thing);
+    var thingleft = parseInt(things.style.left);
+    var thingwidth = parseInt(things.style.width);
+    var thingbottom = parseInt(things.style.bottom);
+    var thingheight = parseInt(things.style.height);
+    var thingtop = thingbottom + thingheight;
+    if( left + width >= thingleft && left <= thingleft+thingwidth){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 $(document).ready(function(){
     map.load();
     map.initLayout();
+    bridgeInit();
     man.initLayout();
      // monster.initLayout();
     requestAnimationFrame(monstermove);
