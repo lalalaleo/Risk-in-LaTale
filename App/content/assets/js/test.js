@@ -58,7 +58,7 @@ var man = {
     name:"Leo",
     initLayout:function(){
         var man = document.getElementById("man");
-        man.style.bottom = world.unitSize+"px";
+        man.style.bottom = 630+"px";
         man.style.width = world.unitSize+"px";
         man.style.height = 2*world.unitSize+"px";
     },
@@ -160,6 +160,17 @@ var man = {
             man.jumpFlag=0;        
             man.moveFlag -= 4;
         }
+        if(bottom==630)
+        {
+            man.setSpeedY=-man.setSpeedY;
+            man.moveFlag=7;
+        }
+        if(bottom<=30)
+        {
+            if($(".material:first-child").attr("class")=="material grass")
+            moveFlag-=4;
+        }
+    
         man.actionState();
       
     }
