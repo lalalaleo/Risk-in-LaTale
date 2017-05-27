@@ -111,3 +111,49 @@ function knock(){
         //判断内容0
     }
 }
+
+var bullet ={
+    init:function(){
+        var bulletdiv = document.getElementById("bullet");
+        bulletdiv.style.bottom = world.unitSize+"px";
+        bulletdiv.style.width = world.unitSize+"px";
+        bulletdiv.style.height = world.unitSize+"px";
+        bullet.actionState();
+    },
+    moveFlag:0,
+    jumpFlag:0,
+    speedX:10,
+    speedY:0,
+    speedUp:1,
+    speedDown:10,
+    setSpeedX:3,
+    setSpeedY:1,
+    acceleration:1,
+    step : 50,
+    moveID:null,
+    actionState:function(){
+        this.moveID=requestAnimationFrame(this.move);
+    },
+    move:function(){
+        
+        var bulletdiv = document.querySelector("#bullet");
+        var bottom = bulletdiv.style.bottom;
+        var left = bulletdiv.style.left;
+        if(left == '') left='0';
+        if(bottom == '') bottom='200px';
+        left = parseInt(left) + bullet.speedX;
+        bottom = parseInt(bottom) + bullet.speedY;
+        bulletdiv.style.left = left + "px";
+        bulletdiv.style.bottom = bottom + "px";
+     
+       if(bullet.moveFlag<=bullet.step){
+            bullet.moveFlag++;
+        }else{
+            createbullet("door");
+            bulletdiv.remove();
+            // bulletdiv.style.left =  world.unitSize+"px";
+            bullet.moveFlag = 0;
+        }
+        bullet.actionState();
+    }
+}
