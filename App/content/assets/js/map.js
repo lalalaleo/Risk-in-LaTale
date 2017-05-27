@@ -1,16 +1,15 @@
-function mapLevel ( plan ) 
-{
-/**存储地图信息
- * 地图宽度
- * 地图高度
- * 网格
- * 人物
- */
+function mapLevel ( plan ) {
+  /**存储地图信息
+   * 地图宽度
+   * 地图高度
+   * 网格
+   * 人物
+   */
   this.width  = plan[0].length;  
   this.height = plan.length;      
   this.grid   = [];               
   this.actors = [];
-
+  
   for (var y = 0; y < this.height; y++) 
   {
     var line = plan[y], gridLine = [];
