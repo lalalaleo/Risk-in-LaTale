@@ -92,3 +92,22 @@ var door = {
         door.actionState();
     }
 }
+
+function knock(){
+    var manDiv = document.getElementById("man");
+    manDivBottom = parseInt(doordiv.style.bottom);
+    manDivHeight = parseInt(doordiv.style.height);
+    manDivTop = manDivBottom+manDivHeight;
+    manDivLeft =  parseInt(doordiv.style.left);
+    manDivWidth = parseInt(doordiv.style.width);
+    manDivRight =  manDivLeft+manDivWidth;
+
+    var dl = manDivLeft/world.unitSize;
+    var dr = manDivRight/world.unitSize;
+    var rb = manDivBottom/world.unitSize;
+    var rt = manDivTop/world.unitSize;
+
+    if($("table tr:eq(rt) > td:eq(ul)").text()){
+        //判断内容0
+    }
+}
