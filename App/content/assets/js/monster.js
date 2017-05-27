@@ -92,3 +92,82 @@ var door = {
         door.actionState();
     }
 }
+
+function knock(){
+    var manDiv = document.getElementById("man");
+    manDivBottom = parseInt(doordiv.style.bottom);
+    manDivHeight = parseInt(doordiv.style.height);
+    manDivTop = manDivBottom+manDivHeight;
+    manDivLeft =  parseInt(doordiv.style.left);
+    manDivWidth = parseInt(doordiv.style.width);
+    manDivRight =  manDivLeft+manDivWidth;
+
+    var dl = manDivLeft/world.unitSize;
+    var dr = manDivRight/world.unitSize;
+    var rb = manDivBottom/world.unitSize;
+    var rt = manDivTop/world.unitSize;
+
+    if($("table tr:eq(rt) > td:eq(ul)").text()){
+        //判断内容0
+    }
+}
+
+var bullet ={
+    init:function(){
+        var bulletdiv = document.getElementById("bullet");
+        bulletdiv.style.bottom = world.unitSize+"px";
+        bulletdiv.style.width = world.unitSize+"px";
+        bulletdiv.style.height = world.unitSize+"px";
+        bullet.actionState();
+    },
+    moveFlag:0,
+    jumpFlag:0,
+    speedX:10,
+    speedY:0,
+    speedUp:1,
+    speedDown:10,
+    setSpeedX:3,
+    setSpeedY:1,
+    acceleration:1,
+    step : 50,
+    moveID:null,
+    actionState:function(){
+        this.moveID=requestAnimationFrame(this.move);
+    },
+    move:function(){
+        
+        var bulletdiv = document.querySelector("#bullet");
+        var bottom = bulletdiv.style.bottom;
+        var left = bulletdiv.style.left;
+        if(left == '') left='0';
+        if(bottom == '') bottom='200px';
+        left = parseInt(left) + bullet.speedX;
+        bottom = parseInt(bottom) + bullet.speedY;
+        bulletdiv.style.left = left + "px";
+        bulletdiv.style.bottom = bottom + "px";
+     
+       if(bullet.moveFlag<=bullet.step){
+            bullet.moveFlag++;
+        }else{
+            createbullet("door");
+            bulletdiv.remove();
+            // bulletdiv.style.left =  world.unitSize+"px";
+            bullet.moveFlag = 0;
+        }
+        bullet.actionState();
+    }
+}
+
+function createbullet(who){
+    var whodiv = document.getElementById(who);
+    var bottom = parseInt(whodiv.style.bottom);
+    var top = parseInt(whodiv.style.height)+bottom;
+    var Odiv=document.createElement("div");             //创建一个div
+    Odiv.className="monster2";
+    Odiv.id="bullet";
+    Odiv.style.height = world.unitSize+"px";
+    Odiv.style.width = world.unitSize+"px";
+    Odiv.style.bottom = (top+bottom)/2 + "px";                            //创建div的id为box
+    document.body.appendChild(Odiv);        //在body内创建一个div 
+
+}
