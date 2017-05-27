@@ -19,6 +19,8 @@ var monster = {
     acceleration:1,
     step : 200,
     moveID:2,
+    timeflag:0,
+    pasuetime:2,
     actionState:function(){
         if(this.moveID==1)
             requestAnimationFrame(this.move);
@@ -64,19 +66,24 @@ var monster = {
         bottom = parseInt(bottom) + monster.speedY;
         monsterdiv.style.left = left + "px";
         monsterdiv.style.bottom = bottom + "px";
+        monster.timeflag++;
         if((monster.jumpFlag<(monster.setSpeedY/monster.acceleration*2))){
-
             monster.speedY -= monster.acceleration;
             monster.jumpFlag++;
 
         }
         else if(monster.jumpFlag==(monster.setSpeedY/monster.acceleration*2)){
-            monster.jumpFlag=0;        
+            if(monster.timeflag<monster.pasuetime*60){
+                monster.speedY=0;
+            }else{
+                monster.timeflag=0;
+                monster.jumpFlag=0;
+            }
+                   
         }
         monster.actionState();
     }
 }
-
 var door = {
     name:"Hu",
     init:function(){
