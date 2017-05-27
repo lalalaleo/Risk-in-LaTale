@@ -157,3 +157,17 @@ var bullet ={
         bullet.actionState();
     }
 }
+
+function createbullet(who){
+    var whodiv = document.getElementById(who);
+    var bottom = parseInt(whodiv.style.bottom);
+    var top = parseInt(whodiv.style.height)+bottom;
+    var Odiv=document.createElement("div");             //创建一个div
+    Odiv.className="monster2";
+    Odiv.id="bullet";
+    Odiv.style.height = world.unitSize+"px";
+    Odiv.style.width = world.unitSize+"px";
+    Odiv.style.bottom = (top+bottom)/2 + "px";                            //创建div的id为box
+    document.body.appendChild(Odiv);        //在body内创建一个div 
+
+}
