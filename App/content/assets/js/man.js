@@ -2,6 +2,8 @@ var man = {
     name:"Leo",
     initLayout:function(){
         var man = document.getElementById("man");
+        man.style.width = world.unitSize+"px";
+        man.style.height = 2*world.unitSize+"px";
     },
     moveFlag:0,
     jumpFlag:0,
