@@ -1,23 +1,34 @@
 var monster = {
-    name:"Leo Hu",
+    name:"monster",
     init:function(){
         var monsterdiv = document.getElementById("monster");
-        monsterdiv.style.bottom = world.unitSize+"px";
+        monsterdiv.style.bottom = -7*world.unitSize+"px";
         monsterdiv.style.width = world.unitSize+"px";
         monsterdiv.style.height = 2*world.unitSize+"px";
+        if(monster.moveID == 2 ){
+            monsterdiv.style.left = 8*world.unitSize+"px";
+        }
         monster.actionState();
     },
     moveFlag:0,
     jumpFlag:0,
-    speedX:2,
+    speedX:0,
     speedY:0,
-    setSpeedX:3,
-    setSpeedY:20,
+    setSpeedX:0,
+    setSpeedY:30,
     acceleration:1,
     step : 200,
-    moveID:null,
+    moveID:2,
     actionState:function(){
-        this.moveID=requestAnimationFrame(this.move);
+        if(this.moveID==1)
+            requestAnimationFrame(this.move);
+        else if(this.moveID==2){
+            this.speedX = 0;
+            if(this.jumpFlag == 0){
+                this.speedY = this.setSpeedY;
+            } 
+            requestAnimationFrame(monster.move2);  
+        }
     },
     move:function(){
         var monsterdiv = document.querySelector("#monster");
@@ -39,6 +50,28 @@ var monster = {
                 monster.moveFlag=0;
                 monster.speedX = 2;
             }
+        }
+        monster.actionState();
+    },
+
+    move2:function(){
+        var monsterdiv = document.getElementById(monster.name);
+        var bottom = monsterdiv.style.bottom;
+        var left = monsterdiv.style.left;
+        if(left == '') left='0';
+        if(bottom == '') bottom='100px';
+        left = parseInt(left) + monster.speedX;
+        bottom = parseInt(bottom) + monster.speedY;
+        monsterdiv.style.left = left + "px";
+        monsterdiv.style.bottom = bottom + "px";
+        if((monster.jumpFlag<(monster.setSpeedY/monster.acceleration*2))){
+
+            monster.speedY -= monster.acceleration;
+            monster.jumpFlag++;
+
+        }
+        else if(monster.jumpFlag==(monster.setSpeedY/monster.acceleration*2)){
+            monster.jumpFlag=0;        
         }
         monster.actionState();
     }
