@@ -11,6 +11,9 @@ var layout = {
             "width":world.unitSize+"px",
             "height":world.unitSize+"px"
         });
+        $(".map").css({
+            "width":world.unitSize*100 + "px"
+        });
     }
 }
 $(window).resize(function(){

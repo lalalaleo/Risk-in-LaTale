@@ -1,5 +1,5 @@
 var world = {
-    "unitSize":20,
+    "unitSize":30,
     "load":function(){
         $("#page").append("<div id='forest' class='world'></div>");
     }
@@ -7,4 +7,6 @@ var world = {
 $(document).ready(function(){
     layout.initPage();
     world.load();
+    map.get();
+    map.load();
 });
