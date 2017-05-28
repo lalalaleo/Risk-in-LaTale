@@ -8,5 +8,9 @@
     background-image: url(../../../image/material/ice.png);
     background-size:cover;
 }
+.rope {
+    background-image: url(../../../image/material/rope.png);
+    background-size:cover;    
+}
 .air {
 }

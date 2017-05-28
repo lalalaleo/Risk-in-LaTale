@@ -9,7 +9,7 @@ var man = {
     },
     primary:{
         speedX:3,
-        speedY:9,
+        speedY:12,
         acceleration:1
     },
     flag:{
@@ -93,6 +93,7 @@ var man = {
         bottom = parseInt(bottom) + man.speedY;
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
+
         if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)&&(man.flag.jump<(man.primary.speedY/man.primary.acceleration*2))){
             man.speedY -= man.primary.acceleration;
             man.flag.jump++;
@@ -101,6 +102,7 @@ var man = {
             man.flag.jump=0;        
             man.flag.move -= 4;
         }
+
         // if(bottom==630)
         // {
         //     man.primary.speedY=-man.primary.speedY;

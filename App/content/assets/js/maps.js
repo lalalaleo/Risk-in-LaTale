@@ -20,6 +20,7 @@ var map = {
                     case " ":td.className=this.material.air.class;break;
                     case "x":td.className=this.material.grass.class;break;
                     case "o":td.className=this.material.ice.class;break;
+                    case "|":td.className=this.material.rope.class;break;
                     default:break;
                 }
                 $(tr).append(td);
@@ -35,6 +36,9 @@ var map = {
         },
         "air":{
             class:"material air"
+        },
+        "rope":{
+            class:"material rope"
         },
         "ice":{
             class:"material ice"
