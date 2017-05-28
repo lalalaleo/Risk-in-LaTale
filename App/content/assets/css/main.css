@@ -4,6 +4,7 @@ body,.page,.world {
     overflow: hidden;
 }
 .page {
+    color:black;
 }
 .world {
     width: 100%;

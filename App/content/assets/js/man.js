@@ -1,42 +1,40 @@
 var man = {
-    name:"Leo",
-    load:function(){
-        var manDiv = document.createElement("div");
-        manDiv.className="man";
-        manDiv.id = "man";
-        $(".world").append(manDiv);
-        layout.initMan();
-    },
+    name:"Leo",//名字
+    speedX:0,//速度
+    speedY:0,//跳跃速度
+    left:0,//人物x轴坐标
+    bottom:0,//人物y周坐标
+    // 设定的基础数值（固定数值）
     primary:{
-        speedX:3,
-        speedY:12,
-        acceleration:1
+        speedX:3,//人物横向移动速度
+        speedY:12,//人物跳跃垂直速度
+        acceleration:1//重力
     },
+    //各种标记
     flag:{
-        move:0,
-        jump:0,
-        animate:0
+        move:0,//移动标记
+        jump:0,//跳跃标记
+        animate:0//动画标记
     },
-    speedX:0,
-    speedY:0,
-    manFlag:0,
+    //移动动画
     moveAnimate:function(action){
+        var time = 24 / this.primary.speedX; //动画切换频率，与移动速度成反比
         if(action=="right"){
-            if(parseInt(this.flag.animate/6)>=3){
+            if(parseInt(this.flag.animate/time)>=3){
                 this.flag.animate=1;
             }
-            $("#man").css("background-image","url(./image/man/"+"r_"+(parseInt(this.flag.animate/6)+1)+".png)");
+            $("#man").css("background-image","url(./image/man/"+"r_"+(parseInt(this.flag.animate/time)+1)+".png)");
             this.flag.animate++;
         }
         else if(action=="left"){
-             if(parseInt(this.flag.animate/6)>=3){
+             if(parseInt(this.flag.animate/time)>=3){
                 this.flag.animate=1;
             }
-            $("#man").css("background-image","url(./image/man/"+"l_"+(parseInt(this.flag.animate/6)+1)+".png)");
+            $("#man").css("background-image","url(./image/man/"+"l_"+(parseInt(this.flag.animate/time)+1)+".png)");
             this.flag.animate++; 
         }
-        
     },
+    //动作状态
     actionState:function(){
         if(this.flag.move==0){//不动
             this.speedX = 0;
@@ -83,6 +81,7 @@ var man = {
         cancelAnimationFrame(this.moveID);
         this.moveID=requestAnimationFrame(this.move);
     },
+    //移动
     move:function(){
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
@@ -91,6 +90,8 @@ var man = {
         if(bottom == '') bottom='30px';
         left = parseInt(left) + man.speedX;
         bottom = parseInt(bottom) + man.speedY;
+        man.left = left;
+        man.bottom = bottom;
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
 
@@ -120,6 +121,18 @@ var man = {
     
         man.actionState();
       
+    },
+    //判断周围
+    judgeAround:function(){
+        
+    },
+    //加载
+    load:function(){
+        var manDiv = document.createElement("div");
+        manDiv.className="man";
+        manDiv.id = "man";
+        $(".world").append(manDiv);
+        layout.initMan();
     }
 }
 var keyEvent = {
