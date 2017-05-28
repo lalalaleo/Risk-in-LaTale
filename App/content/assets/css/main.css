@@ -9,6 +9,11 @@ body,.page,.world {
     width: 100%;
     height: 100%;
 }
+.man {
+    position: absolute;
+    background-image: url(../../../image/man/r_1.png);
+    background-size:cover;
+}
 .map {
     position: absolute;
     left: 0;

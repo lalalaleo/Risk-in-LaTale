@@ -1,5 +1,8 @@
 var map = {
     data:null,
+    level:{
+        "forest":{}
+    },  
     get : function(mapName){
         this.data = data_map["forest"];
     },

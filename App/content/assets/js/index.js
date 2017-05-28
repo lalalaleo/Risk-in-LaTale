@@ -9,4 +9,6 @@ $(document).ready(function(){
     world.load();
     map.get();
     map.load();
+    man.load();
+    keyEvent.set();
 });
