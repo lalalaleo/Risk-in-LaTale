@@ -4,6 +4,8 @@ var man = {
     speedY:0,//跳跃速度
     left:0,//人物x轴坐标
     bottom:0,//人物y周坐标
+    width:0,
+    height:0,
     // 设定的基础数值（固定数值）
     primary:{
         speedX:3,//人物横向移动速度
@@ -87,7 +89,7 @@ var man = {
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
         if(left == '') left='0';
-        if(bottom == '') bottom='30px';
+        // if(bottom == '') bottom='30px';
         left = parseInt(left) + man.speedX;
         bottom = parseInt(bottom) + man.speedY;
         man.left = left;
@@ -104,27 +106,39 @@ var man = {
             man.flag.move -= 4;
         }
 
-        // if(bottom==630)
-        // {
-        //     man.primary.speedY=-man.primary.speedY;
-        //     man.flag.move=4;
-        // }
-        // if(bottom<=30)
-        // {
-        //     if($(".material:first-child").attr("class")=="material grass"){
-        //         if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)){
-        //             man.flag.move-=4;
-        //             man.flag.jump=0;
-        //         }
-        //     }
-        // }
-    
         man.actionState();
       
     },
     //判断周围
     judgeAround:function(){
-        
+        var site1 = {x:man.left,y:man.bottom+man.height}
+        var site2 = {x:man.left+man.height, y:man.bottom+man.height}
+        var site3 = {x:man.left,y:man.bottom}
+        var site4 = {x:man.left+man.width,y:man.bottom}
+        function judgeDown(){
+            man.isMoveAble.down(man.tratransformSite(site3));
+        }
+        judgeDown();
+    },
+    tratransformSite:function(site){
+        var Site = {
+            x:parseInt(site.x / world.unitSize),
+            y:parseInt(site.y / world.unitSize)
+        }
+        return Site;
+    },
+    isMoveAble:{
+        left:function(){
+
+        },
+        right:function(){
+
+        },
+        down:function(site){
+            var m0 = map.getMaterial(site);
+            var m1 = map.getMaterial({x:site.x,y:site.y-1});
+
+        }
     },
     //加载
     load:function(){
@@ -133,6 +147,15 @@ var man = {
         manDiv.id = "man";
         $(".world").append(manDiv);
         layout.initMan();
+        this.width=$("#man").width();
+        this.height=$("#man").height();
+        this.init();
+    },
+    init:function(){
+        var manDiv = document.getElementById("man");
+        manDiv.style.bottom = $(window).height()+"px";
+        this.flag.move = 4;
+        this.flag.jump = 1;
     }
 }
 var keyEvent = {

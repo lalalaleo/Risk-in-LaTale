@@ -16,9 +16,9 @@ var layout = {
         });
     },
     "initMan":function(){
-        var man = document.getElementById("man");
-        man.style.width = world.unitSize+"px";
-        man.style.height = 1.5*world.unitSize+"px";
+        var manDiv = document.getElementById("man");
+        manDiv.style.width = world.unitSize +"px";
+        manDiv.style.height = 1.5*world.unitSize +"px";
     }
 }
 $(window).resize(function(){

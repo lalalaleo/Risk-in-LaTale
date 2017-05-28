@@ -43,5 +43,11 @@ var map = {
         "ice":{
             class:"material ice"
         }
+    },
+    getMaterial:function(site){
+        var x = site.x + 1;
+        var y = site.y + 1;
+        var result=$("#map").children("tr:nth-last-child("+y+")").children("td:nth-child("+x+")").attr("class");
+        return result.substring(9);
     }
 }
