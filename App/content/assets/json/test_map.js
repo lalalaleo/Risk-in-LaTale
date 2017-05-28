@@ -43,11 +43,11 @@ var data_map = {
         "  ooooo   x   x      o     x   x   ooooo   xxxxx                                                    ",
         "                                                                                                    ",
         "                                                                                                    ",
-        "                                                                                                    ",
-        "       xxxxxxxxxxxxxxxxxxxxx       xxxxxxx      xxoooooooxxxxxxxxx                                  ",
-        "                                                                                                    ",
-        "                                                                                                    ",
-        "                                                                                                    ",
+        "           xxxxxxxxxxxxxxxxx       xxxxxxx      xxoooooooxxxxxxxxx                                  ",
+        "             |                                                                                      ",
+        "             |                                                                                      ",
+        "             |                                                                                      ",
+        "             |                                                                                      ",
         "xxxx  xxxxxxxxxxxxxxxx xxxxoo  ooooooxx  xxxxxxxxxxooooooxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxx"
     ]
 }

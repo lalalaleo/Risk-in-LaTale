@@ -1,4 +1,5 @@
 .material {
+    color:black;
 }
 .grass {
     background-image: url(../../../image/material/grass.png);
@@ -8,5 +9,10 @@
     background-image: url(../../../image/material/ice.png);
     background-size:cover;
 }
+.rope {
+    background-image: url(../../../image/material/rope.png);
+    background-size:cover;    
+}
 .air {
+    background-color:rgba(0, 0,0,0);
 }

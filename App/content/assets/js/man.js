@@ -1,120 +1,138 @@
 var man = {
-    name:"Leo",
-    initLayout:function(){
-        var man = document.getElementById("man");
-        man.style.width = world.unitSize+"px";
-        man.style.height = 2*world.unitSize+"px";
+    name:"Leo",//名字
+    speedX:0,//速度
+    speedY:0,//跳跃速度
+    left:0,//人物x轴坐标
+    bottom:0,//人物y周坐标
+    // 设定的基础数值（固定数值）
+    primary:{
+        speedX:3,//人物横向移动速度
+        speedY:12,//人物跳跃垂直速度
+        acceleration:1//重力
     },
-    moveFlag:0,
-    jumpFlag:0,
-    speedX:0,
-    speedY:0,
-    setSpeedX:3,
-    setSpeedY:20,
-    acceleration:1,
-    stop:0,
-    nextstop :0,
-    moveID:null,
+    //各种标记
+    flag:{
+        move:0,//移动标记
+        jump:0,//跳跃标记
+        animate:0//动画标记
+    },
+    //移动动画
+    moveAnimate:function(action){
+        var time = 24 / this.primary.speedX; //动画切换频率，与移动速度成反比
+        if(action=="right"){
+            if(parseInt(this.flag.animate/time)>=3){
+                this.flag.animate=1;
+            }
+            $("#man").css("background-image","url(./image/man/"+"r_"+(parseInt(this.flag.animate/time)+1)+".png)");
+            this.flag.animate++;
+        }
+        else if(action=="left"){
+             if(parseInt(this.flag.animate/time)>=3){
+                this.flag.animate=1;
+            }
+            $("#man").css("background-image","url(./image/man/"+"l_"+(parseInt(this.flag.animate/time)+1)+".png)");
+            this.flag.animate++; 
+        }
+    },
+    //动作状态
     actionState:function(){
-        nextstop = stop;
-        stop = 0;
-        if(this.moveFlag==0){//不动
+        if(this.flag.move==0){//不动
             this.speedX = 0;
             this.speedY = 0;
         }
-        else if(this.moveFlag==1){//左移
-            this.speedX = - this.setSpeedX;
+        else if(this.flag.move==1){//左移
+            this.speedX = - this.primary.speedX;
             this.speedY = 0;
-            stop = 0;
+            this.moveAnimate("left");
         }
-        else if(this.moveFlag==2){//右移
-            this.speedX = this.setSpeedX;
+        else if(this.flag.move==2){//右移
+            this.speedX = this.primary.speedX;
             this.speedY = 0;
+            this.moveAnimate("right");
         }
-        else if(this.moveFlag==3){//左右一起（不动）
+        else if(this.flag.move==3){//左右一起（不动）
             this.speedX = 0;
             this.speedY = 0;
         }
-        else if(this.moveFlag==4){//跳跃
+        else if(this.flag.move==4){//跳跃
             this.speedX = 0;
-            if(this.jumpFlag == 0){
-                this.speedY = this.setSpeedY;
+            if(this.flag.jump == 0){
+                this.speedY = this.primary.speedY;
             }
         }
-        else if(this.moveFlag==5){//左跳
-            this.speedX = - this.setSpeedX;
-            if(this.jumpFlag == 0){
-                this.speedY = this.setSpeedY;
+        else if(this.flag.move==5){//左跳
+            this.speedX = - this.primary.speedX;
+            if(this.flag.jump == 0){
+                this.speedY = this.primary.speedY;
             }
         }
-        else if(this.moveFlag==6){//右跳
-            this.speedX = this.setSpeedX;
-            if(this.jumpFlag == 0){
-                this.speedY = this.setSpeedY;
+        else if(this.flag.move==6){//右跳
+            this.speedX = this.primary.speedX;
+            if(this.flag.jump == 0){
+                this.speedY = this.primary.speedY;
             }
         }
-        else if(this.moveFlag==7){//左右一起（不动）跳跃
+        else if(this.flag.move==7){//左右一起（不动）跳跃
             this.speedX = 0;
-            if(this.jumpFlag == 0){
-                this.speedY = this.setSpeedY;
+            if(this.flag.jump == 0){
+                this.speedY = this.primary.speedY;
             }
         }
         cancelAnimationFrame(this.moveID);
         this.moveID=requestAnimationFrame(this.move);
     },
+    //移动
     move:function(){
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
-        var thingbottom = 149 + "px";
         if(left == '') left='0';
-        if(bottom == '') bottom='100px';
+        if(bottom == '') bottom='30px';
         left = parseInt(left) + man.speedX;
-        if(nextstop==1){
-            manDiv.style.bottom  = thingbottom;
-        }
-        else{
-            bottom = parseInt(bottom) + man.speedY;
-        }
+        bottom = parseInt(bottom) + man.speedY;
+        man.left = left;
+        man.bottom = bottom;
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
-        if((man.moveFlag==4||man.moveFlag==5||man.moveFlag==6||man.moveFlag==7)&&(man.jumpFlag<(man.setSpeedY/man.acceleration*2))){
-            man.speedY -= man.acceleration;
-            if(man.speedY<0){
 
-                var bridge = document.getElementById("bridge");
-                var thingbottom = parseInt(bridge.style.bottom);
-                var thingheight = parseInt(bridge.style.height);
-                var thingleft = parseInt(bridge.style.left);
-                var thingtop = thingbottom + thingheight;
+        if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)&&(man.flag.jump<(man.primary.speedY/man.primary.acceleration*2))){
+            man.speedY -= man.primary.acceleration;
+            man.flag.jump++;
+        }
+        else if(man.flag.jump==(man.primary.speedY/man.primary.acceleration*2)){
+            man.flag.jump=0;        
+            man.flag.move -= 4;
+        }
 
-                if(thingbottom<=bottom&&thingtop+5>=bottom){
-                    // alert(bottom);
-                     if(on("bridge")){
-                         bottom = thingbottom;
-                         stop = 1;jumpflag =0 ;
-                     }
-                }
-            }
-            man.jumpFlag++;
-        }
-        else if(man.jumpFlag==(man.setSpeedY/man.acceleration*2)){
-            man.jumpFlag=0;        
-            man.moveFlag -= 4;
-        }
-        if(bottom==630)
-        {
-            man.setSpeedY=-man.setSpeedY;
-            man.moveFlag=7;
-        }
-        if(bottom<=30)
-        {
-            if($(".material:first-child").attr("class")=="material grass")
-            moveFlag-=4;
-        }
+        // if(bottom==630)
+        // {
+        //     man.primary.speedY=-man.primary.speedY;
+        //     man.flag.move=4;
+        // }
+        // if(bottom<=30)
+        // {
+        //     if($(".material:first-child").attr("class")=="material grass"){
+        //         if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)){
+        //             man.flag.move-=4;
+        //             man.flag.jump=0;
+        //         }
+        //     }
+        // }
     
         man.actionState();
       
+    },
+    //判断周围
+    judgeAround:function(){
+        
+    },
+    //加载
+    load:function(){
+        var manDiv = document.createElement("div");
+        manDiv.className="man";
+        manDiv.id = "man";
+        $(".world").append(manDiv);
+        layout.initMan();
     }
 }
 var keyEvent = {
@@ -124,28 +142,28 @@ var keyEvent = {
     },
     keydown:function(){
         if(event.keyCode==39){
-            if(man.moveFlag==0||man.moveFlag==1||man.moveFlag==4||man.moveFlag==5){
-                man.moveFlag+=2;
+            if(man.flag.move==0||man.flag.move==1||man.flag.move==4||man.flag.move==5){
+                man.flag.move+=2;
             }
         }
         else if(event.keyCode==37){
-            if(man.moveFlag==0||man.moveFlag==2||man.moveFlag==4||man.moveFlag==6){
-                man.moveFlag+=1;
+            if(man.flag.move==0||man.flag.move==2||man.flag.move==4||man.flag.move==6){
+                man.flag.move+=1;
             }
         }
         else if(event.keyCode==67){
-            if(man.moveFlag==0||man.moveFlag==1||man.moveFlag==2||man.moveFlag==3){
-                man.moveFlag+=4;
+            if(man.flag.move==0||man.flag.move==1||man.flag.move==2||man.flag.move==3){
+                man.flag.move+=4;
             }
         }
         man.actionState();
     },
     keyup:function(){
         if(event.keyCode==39){
-            man.moveFlag -= 2;
+            man.flag.move -= 2;
         }
         else if(event.keyCode==37){
-            man.moveFlag -= 1;
+            man.flag.move -= 1;
         }
         else if(event.keyCode==67){
         }

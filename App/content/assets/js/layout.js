@@ -14,6 +14,11 @@ var layout = {
         $(".map").css({
             "width":world.unitSize*100 + "px"
         });
+    },
+    "initMan":function(){
+        var man = document.getElementById("man");
+        man.style.width = world.unitSize+"px";
+        man.style.height = 1.5*world.unitSize+"px";
     }
 }
 $(window).resize(function(){
