@@ -18,6 +18,16 @@ var man = {
         jump:0,//跳跃标记
         animate:0//动画标记
     },
+    //碰撞箱判断
+    moveAble:{
+        left:true,
+        right:true,
+        down:true
+    },
+    //周围距离
+    around:{
+        bottom:null,
+    },
     //移动动画
     moveAnimate:function(action){
         var time = 24 / this.primary.speedX; //动画切换频率，与移动速度成反比
@@ -85,11 +95,20 @@ var man = {
     },
     //移动
     move:function(){
+        man.judgeAround();
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
+        if(man.around.bottom==0){
+            man.speedY = 0;
+                man.flag.jump=0;
+                man.flag.move -= 4;
+        }
+        if(man.around.bottom!=null&&man.around.bottom<Math.abs(man.speedY)){
+            man.speedY=-man.around.bottom;
+        }
+        console.log(man.around.bottom);
         if(left == '') left='0';
-        // if(bottom == '') bottom='30px';
         left = parseInt(left) + man.speedX;
         bottom = parseInt(bottom) + man.speedY;
         man.left = left;
@@ -97,13 +116,17 @@ var man = {
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
 
-        if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)&&(man.flag.jump<(man.primary.speedY/man.primary.acceleration*2))){
-            man.speedY -= man.primary.acceleration;
-            man.flag.jump++;
-        }
-        else if(man.flag.jump==(man.primary.speedY/man.primary.acceleration*2)){
-            man.flag.jump=0;        
-            man.flag.move -= 4;
+
+        if(man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7){
+            // if(man.moveAble.down==true){
+                man.speedY -= man.primary.acceleration;
+                man.flag.jump++;
+            // }
+            // else{
+                // man.speedY = 0;
+                // man.flag.jump=0;
+                // man.flag.move -= 4;
+            // }
         }
 
         man.actionState();
@@ -137,7 +160,15 @@ var man = {
         down:function(site){
             var m0 = map.getMaterial(site);
             var m1 = map.getMaterial({x:site.x,y:site.y-1});
-
+            if(m1.type=="block"){
+                man.around.bottom = parseInt(document.getElementById("man").bottom) - (site.y*world.unitSize);
+            }
+            // if(m0.type=="inline"){
+            //         man.moveAble.down = true;
+            // }
+            // else{
+            //     man.moveAble.down = false;
+            // }
         }
     },
     //加载

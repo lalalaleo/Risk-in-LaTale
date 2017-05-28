@@ -32,22 +32,31 @@ var map = {
     },
     material:{
         "grass":{
-            class:"material grass",
+            class:"material block grass",
         },
         "air":{
-            class:"material air"
+            class:"material inline air"
         },
         "rope":{
-            class:"material rope"
+            class:"material inline rope"
         },
         "ice":{
-            class:"material ice"
+            class:"material block ice"
         }
     },
     getMaterial:function(site){
         var x = site.x + 1;
         var y = site.y + 1;
-        var result=$("#map").children("tr:nth-last-child("+y+")").children("td:nth-child("+x+")").attr("class");
-        return result.substring(9);
+        var result = {
+            type:"border",
+            class:null,
+        }
+        if(x>=1&&y>=1){
+            var str=$("#map").children("tr:nth-last-child("+y+")").children("td:nth-child("+x+")").attr("class");
+            var attr = str.split(" ");
+            result.type = attr[1];
+            result.class = attr[2];
+        }
+        return result;
     }
 }

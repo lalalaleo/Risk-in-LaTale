@@ -1,6 +1,12 @@
 .material {
     color:black;
 }
+.block {
+    color: red;
+}
+.inline {
+    color:yellow;
+}
 .grass {
     background-image: url(../../../image/material/grass.png);
     background-size:cover;
