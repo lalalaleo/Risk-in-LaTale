@@ -9,7 +9,7 @@ var man = {
     // 设定的基础数值（固定数值）
     primary:{
         speedX:3,//人物横向移动速度
-        speedY:12,//人物跳跃垂直速度
+        speedY:19,//人物跳跃垂直速度
         acceleration:1//重力
     },
     //各种标记
@@ -99,17 +99,19 @@ var man = {
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
-        if(man.around.bottom==0){
-            man.speedY = 0;
-                man.flag.jump=0;
+        if(man.around.bottom!=null&&man.around.bottom==0){
+            if(man.speedY<0&&(man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)){
                 man.flag.move -= 4;
+                man.speedY = 0;
+                man.flag.jump=0;
+            }
         }
-        if(man.around.bottom!=null&&man.around.bottom<Math.abs(man.speedY)){
+        else if(man.around.bottom!=null&&man.around.bottom<-man.speedY){
             man.speedY=-man.around.bottom;
         }
-        console.log(man.around.bottom);
         if(left == '') left='0';
         left = parseInt(left) + man.speedX;
+        // console.log();
         bottom = parseInt(bottom) + man.speedY;
         man.left = left;
         man.bottom = bottom;
@@ -161,14 +163,11 @@ var man = {
             var m0 = map.getMaterial(site);
             var m1 = map.getMaterial({x:site.x,y:site.y-1});
             if(m1.type=="block"){
-                man.around.bottom = parseInt(document.getElementById("man").bottom) - (site.y*world.unitSize);
+                man.around.bottom = parseInt(document.getElementById("man").style.bottom) - (site.y*world.unitSize);
             }
-            // if(m0.type=="inline"){
-            //         man.moveAble.down = true;
-            // }
-            // else{
-            //     man.moveAble.down = false;
-            // }
+            else{
+                man.around.bottom = null;
+            }
         }
     },
     //加载

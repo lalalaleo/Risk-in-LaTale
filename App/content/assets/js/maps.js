@@ -48,7 +48,7 @@ var map = {
         var x = site.x + 1;
         var y = site.y + 1;
         var result = {
-            type:"border",
+            type:"block",
             class:null,
         }
         if(x>=1&&y>=1){
