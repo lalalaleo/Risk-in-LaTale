@@ -1,5 +1,13 @@
+var World = {
+  unitSize:36,
+  gravity:80
+}
+var Man = {
+  XSpeed:9,  //移动速度
+  YSpeed:30 //跳跃高度
+}
 //关卡加载
-function Level(plan) {
+function Map(plan) {
   this.width = plan[0].length;
   this.height = plan.length;
   this.grid = [];
@@ -9,13 +17,11 @@ function Level(plan) {
     var line = plan[y], gridLine = [];
     for (var x = 0; x < this.width; x++) {
       var ch = line[x], fieldType = null;
-      var Actor = actorChars[ch];
+      var Actor = actorSign[ch];
       if (Actor)
         this.actors.push(new Actor(new Vector(x, y), ch));
       else if (ch == "x")
         fieldType = "wall";
-      else if (ch == "!")
-        fieldType = "lava";
       gridLine.push(fieldType);
     }
     this.grid.push(gridLine);
@@ -27,7 +33,7 @@ function Level(plan) {
   this.status = this.finishDelay = null;
 }
 //关卡结束
-Level.prototype.isFinished = function() {
+Map.prototype.isFinished = function() {
   return this.status != null && this.finishDelay < 0;
 };
 //胜利
@@ -41,8 +47,11 @@ Vector.prototype.times = function(factor) {
   return new Vector(this.x * factor, this.y * factor);
 };
 
+
+// ----------------------------------------------------------------
+
 //标记
-var actorChars = {
+var actorSign = {
   "@": Player,
   "o": Coin,
   "=": Lava, "|": Lava, "v": Lava
@@ -70,6 +79,7 @@ function Lava(pos, ch) {
   }
 }
 Lava.prototype.type = "lava";
+
 //金币
 function Coin(pos) {
   this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));
@@ -96,14 +106,13 @@ function DOMDisplay(parent, level) {
 
 
 //地图绘画
-var scale = 40;
 
 DOMDisplay.prototype.drawBackground = function() {
   var table = elt("table", "background");
-  table.style.width = this.level.width * scale + "px";
+  table.style.width = this.level.width * World.unitSize + "px";
   this.level.grid.forEach(function(row) {
     var rowElt = table.appendChild(elt("tr"));
-    rowElt.style.height = scale + "px";
+    rowElt.style.height = World.unitSize + "px";
     row.forEach(function(type) {
       rowElt.appendChild(elt("td", type));
     });
@@ -116,10 +125,10 @@ DOMDisplay.prototype.drawActors = function() {
   this.level.actors.forEach(function(actor) {
     var rect = wrap.appendChild(elt("div",
                                     "actor " + actor.type));
-    rect.style.width = actor.size.x * scale + "px";
-    rect.style.height = actor.size.y * scale + "px";
-    rect.style.left = actor.pos.x * scale + "px";
-    rect.style.top = actor.pos.y * scale + "px";
+    rect.style.width = actor.size.x * World.unitSize + "px";
+    rect.style.height = actor.size.y * World.unitSize + "px";
+    rect.style.left = actor.pos.x * World.unitSize + "px";
+    rect.style.top = actor.pos.y * World.unitSize + "px";
   });
   return wrap;
 };
@@ -143,7 +152,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
 
   var player = this.level.player;
   var center = player.pos.plus(player.size.times(0.5))
-                 .times(scale);
+                 .times(World.unitSize);
 
   if (center.x < left + margin)
     this.wrap.scrollLeft = center.x - margin;
@@ -159,7 +168,7 @@ DOMDisplay.prototype.clear = function() {
   this.wrap.parentNode.removeChild(this.wrap);
 };
 //
-Level.prototype.obstacleAt = function(pos, size) {
+Map.prototype.obstacleAt = function(pos, size) {
   var xStart = Math.floor(pos.x);
   var xEnd = Math.ceil(pos.x + size.x);
   var yStart = Math.floor(pos.y);
@@ -177,7 +186,7 @@ Level.prototype.obstacleAt = function(pos, size) {
   }
 };
 
-Level.prototype.actorAt = function(actor) {
+Map.prototype.actorAt = function(actor) {
   for (var i = 0; i < this.actors.length; i++) {
     var other = this.actors[i];
     if (other != actor &&
@@ -191,7 +200,7 @@ Level.prototype.actorAt = function(actor) {
 
 var maxStep = 0.05;
 
-Level.prototype.animate = function(step, keys) {
+Map.prototype.animate = function(step, keys) {
   if (this.status != null)
     this.finishDelay -= step;
 
@@ -222,13 +231,12 @@ Coin.prototype.act = function(step) {
   this.pos = this.basePos.plus(new Vector(0, wobblePos));
 };
 
-var playerXSpeed = 7;
 
 //人物运动
 Player.prototype.moveX = function(step, level, keys) {
   this.speed.x = 0;
-  if (keys.left) this.speed.x -= playerXSpeed;
-  if (keys.right) this.speed.x += playerXSpeed;
+  if (keys.left) this.speed.x -= Man.XSpeed;
+  if (keys.right) this.speed.x += Man.XSpeed;
 
   var motion = new Vector(this.speed.x * step, 0);
   var newPos = this.pos.plus(motion);
@@ -239,18 +247,15 @@ Player.prototype.moveX = function(step, level, keys) {
     this.pos = newPos;
 };
 
-var gravity = 80; //重力
-var jumpSpeed = 30; //跳跃速度
-
 Player.prototype.moveY = function(step, level, keys) {
-  this.speed.y += step * gravity;
+  this.speed.y += step * World.gravity;
   var motion = new Vector(0, this.speed.y * step);
   var newPos = this.pos.plus(motion);
   var obstacle = level.obstacleAt(newPos, this.size);
   if (obstacle) {
     level.playerTouched(obstacle);
     if (keys.up && this.speed.y > 0)
-      this.speed.y = -jumpSpeed;
+      this.speed.y = -Man.YSpeed;
     else
       this.speed.y = 0;
   } else {
@@ -273,11 +278,12 @@ Player.prototype.act = function(step, level, keys) {
   }
 };
 
-Level.prototype.playerTouched = function(type, actor) {
+Map.prototype.playerTouched = function(type, actor) {
   if (type == "lava" && this.status == null) {
     this.status = "lost";
     this.finishDelay = 1;
-  } else if (type == "coin") {
+  }
+  else if (type == "coin") {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
@@ -340,10 +346,20 @@ function runLevel(level, Display, andThen) {
   });
 }
 
+
+
+
+
+
+
+
+
+
+
 //运行游戏
 function runGame(plans, Display) {
   function startLevel(n) {
-    runLevel(new Level(plans[n]), Display, function(status) {
+    runLevel(new Map(plans[n]), Display, function(status) {
       if (status == "lost")
         startLevel(n);
       else if (n < plans.length - 1)

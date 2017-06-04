@@ -7,9 +7,9 @@ html,body {
 .world {
   height: 100%;
   width: 100%;
-  position: absolute;
-  top:0;
-  left: 0;
+  display:flex;
+            justify-content:center;
+            align-items:center;
   background-image: url(../../image/background/background_latale.jpg);
   background-size: cover;
 }
@@ -37,11 +37,10 @@ html,body {
   position:relative;
   margin-left : auto;
   margin-right : auto;
-  margin-top: 100px;
 }
 
 .lost .player {
-  background-color: rgb(160, 64, 64);
+  
 }
 .won .player {
   box-shadow: -4px -7px 8px white, 4px -7px 8px white;
