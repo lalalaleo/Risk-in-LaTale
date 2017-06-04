@@ -17,7 +17,6 @@ html,body {
                  table-layout: fixed;
                  border-spacing: 0;   }
 .background td { padding: 0;          }
-.lava          { background: rgb(255, 100, 100); }
 .wall {
   background-image: url(../../image/material/grass.png);
   background-size: cover;
@@ -41,7 +40,7 @@ html,body {
 }
 
 .lost .player {
-  
+  background-image: url(../../image/man/z_2.png);
 }
 .won .player {
   box-shadow: -4px -7px 8px white, 4px -7px 8px white;

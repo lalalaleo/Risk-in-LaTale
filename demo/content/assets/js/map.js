@@ -38,7 +38,7 @@ Map.prototype.obstacleAt = function(pos, size) {
   if (xStart < 0 || xEnd > this.width || yStart < 0)
     return "wall";
   if (yEnd > this.height)
-    return "lava";
+    return "trap";
   for (var y = yStart; y < yEnd; y++) {
     for (var x = xStart; x < xEnd; x++) {
       var fieldType = this.grid[y][x];
@@ -74,7 +74,7 @@ Map.prototype.animate = function(step, keys) {
   }
 };
 Map.prototype.playerTouched = function(type, actor) {
-  if (type == "lava" && this.status == null) {
+  if (type == "trap" && this.status == null) {
     this.status = "lost";
     this.finishDelay = 1;
   }

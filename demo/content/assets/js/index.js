@@ -19,13 +19,6 @@ var actorSign = {
 };
 
 // ----------------------------------------------------------------
-
-
-
-
-
-
-
 //监听
 var arrowCodes = {37: "left", 67: "up", 39: "right"};
 
@@ -62,15 +55,15 @@ function runAnimation(frameFunc) {
 var arrows = trackKeys(arrowCodes);
 
 //运行关卡
-function runLevel(level, Display, andThen) {
-  var display = new Display(document.body, level);
+function runLevel(map, Display, andThen) {
+  var display = new Display(document.body, map);
   runAnimation(function(step) {
-    level.animate(step, arrows);
+    map.animate(step, arrows);
     display.drawFrame(step);
-    if (level.isFinished()) {
+    if (map.isFinished()) {
       display.clear();
       if (andThen)
-        andThen(level.status);
+        andThen(map.status);
       return false;
     }
   });

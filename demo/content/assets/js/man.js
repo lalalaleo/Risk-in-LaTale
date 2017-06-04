@@ -1,10 +1,12 @@
 var Man = {
-  XSpeed:9,  //移动速度
-  YSpeed:30 //跳跃高度
+  XSpeed:9,  
+  YSpeed:30 
 }
 
 //人物
 function Player(pos) {
+    this.XSpeed = 9; //移动速度
+    this.YSpeed = 30; //跳跃高度
   this.pos = pos.plus(new Vector(0, -0.5));
   this.size = new Vector(1, 1.5);
   this.speed = new Vector(0, 0);
@@ -49,7 +51,7 @@ Player.prototype.act = function(step, level, keys) {
   if (otherActor)
     level.playerTouched(otherActor.type, otherActor);
 
-  // Losing animation
+  // 失败动画
   if (level.status == "lost") {
     this.pos.y += step;
     this.size.y -= step;
