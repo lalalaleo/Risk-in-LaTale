@@ -1,15 +1,3 @@
-//简单的关卡，测试用
-var simpleLevelPlan = [
-  "                      ",
-  "                      ",
-  "  x              = x  ",
-  "  x         o o    x  ",
-  "  x @      xxxxx   x  ",
-  "  xxxxx            x  ",
-  "      x!!!!!!!!!!!!x  ",
-  "      xxxxxxxxxxxxxx  ",
-  "                      "
-];
 //关卡加载
 function Level(plan) {
   this.width = plan[0].length;
@@ -63,7 +51,7 @@ var actorChars = {
 //人物
 function Player(pos) {
   this.pos = pos.plus(new Vector(0, -0.5));
-  this.size = new Vector(0.8, 1.5);
+  this.size = new Vector(1, 1.5);
   this.speed = new Vector(0, 0);
 }
 Player.prototype.type = "player";
@@ -90,9 +78,6 @@ function Coin(pos) {
 }
 Coin.prototype.type = "coin";
 
-//加载简单关卡
-var simpleLevel = new Level(simpleLevelPlan);
-
 //
 function elt(name, className) {
   var elt = document.createElement(name);
@@ -101,7 +86,7 @@ function elt(name, className) {
 }
 
 function DOMDisplay(parent, level) {
-  this.wrap = parent.appendChild(elt("div", "game"));
+  this.wrap = parent.appendChild(elt("div", "map"));
   this.level = level;
 
   this.wrap.appendChild(this.drawBackground());
@@ -125,7 +110,7 @@ DOMDisplay.prototype.drawBackground = function() {
   });
   return table;
 };
-//
+//人物绘画
 DOMDisplay.prototype.drawActors = function() {
   var wrap = elt("div");
   this.level.actors.forEach(function(actor) {
@@ -143,7 +128,7 @@ DOMDisplay.prototype.drawFrame = function() {
   if (this.actorLayer)
     this.wrap.removeChild(this.actorLayer);
   this.actorLayer = this.wrap.appendChild(this.drawActors());
-  this.wrap.className = "game " + (this.level.status || "");
+  this.wrap.className = "map " + (this.level.status || "");
   this.scrollPlayerIntoView();
 };
 //滚动
