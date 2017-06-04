@@ -77,12 +77,14 @@ var man = {
             if(this.flag.jump == 0){
                 this.speedY = this.primary.speedY;
             }
+            this.moveAnimate("left");
         }
         else if(this.flag.move==6){//右跳
             this.speedX = this.primary.speedX;
             if(this.flag.jump == 0){
                 this.speedY = this.primary.speedY;
             }
+            this.moveAnimate("right");
         }
         else if(this.flag.move==7){//左右一起（不动）跳跃
             this.speedX = 0;
