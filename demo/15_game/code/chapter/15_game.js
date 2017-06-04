@@ -1,3 +1,4 @@
+//简单的关卡，测试用
 var simpleLevelPlan = [
   "                      ",
   "                      ",
@@ -9,7 +10,7 @@ var simpleLevelPlan = [
   "      xxxxxxxxxxxxxx  ",
   "                      "
 ];
-
+//关卡加载
 function Level(plan) {
   this.width = plan[0].length;
   this.height = plan.length;
@@ -37,11 +38,11 @@ function Level(plan) {
   })[0];
   this.status = this.finishDelay = null;
 }
-
+//关卡结束
 Level.prototype.isFinished = function() {
   return this.status != null && this.finishDelay < 0;
 };
-
+//胜利
 function Vector(x, y) {
   this.x = x; this.y = y;
 }
@@ -52,12 +53,14 @@ Vector.prototype.times = function(factor) {
   return new Vector(this.x * factor, this.y * factor);
 };
 
+//标记
 var actorChars = {
   "@": Player,
   "o": Coin,
   "=": Lava, "|": Lava, "v": Lava
 };
 
+//人物
 function Player(pos) {
   this.pos = pos.plus(new Vector(0, -0.5));
   this.size = new Vector(0.8, 1.5);
@@ -65,6 +68,7 @@ function Player(pos) {
 }
 Player.prototype.type = "player";
 
+//岩浆
 function Lava(pos, ch) {
   this.pos = pos;
   this.size = new Vector(1, 1);
@@ -78,7 +82,7 @@ function Lava(pos, ch) {
   }
 }
 Lava.prototype.type = "lava";
-
+//金币
 function Coin(pos) {
   this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));
   this.size = new Vector(0.6, 0.6);
@@ -86,8 +90,10 @@ function Coin(pos) {
 }
 Coin.prototype.type = "coin";
 
+//加载简单关卡
 var simpleLevel = new Level(simpleLevelPlan);
 
+//
 function elt(name, className) {
   var elt = document.createElement(name);
   if (className) elt.className = className;
@@ -103,6 +109,8 @@ function DOMDisplay(parent, level) {
   this.drawFrame();
 }
 
+
+//地图绘画
 var scale = 20;
 
 DOMDisplay.prototype.drawBackground = function() {
@@ -117,7 +125,7 @@ DOMDisplay.prototype.drawBackground = function() {
   });
   return table;
 };
-
+//
 DOMDisplay.prototype.drawActors = function() {
   var wrap = elt("div");
   this.level.actors.forEach(function(actor) {
@@ -130,7 +138,7 @@ DOMDisplay.prototype.drawActors = function() {
   });
   return wrap;
 };
-
+//
 DOMDisplay.prototype.drawFrame = function() {
   if (this.actorLayer)
     this.wrap.removeChild(this.actorLayer);
@@ -138,7 +146,7 @@ DOMDisplay.prototype.drawFrame = function() {
   this.wrap.className = "game " + (this.level.status || "");
   this.scrollPlayerIntoView();
 };
-
+//滚动
 DOMDisplay.prototype.scrollPlayerIntoView = function() {
   var width = this.wrap.clientWidth;
   var height = this.wrap.clientHeight;
@@ -161,11 +169,11 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
   else if (center.y > bottom - margin)
     this.wrap.scrollTop = center.y + margin - height;
 };
-
+//清除
 DOMDisplay.prototype.clear = function() {
   this.wrap.parentNode.removeChild(this.wrap);
 };
-
+//
 Level.prototype.obstacleAt = function(pos, size) {
   var xStart = Math.floor(pos.x);
   var xEnd = Math.ceil(pos.x + size.x);
@@ -231,6 +239,7 @@ Coin.prototype.act = function(step) {
 
 var playerXSpeed = 7;
 
+//人物运动
 Player.prototype.moveX = function(step, level, keys) {
   this.speed.x = 0;
   if (keys.left) this.speed.x -= playerXSpeed;
@@ -245,8 +254,8 @@ Player.prototype.moveX = function(step, level, keys) {
     this.pos = newPos;
 };
 
-var gravity = 30;
-var jumpSpeed = 17;
+var gravity = 80; //重力
+var jumpSpeed = 30; //跳跃速度
 
 Player.prototype.moveY = function(step, level, keys) {
   this.speed.y += step * gravity;
@@ -296,6 +305,7 @@ Level.prototype.playerTouched = function(type, actor) {
   }
 };
 
+//监听
 var arrowCodes = {37: "left", 67: "up", 39: "right"};
 
 function trackKeys(codes) {
@@ -312,6 +322,7 @@ function trackKeys(codes) {
   return pressed;
 }
 
+//运动动画
 function runAnimation(frameFunc) {
   var lastTime = null;
   function frame(time) {
@@ -329,6 +340,7 @@ function runAnimation(frameFunc) {
 
 var arrows = trackKeys(arrowCodes);
 
+//运行关卡
 function runLevel(level, Display, andThen) {
   var display = new Display(document.body, level);
   runAnimation(function(step) {
@@ -343,6 +355,7 @@ function runLevel(level, Display, andThen) {
   });
 }
 
+//运行游戏
 function runGame(plans, Display) {
   function startLevel(n) {
     runLevel(new Level(plans[n]), Display, function(status) {
