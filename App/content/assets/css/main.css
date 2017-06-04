@@ -12,7 +12,7 @@ body,.page,.world {
 }
 .man {
     position: absolute;
-    background-image: url(../../../image/moster/r_1.png);
+    background-image: url(../../../image/man/r_1.png);
     background-size:cover;
 }
 .map {
