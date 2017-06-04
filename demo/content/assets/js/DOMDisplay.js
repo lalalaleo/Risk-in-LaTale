@@ -34,6 +34,7 @@ DOMDisplay.prototype.drawActors = function() {
   this.level.actors.forEach(function(actor) {
     var rect = wrap.appendChild(elt("div",
                                     "actor " + actor.type));
+    if(actor.type=="player") rect.id="player";
     rect.style.width = actor.size.x * World.unitSize + "px";
     rect.style.height = actor.size.y * World.unitSize + "px";
     rect.style.left = actor.pos.x * World.unitSize + "px";

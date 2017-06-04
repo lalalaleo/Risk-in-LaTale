@@ -70,15 +70,6 @@ function runLevel(map, Display, andThen) {
 }
 
 
-
-
-
-
-
-
-
-
-
 //运行游戏
 function runGame(plans, Display) {
   function startLevel(n) {
