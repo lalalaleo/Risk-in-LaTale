@@ -4,10 +4,12 @@ var man = {
     speedY:0,//跳跃速度
     left:0,//人物x轴坐标
     bottom:0,//人物y周坐标
+    width:0,
+    height:0,
     // 设定的基础数值（固定数值）
     primary:{
         speedX:3,//人物横向移动速度
-        speedY:12,//人物跳跃垂直速度
+        speedY:19,//人物跳跃垂直速度
         acceleration:1//重力
     },
     //各种标记
@@ -15,6 +17,16 @@ var man = {
         move:0,//移动标记
         jump:0,//跳跃标记
         animate:0//动画标记
+    },
+    //碰撞箱判断
+    moveAble:{
+        left:true,
+        right:true,
+        down:true
+    },
+    //周围距离
+    around:{
+        bottom:null,
     },
     //移动动画
     moveAnimate:function(action){
@@ -65,12 +77,14 @@ var man = {
             if(this.flag.jump == 0){
                 this.speedY = this.primary.speedY;
             }
+            this.moveAnimate("left");
         }
         else if(this.flag.move==6){//右跳
             this.speedX = this.primary.speedX;
             if(this.flag.jump == 0){
                 this.speedY = this.primary.speedY;
             }
+            this.moveAnimate("right");
         }
         else if(this.flag.move==7){//左右一起（不动）跳跃
             this.speedX = 0;
@@ -83,48 +97,80 @@ var man = {
     },
     //移动
     move:function(){
+        man.judgeAround();
         var manDiv = document.querySelector("#man");
         var bottom = manDiv.style.bottom;
         var left = manDiv.style.left;
+        if(man.around.bottom!=null&&man.around.bottom==0){
+            if(man.speedY<0&&(man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)){
+                man.flag.move -= 4;
+                man.speedY = 0;
+                man.flag.jump=0;
+            }
+        }
+        else if(man.around.bottom!=null&&man.around.bottom<-man.speedY){
+            man.speedY=-man.around.bottom;
+        }
         if(left == '') left='0';
-        if(bottom == '') bottom='30px';
         left = parseInt(left) + man.speedX;
+        // console.log();
         bottom = parseInt(bottom) + man.speedY;
         man.left = left;
         man.bottom = bottom;
         manDiv.style.left = left + "px";
         manDiv.style.bottom = bottom + "px";
 
-        if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)&&(man.flag.jump<(man.primary.speedY/man.primary.acceleration*2))){
-            man.speedY -= man.primary.acceleration;
-            man.flag.jump++;
-        }
-        else if(man.flag.jump==(man.primary.speedY/man.primary.acceleration*2)){
-            man.flag.jump=0;        
-            man.flag.move -= 4;
+
+        if(man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7){
+            // if(man.moveAble.down==true){
+                man.speedY -= man.primary.acceleration;
+                man.flag.jump++;
+            // }
+            // else{
+                // man.speedY = 0;
+                // man.flag.jump=0;
+                // man.flag.move -= 4;
+            // }
         }
 
-        // if(bottom==630)
-        // {
-        //     man.primary.speedY=-man.primary.speedY;
-        //     man.flag.move=4;
-        // }
-        // if(bottom<=30)
-        // {
-        //     if($(".material:first-child").attr("class")=="material grass"){
-        //         if((man.flag.move==4||man.flag.move==5||man.flag.move==6||man.flag.move==7)){
-        //             man.flag.move-=4;
-        //             man.flag.jump=0;
-        //         }
-        //     }
-        // }
-    
         man.actionState();
       
     },
     //判断周围
     judgeAround:function(){
-        
+        var site1 = {x:man.left,y:man.bottom+man.height}
+        var site2 = {x:man.left+man.height, y:man.bottom+man.height}
+        var site3 = {x:man.left,y:man.bottom}
+        var site4 = {x:man.left+man.width,y:man.bottom}
+        function judgeDown(){
+            man.isMoveAble.down(man.tratransformSite(site3));
+        }
+        judgeDown();
+    },
+    tratransformSite:function(site){
+        var Site = {
+            x:parseInt(site.x / world.unitSize),
+            y:parseInt(site.y / world.unitSize)
+        }
+        return Site;
+    },
+    isMoveAble:{
+        left:function(){
+
+        },
+        right:function(){
+
+        },
+        down:function(site){
+            var m0 = map.getMaterial(site);
+            var m1 = map.getMaterial({x:site.x,y:site.y-1});
+            if(m1.type=="block"){
+                man.around.bottom = parseInt(document.getElementById("man").style.bottom) - (site.y*world.unitSize);
+            }
+            else{
+                man.around.bottom = null;
+            }
+        }
     },
     //加载
     load:function(){
@@ -133,6 +179,15 @@ var man = {
         manDiv.id = "man";
         $(".world").append(manDiv);
         layout.initMan();
+        this.width=$("#man").width();
+        this.height=$("#man").height();
+        this.init();
+    },
+    init:function(){
+        var manDiv = document.getElementById("man");
+        manDiv.style.bottom = $(window).height()+"px";
+        this.flag.move = 4;
+        this.flag.jump = 1;
     }
 }
 var keyEvent = {
