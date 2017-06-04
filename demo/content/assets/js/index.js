@@ -111,7 +111,7 @@ function DOMDisplay(parent, level) {
 
 
 //地图绘画
-var scale = 20;
+var scale = 40;
 
 DOMDisplay.prototype.drawBackground = function() {
   var table = elt("table", "background");
