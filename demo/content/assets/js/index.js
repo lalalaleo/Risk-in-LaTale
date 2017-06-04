@@ -86,7 +86,7 @@ function elt(name, className) {
 }
 
 function DOMDisplay(parent, level) {
-  this.wrap = parent.appendChild(elt("div", "map"));
+  this.wrap = document.getElementById("world").appendChild(elt("div", "map"));
   this.level = level;
 
   this.wrap.appendChild(this.drawBackground());

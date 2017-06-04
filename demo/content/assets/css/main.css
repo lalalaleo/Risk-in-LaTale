@@ -8,8 +8,10 @@ html,body {
   height: 100%;
   width: 100%;
   position: absolute;
-  top: 0;
+  top:0;
   left: 0;
+  background-image: url(../../image/background/background_latale.jpg);
+  background-size: cover;
 }
 .background    { background: white;
                  table-layout: fixed;
@@ -30,10 +32,12 @@ html,body {
 
 .map {
   overflow: hidden;
-  max-width: 100%;
-  max-height: 100%;
-  /*bottom: 0;*/
-  position: relative;
+  max-width: 800px;
+  max-height: 600px;
+  position:relative;
+  margin-left : auto;
+  margin-right : auto;
+  margin-top: 100px;
 }
 
 .lost .player {
