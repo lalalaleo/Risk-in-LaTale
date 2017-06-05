@@ -1,5 +1,5 @@
 //人物
-function Player(pos) {
+function Man(pos) {
   this.XSpeed = 9; //移动速度
   this.YSpeed = 30; //跳跃高度
   this.pos = pos.plus(new Vector(0, -0.5));
@@ -9,9 +9,9 @@ function Player(pos) {
     return 72/this.XSpeed;
   }
 }
-Player.prototype.type = "player";
+Man.prototype.type = "man";
 //人物运动
-Player.prototype.moveX = function(step, map, keys) {
+Man.prototype.moveX = function(step, map, keys) {
   
   this.speed.x = 0;
   if (keys.left) {
@@ -33,7 +33,7 @@ Player.prototype.moveX = function(step, map, keys) {
     this.pos = newPos;
 };
 
-Player.prototype.moveY = function(step, map, keys) {
+Man.prototype.moveY = function(step, map, keys) {
   this.speed.y += step * World.gravity;
   var motion = new Vector(0, this.speed.y * step);
   var newPos = this.pos.plus(motion);
@@ -49,7 +49,7 @@ Player.prototype.moveY = function(step, map, keys) {
   }
 };
 
-Player.prototype.act = function(step, map, keys) {
+Man.prototype.act = function(step, map, keys) {
   this.moveX(step, map, keys);
   this.moveY(step, map, keys);
 
@@ -64,6 +64,6 @@ Player.prototype.act = function(step, map, keys) {
   }
 };
 //运动动画
-Player.prototype.moveAnimation = function() {
+Man.prototype.moveAnimation = function() {
   
 }

@@ -14,7 +14,7 @@ Vector.prototype.times = function(factor) {
 };
 //标记
 var actorSign = {
-  "@": Player,
+  "@": Man,
   "o": Coin
 };
 

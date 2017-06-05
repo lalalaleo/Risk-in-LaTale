@@ -19,8 +19,8 @@ function Map(plan) {
     this.grid.push(gridLine);
   }
 
-  this.player = this.actors.filter(function(actor) {
-    return actor.type == "player";
+  this.man = this.actors.filter(function(actor) {
+    return actor.type == "man";
   })[0];
   this.status = this.finishDelay = null;
 }

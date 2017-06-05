@@ -5,9 +5,9 @@ function elt(name, className) {
   return elt;
 }
 
-function DOMDisplay(parent, level) {
+function DOMDisplay(parent, map) {
   this.wrap = document.getElementById("world").appendChild(elt("div", "map"));
-  this.level = level;
+  this.map = map;
 
   this.wrap.appendChild(this.drawBackground());
   this.actorLayer = null;
@@ -18,8 +18,8 @@ function DOMDisplay(parent, level) {
 
 DOMDisplay.prototype.drawBackground = function() {
   var table = elt("table", "background");
-  table.style.width = this.level.width * World.unitSize + "px";
-  this.level.grid.forEach(function(row) {
+  table.style.width = this.map.width * World.unitSize + "px";
+  this.map.grid.forEach(function(row) {
     var rowElt = table.appendChild(elt("tr"));
     rowElt.style.height = World.unitSize + "px";
     row.forEach(function(type) {
@@ -32,11 +32,11 @@ var moveFlag = 1;
 //运动物体绘画
 DOMDisplay.prototype.drawActors = function() {
   var wrap = elt("div");
-  this.level.actors.forEach(function(actor) {
+  this.map.actors.forEach(function(actor) {
     var rect = wrap.appendChild(elt("div",
                                     "actor " + actor.type));
     //人物运动动画                                    
-    if(actor.type=="player") {
+    if(actor.type=="man") {
       var target = parseInt(moveFlag/actor.FPS())+1;//人物运动FPS
       if(target>3) moveFlag=1,target=1;
       if(actor.direction=="left")
@@ -56,7 +56,7 @@ DOMDisplay.prototype.drawFrame = function() {
   if (this.actorLayer)
     this.wrap.removeChild(this.actorLayer);
   this.actorLayer = this.wrap.appendChild(this.drawActors());
-  this.wrap.className = "map " + (this.level.status || "");
+  this.wrap.className = "map " + (this.map.status || "");
   this.scrollPlayerIntoView();
 };
 //地图随人物滚动
@@ -69,8 +69,8 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
   var left = this.wrap.scrollLeft, right = left + width;
   var top = this.wrap.scrollTop, bottom = top + height;
 
-  var player = this.level.player;
-  var center = player.pos.plus(player.size.times(0.5))
+  var man = this.map.man;
+  var center = man.pos.plus(man.size.times(0.5))
                  .times(World.unitSize);
 
   if (center.x < left + margin)
