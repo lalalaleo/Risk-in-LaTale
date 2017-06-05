@@ -1,5 +1,5 @@
 var World = {
-  unitSize:36,
+  unitSize:20,
   gravity:80
 }
 //胜利

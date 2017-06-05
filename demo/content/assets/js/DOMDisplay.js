@@ -28,13 +28,23 @@ DOMDisplay.prototype.drawBackground = function() {
   });
   return table;
 };
+var moveFlag = 1;
 //运动物体绘画
 DOMDisplay.prototype.drawActors = function() {
+  var target = parseInt(moveFlag/Man.FPS)+1;//人物运动FPS
+  if(target>3) moveFlag=1,target=1;
   var wrap = elt("div");
   this.level.actors.forEach(function(actor) {
     var rect = wrap.appendChild(elt("div",
                                     "actor " + actor.type));
-    if(actor.type=="player") rect.id="player";
+    //人物运动动画                                    
+    if(actor.type=="player") {
+      rect.id="player";
+      if(actor.direction=="left")
+        rect.style.backgroundImage="url(./content/image/man/l_"+target+".png)";
+      if(actor.direction=="right")
+        rect.style.backgroundImage="url(./content/image/man/r_"+target+".png)";
+    }
     rect.style.width = actor.size.x * World.unitSize + "px";
     rect.style.height = actor.size.y * World.unitSize + "px";
     rect.style.left = actor.pos.x * World.unitSize + "px";

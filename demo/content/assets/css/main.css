@@ -13,7 +13,7 @@ html,body {
   background-image: url(../../image/background/background_latale.jpg);
   background-size: cover;
 }
-.background    { background: white;
+.background    { background: rgba(255, 255,255, 0.8);
                  table-layout: fixed;
                  border-spacing: 0;   }
 .background td { padding: 0;          }
@@ -26,6 +26,7 @@ html,body {
 .coin   { background: rgb(241, 229, 89); }
 .player {
   background-image: url(../../image/man/r_1.png);
+  /*background-color: yellow;*/
   background-size: cover;
 }
 
