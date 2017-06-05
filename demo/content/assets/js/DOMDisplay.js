@@ -31,15 +31,14 @@ DOMDisplay.prototype.drawBackground = function() {
 var moveFlag = 1;
 //运动物体绘画
 DOMDisplay.prototype.drawActors = function() {
-  var target = parseInt(moveFlag/Man.FPS)+1;//人物运动FPS
-  if(target>3) moveFlag=1,target=1;
   var wrap = elt("div");
   this.level.actors.forEach(function(actor) {
     var rect = wrap.appendChild(elt("div",
                                     "actor " + actor.type));
     //人物运动动画                                    
     if(actor.type=="player") {
-      rect.id="player";
+      var target = parseInt(moveFlag/actor.FPS())+1;//人物运动FPS
+      if(target>3) moveFlag=1,target=1;
       if(actor.direction=="left")
         rect.style.backgroundImage="url(./content/image/man/l_"+target+".png)";
       if(actor.direction=="right")

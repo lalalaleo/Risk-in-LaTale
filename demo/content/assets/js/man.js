@@ -1,18 +1,13 @@
-var Man = {
-  XSpeed:9,  
-  YSpeed:30,
-  get FPS(){
-    return 72/this.XSpeed;
-  }
-}
-
 //人物
 function Player(pos) {
-    this.XSpeed = 9; //移动速度
-    this.YSpeed = 30; //跳跃高度
+  this.XSpeed = 9; //移动速度
+  this.YSpeed = 30; //跳跃高度
   this.pos = pos.plus(new Vector(0, -0.5));
   this.size = new Vector(1, 1.5);
   this.speed = new Vector(0, 0);
+  this.FPS = function(){
+    return 72/this.XSpeed;
+  }
 }
 Player.prototype.type = "player";
 //人物运动
@@ -20,12 +15,12 @@ Player.prototype.moveX = function(step, map, keys) {
   
   this.speed.x = 0;
   if (keys.left) {
-    this.speed.x -= Man.XSpeed;
+    this.speed.x -= this.XSpeed;
     moveFlag++;
     this.direction = "left";
   }
   if (keys.right) {
-    this.speed.x += Man.XSpeed;
+    this.speed.x += this.XSpeed;
     moveFlag++;
     this.direction = "right";
   }
@@ -46,7 +41,7 @@ Player.prototype.moveY = function(step, map, keys) {
   if (obstacle) {
     map.playerTouched(obstacle);
     if (keys.up && this.speed.y > 0)
-      this.speed.y = -Man.YSpeed;
+      this.speed.y = -this.YSpeed;
     else
       this.speed.y = 0;
   } else {
