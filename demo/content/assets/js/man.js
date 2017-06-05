@@ -60,7 +60,13 @@ Man.prototype.act = function(step, map, keys) {
   // 失败动画
   if (map.status == "lost") {
     this.pos.y += step;
+    this.size.x = 1.5;
+    if(this.size.y == 1.5)
+      this.size.y = 1;
     this.size.y -= step;
+    this.direction = "dead"
+    this.XSpeed = 0;
+    this.YSpeed = 0;
   }
 };
 //运动动画

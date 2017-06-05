@@ -24,6 +24,9 @@ html,body {
 
 .actor  { position: absolute;  }
 .coin   { background: rgb(241, 229, 89); }
+.trap {
+  background-color: red;
+}
 .man {
   background-image: url(../../image/man/r_1.png);
   /*background-color: yellow;*/

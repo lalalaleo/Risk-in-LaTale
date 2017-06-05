@@ -14,6 +14,8 @@ function Map(plan) {
         this.actors.push(new Actor(new Vector(x, y), ch));
       else if (ch == "x")
         fieldType = "wall";
+      else if(ch == "!")
+        fieldType = "trap";
       gridLine.push(fieldType);
     }
     this.grid.push(gridLine);

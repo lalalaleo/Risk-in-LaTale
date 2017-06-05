@@ -39,9 +39,11 @@ DOMDisplay.prototype.drawActors = function() {
     if(actor.type=="man") {
       var target = parseInt(moveFlag/actor.FPS())+1;//人物运动FPS
       if(target>3) moveFlag=1,target=1;
-      if(actor.direction=="left")
+      if(actor.direction=="dead")
+        rect.style.backgroundImage="url(./content/image/man/dead.png)";
+      else if(actor.direction=="left")
         rect.style.backgroundImage="url(./content/image/man/l_"+target+".png)";
-      if(actor.direction=="right")
+      else if(actor.direction=="right")
         rect.style.backgroundImage="url(./content/image/man/r_"+target+".png)";
     }
     rect.style.width = actor.size.x * World.unitSize + "px";
