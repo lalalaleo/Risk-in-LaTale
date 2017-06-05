@@ -39,7 +39,10 @@ html,body {
   margin-right : auto;
   border: 5px solid pink;
 }
-
+.moster {
+  background-image: url(../../image/moster/lm_sister.png);
+  background-size: cover;
+}
 .lost .player {
   background-image: url(../../image/man/z_2.png);
 }

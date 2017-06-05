@@ -73,8 +73,13 @@ Map.prototype.animate = function(step, keys) {
     step -= thisStep;
   }
 };
+//碰撞箱
 Map.prototype.playerTouched = function(type, actor) {
   if (type == "trap" && this.status == null) {
+    this.status = "lost";
+    this.finishDelay = 1;
+  }
+  else if (type == "moster" && this.status == null) {
     this.status = "lost";
     this.finishDelay = 1;
   }

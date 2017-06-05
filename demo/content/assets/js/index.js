@@ -1,5 +1,5 @@
 var World = {
-  unitSize:20,
+  unitSize:32,
   gravity:80
 }
 //胜利
@@ -15,7 +15,8 @@ Vector.prototype.times = function(factor) {
 //标记
 var actorSign = {
   "@": Man,
-  "o": Coin
+  "o": Coin,
+  "S":Moster
 };
 
 // ----------------------------------------------------------------
