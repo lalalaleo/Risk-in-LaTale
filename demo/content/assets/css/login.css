@@ -1,0 +1,68 @@
+.page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login {
+    overflow: hidden;
+    width: 400px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 0.8);
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+.login .title {
+    margin: 0;
+    line-height: 72px;
+    font-size: 48px;
+    font-style: normal;
+    letter-spacing: 10px;
+}
+.login input {
+    width: 200px;
+    height: 30px;
+    border: 2px solid #eeeeee;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+    color:#8f8f8f;
+    padding-left: 15px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.login input:focus {
+    border-color: #8f8f8f;
+    background-color: rgba(229, 242, 13, 0.2);
+}
+.login input::-webkit-input-placeholder {
+    color:#8f8f8f;
+}
+.login .btn_login {
+    width: 200px;
+    height: 30px;
+    padding: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.75);
+    background-color: rgba(255, 255, 255, 0.75);
+    color:rgba(0, 0, 0, 0.75);
+    outline-style: none;
+    box-sizing: border-box;
+}
+.login .btn_login:hover {
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
+    color:rgba(255, 255, 255, 0.75);
+}

@@ -13,7 +13,7 @@ html,body {
   background-image: url(../../image/background/background_latale.jpg);
   background-size: cover;
 }
-.background    { background: rgba(255, 255,255, 0.8);
+.background    { 
                  table-layout: fixed;
                  border-spacing: 0;   }
 .background td { padding: 0;          }
@@ -41,14 +41,13 @@ html,body {
   margin-left : auto;
   margin-right : auto;
   border: 5px solid pink;
+  background: rgba(255, 255,255, 0.8);  
 }
 .moster {
   background-image: url(../../image/moster/lm_sister.png);
   background-size: cover;
 }
 .lost .player {
-  background-image: url(../../image/man/z_2.png);
 }
 .won .player {
-  box-shadow: -4px -7px 8px white, 4px -7px 8px white;
 }

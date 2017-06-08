@@ -6,7 +6,6 @@ function Coin(pos) {
 }
 Coin.prototype.type = "coin";
 
-
 var wobbleSpeed = 8, wobbleDist = 0.07;
 
 Coin.prototype.act = function(step) {

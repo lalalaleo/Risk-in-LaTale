@@ -37,14 +37,7 @@ DOMDisplay.prototype.drawActors = function() {
                                     "actor " + actor.type));
     //人物运动动画                                    
     if(actor.type=="man") {
-      var target = parseInt(moveFlag/actor.FPS())+1;//人物运动FPS
-      if(target>3) moveFlag=1,target=1;
-      if(actor.direction=="dead")
-        rect.style.backgroundImage="url(./content/image/man/dead.png)";
-      else if(actor.direction=="left")
-        rect.style.backgroundImage="url(./content/image/man/l_"+target+".png)";
-      else if(actor.direction=="right")
-        rect.style.backgroundImage="url(./content/image/man/r_"+target+".png)";
+      actor.moveAnimation(rect);
     }
     rect.style.width = actor.size.x * World.unitSize + "px";
     rect.style.height = actor.size.y * World.unitSize + "px";

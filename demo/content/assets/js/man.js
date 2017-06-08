@@ -48,7 +48,7 @@ Man.prototype.moveY = function(step, map, keys) {
     this.pos = newPos;
   }
 };
-
+//人物动作
 Man.prototype.act = function(step, map, keys) {
   this.moveX(step, map, keys);
   this.moveY(step, map, keys);
@@ -68,8 +68,21 @@ Man.prototype.act = function(step, map, keys) {
     this.XSpeed = 0;
     this.YSpeed = 0;
   }
+  else if(map.status == "won") {
+    this.direction = "win"
+    this.XSpeed = 0;
+    this.YSpeed = 0;
+  }
 };
 //运动动画
-Man.prototype.moveAnimation = function() {
-  
+Man.prototype.moveAnimation = function(rect) {
+  var target = parseInt(moveFlag/this.FPS())+1;//人物运动FPS
+  if(target>3) moveFlag=1,target=1;
+  switch(this.direction){
+    case "dead": rect.style.backgroundImage="url(./content/image/man/dead.png)";break;
+    case "win": rect.style.backgroundImage="url(./content/image/man/win.png)";break;
+    case "left": rect.style.backgroundImage="url(./content/image/man/l_"+target+".png)";break;
+    case "right": rect.style.backgroundImage="url(./content/image/man/r_"+target+".png)";break;
+    default : ;
+  }
 }

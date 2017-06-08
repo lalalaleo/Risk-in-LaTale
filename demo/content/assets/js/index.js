@@ -2,7 +2,7 @@ var World = {
   unitSize:32,
   gravity:80
 }
-//胜利
+//坐标
 function Vector(x, y) {
   this.x = x; this.y = y;
 }
