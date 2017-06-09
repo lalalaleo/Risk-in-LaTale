@@ -1,0 +1,9 @@
+{
+  "name": "risk_in_latale",
+  "version": "0.1.0",
+  "author": "Leo.Hu",
+  "description": {
+    "mysql": "latest"
+  },
+  "repository": "https://github.com/lalalaleo/Risk-in-LaTale"
+}
