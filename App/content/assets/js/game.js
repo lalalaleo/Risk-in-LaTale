@@ -32,6 +32,17 @@ var gamePoint = {
     }
     this.levePoint = $(".coin").length;
     $(".userInfo .gamePoint").text(this.num);
+  },
+  sendToSever: function(){
+    $.ajax({
+      type: "POST",
+      url: "gamePoint",
+      dataType: "JSON",
+      data: "username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      success: function(data){
+
+      }
+    });
   }
 }
 
@@ -192,11 +203,13 @@ function runGame(plans, Display) {
     runLevel(new Map(plans[n]), Display, function(status) {
       if (status == "lost"){
         // startLevel(n);
+        gamePoint.sendToSever();
         dialog.load("你输了！");
       }
       else if (n < plans.length - 1)
         startLevel(n + 1);
       else{
+        gamePoint.sendToSever();
         dialog.load("你赢了！");
       }
     });
