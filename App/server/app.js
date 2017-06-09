@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var sql = require('./login.js');
+var sql = require('./user.js');
 var url = require('url');
 
 app.use(express.static("../"));
