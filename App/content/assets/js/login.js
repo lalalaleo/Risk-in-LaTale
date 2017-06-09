@@ -14,6 +14,10 @@ var login = {
                 login.next();
             }
         });
+        if(sessionStorage.user_name!=null){
+            $("#login_page").remove();
+            runGame(data_maps, DOMDisplay);
+        }
     },
     next : function(){
         var username = $(".login").children("input[name='username']").val();
