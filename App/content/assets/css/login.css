@@ -32,7 +32,7 @@
 .login input {
     width: 200px;
     height: 30px;
-    border: 2px solid #eeeeee;
+    border: 1px solid #aaaaaa;
     border-radius: 10px;
     margin-top: 20px;
     padding: 0;
@@ -43,11 +43,11 @@
     box-sizing: border-box;
 }
 .login input:focus {
-    border-color: #8f8f8f;
+    border-color: #aaaaaa;
     background-color: rgba(229, 242, 13, 0.2);
 }
 .login input::-webkit-input-placeholder {
-    color:#8f8f8f;
+    color:#aaaaaa;
 }
 .login .btn_login {
     width: 200px;
@@ -55,14 +55,18 @@
     padding: 0;
     margin-top: 20px;
     border-radius: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.75);
     background-color: rgba(255, 255, 255, 0.75);
     color:rgba(0, 0, 0, 0.75);
     outline-style: none;
     box-sizing: border-box;
 }
 .login .btn_login:hover {
-    border: 2px solid rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.75);
     background-color: rgba(0, 0, 0, 0.75);
     color:rgba(255, 255, 255, 0.75);
+}
+.login .annotation {
+    font-size: 10px;
+    color : #8f8f8f;
 }
