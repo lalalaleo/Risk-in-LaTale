@@ -72,17 +72,17 @@
 
 .dialog {
     overflow: hidden;
-    width: 400px;
+    max-width: 600px;
     position:relative;
     margin-left : auto;
     margin-right : auto;
-    border: 5px solid skyblue;
+    border: 5px solid orange;
     border-radius: 20px;
-    background: rgba(255, 255,255, 0.8);
+    background: rgba(255, 255,255, 1);
     text-align: center;
-    padding: 40px;
+    padding: 40px 60px;
     box-sizing: border-box;
 }
 .dialog .content {
-    
+    color: rgba(0, 0, 0, 0.8);
 }
