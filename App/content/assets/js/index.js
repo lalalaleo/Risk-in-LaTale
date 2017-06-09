@@ -1,3 +1,4 @@
+//登陆
 var login = {
     load : function(){
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
@@ -17,6 +18,7 @@ var login = {
         if(sessionStorage.user_name!=null){
             $("#login_page").remove();
             runGame(data_maps, DOMDisplay);
+            userInfo.load();
         }
     },
     next : function(){
@@ -44,6 +46,7 @@ var login = {
                         sessionStorage.user_name=data.username;
                         $("#login_page").remove();
                         runGame(data_maps, DOMDisplay);
+                        userInfo.load();
                     }
                     else {
                         dialog.load("用户名或密码错误！");
@@ -56,6 +59,7 @@ var login = {
     },
 }
 
+//提示框
 var dialog = {
     load: function(content){
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
@@ -65,5 +69,29 @@ var dialog = {
         $("#dialog_page").click(function(){
             $("#dialog_page").remove();
         });
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+
+//用户信息框
+
+var userInfo = {
+    load: function(){
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var html = document.getElementById("page_userInfo").innerHTML;
+        var source = html.replace(reg, function (node, key) { return {}[key]; });
+        $("body").append(source);
+        $(".userInfo .userName").text(sessionStorage.user_name);
+        $(".userInfo .exit").click(userInfo.signOut);
+    },
+    signOut: function(){
+        $(".world").children().remove();
+        $("#userInfo_page").remove();
+        sessionStorage.removeItem("user_id");
+        sessionStorage.removeItem("user_name");
+        login.load();
     }
 }
