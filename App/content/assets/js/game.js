@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------//
+
+
 var World = {
   unitSize:32,
   gravity:80
@@ -19,8 +22,22 @@ var actorSign = {
   "S":Moster
 };
 
+//计分板
+var gamePoint = {
+  num: 0,
+  levePoint: null,
+  update: function(){
+    if(this.levePoint!=null&&this.levePoint>=$(".coin").length){
+      this.num += this.levePoint - $(".coin").length;
+    }
+    this.levePoint = $(".coin").length;
+    $(".userInfo .gamePoint").text(this.num);
+  }
+}
+
 
 //----------------------------------------------------------------------------//
+
 
 //屏幕绘制
 function elt(name, className) {
@@ -173,12 +190,15 @@ function runLevel(map, Display, andThen) {
 function runGame(plans, Display) {
   function startLevel(n) {
     runLevel(new Map(plans[n]), Display, function(status) {
-      if (status == "lost")
-        startLevel(n);
+      if (status == "lost"){
+        // startLevel(n);
+        dialog.load("你输了！");
+      }
       else if (n < plans.length - 1)
         startLevel(n + 1);
-      else
-        console.log("You win!");
+      else{
+        dialog.load("你赢了！");
+      }
     });
   }
   startLevel(0);

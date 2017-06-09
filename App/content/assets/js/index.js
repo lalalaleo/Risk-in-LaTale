@@ -85,6 +85,7 @@ var userInfo = {
         var source = html.replace(reg, function (node, key) { return {}[key]; });
         $("body").append(source);
         $(".userInfo .userName").text(sessionStorage.user_name);
+        $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
     },
     signOut: function(){

@@ -12,6 +12,8 @@ function Man(pos) {
 Man.prototype.type = "man";
 //人物运动
 Man.prototype.moveX = function(step, map, keys) {
+
+  gamePoint.update();
   
   this.speed.x = 0;
   if (keys.left) {
