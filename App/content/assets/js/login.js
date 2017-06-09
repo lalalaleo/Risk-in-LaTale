@@ -36,6 +36,8 @@ var login = {
                 data: "username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
                 success: function(data){
                     if(data.result == "true"){
+                        sessionStorage.user_id=$(".login").children("input[name='username']").val();
+                        sessionStorage.user_name=data.username;
                         $("#login_page").remove();
                         runGame(data_maps, DOMDisplay);
                     }

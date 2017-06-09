@@ -16,13 +16,13 @@ connection.connect(function(error,res){
 });
 
 exports.login = function(username,password,fn){
-  var sql = 'SELECT USER_ID from USER WHERE USER_ID="'+username+'" AND PASSWORD="'+password+'"';
+  var sql = 'SELECT USER_NAME from USER WHERE USER_ID="'+username+'" AND PASSWORD="'+password+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length==0) {
       fn({result:"false"});
     }
-    else fn({result:"true"});
+    else fn({result:"true",username:results[0].USER_NAME});
     return 0;
   });
 }
