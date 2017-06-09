@@ -2,18 +2,18 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <script src="content/assets/js/jquery-3.2.1.min.js"></script>
-  <script src="content/assets/js/login.js"></script> 
-  <script src="content/assets/js/DOMDisplay.js"></script> 
-  <script src="content/assets/js/map.js"></script>
-  <script src="content/assets/js/coin.js"></script>
-  <script src="content/assets/js/moster.js"></script>
-  <script src="content/assets/js/man.js"></script>
-  <script src="content/assets/js/index.js"></script>
-  <script src="content/assets/js/data_maps.js"></script>
-  <link rel="stylesheet" href="content/assets/css/main.css">
-  <link rel="stylesheet" href="content/assets/css/login.css">
-  <title>Domo</title>
+  <script src="./content/assets/js/jquery-3.2.1.min.js"></script>
+  <script src="./content/assets/js/login.js"></script> 
+  <script src="./content/assets/js/DOMDisplay.js"></script> 
+  <script src="./content/assets/js/map.js"></script>
+  <script src="./content/assets/js/coin.js"></script>
+  <script src="./content/assets/js/moster.js"></script>
+  <script src="./content/assets/js/man.js"></script>
+  <script src="./content/assets/js/index.js"></script>
+  <script src="./content/assets/js/data_maps.js"></script>
+  <link rel="stylesheet" href="./content/assets/css/main.css">
+  <link rel="stylesheet" href="./content/assets/css/login.css">
+  <title>Demo</title>
 </head>
 <body>
     <div id="world" class="world"></div>
@@ -28,12 +28,20 @@
   <div class="page" id="login_page">
     <div class="login">
         <p class="title">LOGIN</p>
-        <input type="text" name="username" placeholder="User Name" maxlength=20 value="" />
-        <input type="password" name="password" placeholder="Password" maxlength=20 value="" />
+        <input type="text" name="username" autocomplete="off" placeholder="User Name" maxlength=20 value="" />
+        <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
         <button id="btn_login" class="btn_login">GO</button>
         <p class="annotation">暂时不提供账号注册</p>
     </div>
   </div>
+</script>
+
+<script type="text/html" id="page_dialog">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog">
+      <p class="content">哈哈哈</p>
+    </div>
+  </div> 
 </script>
 
 </html>
