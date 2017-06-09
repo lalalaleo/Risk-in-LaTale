@@ -1,87 +1,69 @@
-var World = {
-  unitSize:32,
-  gravity:80
+var login = {
+    load : function(){
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var html = document.getElementById("page_login").innerHTML;
+        var source = html.replace(reg, function (node, key) { return {}[key]; });
+        $("body").append(source);
+        $(".login").children("input[name='password']").keypress(function(){
+            if(event.which == 13){
+                $("#btn_login").click();
+            }
+        });
+        $("#btn_login").click(function(){
+            if($(".dialog").length==0){
+                login.next();
+            }
+        });
+        if(sessionStorage.user_name!=null){
+            $("#login_page").remove();
+            runGame(data_maps, DOMDisplay);
+        }
+    },
+    next : function(){
+        var username = $(".login").children("input[name='username']").val();
+        var password = $(".login").children("input[name='password']").val();
+        if(username.length==0){
+            dialog.load("用户名不能为空");
+            $(".login").children("input[name='username']").val("");
+            $(".login").children("input[name='password']").val("");
+        }
+        else if(password.length<6){
+            dialog.load("密码至少需要6位");
+            $(".login").children("input[name='username']").val("");
+            $(".login").children("input[name='password']").val("");
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "login",
+                dataType: "JSON",
+                data: "username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
+                success: function(data){
+                    if(data.result == "true"){
+                        sessionStorage.user_id=$(".login").children("input[name='username']").val();
+                        sessionStorage.user_name=data.username;
+                        $("#login_page").remove();
+                        runGame(data_maps, DOMDisplay);
+                    }
+                    else {
+                        dialog.load("用户名或密码错误！");
+                        $(".login").children("input[name='username']").val("");
+                        $(".login").children("input[name='password']").val("");
+                    }
+                }
+            });
+        }
+    },
 }
-//坐标
-function Vector(x, y) {
-  this.x = x; this.y = y;
-}
-Vector.prototype.plus = function(other) {
-  return new Vector(this.x + other.x, this.y + other.y);
-};
-Vector.prototype.times = function(factor) {
-  return new Vector(this.x * factor, this.y * factor);
-};
-//标记
-var actorSign = {
-  "@": Man,
-  "o": Coin,
-  "S":Moster
-};
 
-// ----------------------------------------------------------------
-//监听
-var arrowCodes = {37: "left", 67: "up", 39: "right"};
-
-function trackKeys(codes) {
-  var pressed = Object.create(null);
-  function handler(event) {
-    if (codes.hasOwnProperty(event.keyCode)) {
-      var down = event.type == "keydown";
-      pressed[codes[event.keyCode]] = down;
-      event.preventDefault();
+var dialog = {
+    load: function(content){
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var html = document.getElementById("page_dialog").innerHTML;
+        var source = html.replace(reg, function (node, key) { return {"content":content}[key]; });
+        $("body").append(source);
+        $("#dialog_page").click(function(){
+            $("#dialog_page").remove();
+        });
     }
-  }
-  addEventListener("keydown", handler);
-  addEventListener("keyup", handler);
-  return pressed;
-}
-
-//运动动画
-function runAnimation(frameFunc) {
-  var lastTime = null;
-  function frame(time) {
-    var stop = false;
-    if (lastTime != null) {
-      var timeStep = Math.min(time - lastTime, 100) / 1000;
-      stop = frameFunc(timeStep) === false;
-    }
-    lastTime = time;
-    if (!stop)
-      requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-
-var arrows = trackKeys(arrowCodes);
-
-//运行关卡
-function runLevel(map, Display, andThen) {
-  var display = new Display(document.body, map);
-  runAnimation(function(step) {
-    map.animate(step, arrows);
-    display.drawFrame(step);
-    if (map.isFinished()) {
-      display.clear();
-      if (andThen)
-        andThen(map.status);
-      return false;
-    }
-  });
-}
-
-
-//运行游戏
-function runGame(plans, Display) {
-  function startLevel(n) {
-    runLevel(new Map(plans[n]), Display, function(status) {
-      if (status == "lost")
-        startLevel(n);
-      else if (n < plans.length - 1)
-        startLevel(n + 1);
-      else
-        console.log("You win!");
-    });
-  }
-  startLevel(0);
 }

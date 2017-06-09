@@ -1,0 +1,54 @@
+html,body { 
+  margin:0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.world {
+  height: 100%;
+  width: 100%;
+  display:flex;
+            justify-content:center;
+            align-items:center;
+  background-image: url(../../image/background/background_latale.jpg);
+  background-size: cover;
+}
+.background    { 
+                 table-layout: fixed;
+                 border-spacing: 0;   }
+.background td { padding: 0;          }
+.wall {
+  background-image: url(../../image/material/grass.png);
+  background-size: cover;
+}
+
+.actor  { position: absolute;  }
+.coin   { background: rgb(241, 229, 89); }
+.trap {
+  background-color: red;
+}
+.man {
+  background-image: url(../../image/man/r_1.png);
+  /*background-color: yellow;*/
+  background-size: cover;
+}
+
+.map {
+  overflow: hidden;
+  max-width: 800px;
+  max-height: 600px;
+  position:relative;
+  margin-left : auto;
+  margin-right : auto;
+  border: 5px solid pink;
+  border-radius: 10px;
+  background: rgba(255, 255,255, 0.8);  
+}
+.moster {
+  background-image: url(../../image/moster/lm_sister.png);
+  background-size: cover;
+}
+.lost .player {
+}
+.won .player {
+}
