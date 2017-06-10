@@ -59,11 +59,11 @@ var gamePoint = {
             default : src="";
           }
           $(".gameTop .list").append("<tr>"+
-            "<td><img "+src+" /></td>"+
             "<td>"+no+"</td>"+
+            "<td><img src=./content/image/avatar/"+data.data[i].avatar+" /></td>"+
             "<td>"+data.data[i].username+"</td>"+
             "<td>"+data.data[i].gamepoint+"</td>"+
-            "<td></td>"+
+            "<td><img "+src+" /></td>"+
             "</tr>"
           );
         }

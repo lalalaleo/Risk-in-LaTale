@@ -237,15 +237,17 @@
     font-weight: bold;
 }
 .gameTop .list tr td:nth-child(1) {
-    width: 30px;
-}
-.gameTop .list tr td:nth-child(1) img {
-    max-width: 30px;
-    max-height: 30px;
-}
-.gameTop .list tr td:nth-child(2) {
     font-size: 20px;
     width: 50px;
+}
+
+.gameTop .list tr td:nth-child(2) {
+    width: 50px;
+}
+.gameTop .list tr td:nth-child(2) img {
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 30px;
 }
 .gameTop .list tr td:nth-child(3) {
     font-size: 18px;
@@ -257,4 +259,8 @@
 }
 .gameTop .list tr td:nth-child(5) {
     width: 30px;
+}
+.gameTop .list tr td:nth-child(5) img {
+    max-width: 30px;
+    max-height: 30px;
 }
