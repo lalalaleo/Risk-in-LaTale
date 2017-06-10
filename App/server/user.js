@@ -26,3 +26,14 @@ exports.login = function(username,password,fn){
     return 0;
   });
 }
+
+exports.changeUserName = function(userid,username,fn){
+  var sql = 'UPDATE user SET USER_NAME = "'+username+'" WHERE USER_ID= "'+userid+'"';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    else{
+      fn({result:"ok"});
+    }
+    return 0;
+  });
+}
