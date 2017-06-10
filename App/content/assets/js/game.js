@@ -53,9 +53,9 @@ var gamePoint = {
           var no = 1+parseInt(i);
           var src="";
           switch(no){
-            case 1: src="src='./content/image/moster/lm_sister.png'";break;
-            case 2: src="src='./content/image/moster/lm_sister.png'";break;
-            case 3: src="src='./content/image/moster/lm_sister.png'";break;
+            case 1: src="src='./content/image/icon/no_1.png'";break;
+            case 2: src="src='./content/image/icon/no_2.png'";break;
+            case 3: src="src='./content/image/icon/no_3.png'";break;
             default : src="";
           }
           $(".gameTop .list").append("<tr>"+
