@@ -7,9 +7,9 @@ var connection = mysql.createConnection({
   database : 'risk_in_latale'
 });
 
-exports.add = function(username,gamepoint,fn){
+exports.add = function(userid,gamepoint,fn){
   var d = new Date();
-  var sql = 'INSERT INTO gamepoint (gp_username,gp_num,gp_time) VALUES ( "'+username+'", "'+gamepoint+'","'+d.toLocaleString()+'")';
+  var sql = 'INSERT INTO gamepoint (gp_userid,gp_num,gp_time) VALUES ( "'+userid+'", "'+gamepoint+'","'+d.toLocaleString()+'")';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     else fn({result:"ok"});
@@ -18,7 +18,7 @@ exports.add = function(username,gamepoint,fn){
 }
 
 exports.getTop = function(fn){
-    var sql = 'SELECT * FROM gamepoint ORDER BY gp_num DESC,gp_time limit 10';
+    var sql = 'SELECT gamepoint.gp_id,user.USER_NAME,gamepoint.gp_num,gp_time FROM gamepoint,user WHERE gamepoint.gp_userid=user.USER_ID group by gp_num desc,gp_time limit 10;';
     connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     else {
@@ -28,7 +28,7 @@ exports.getTop = function(fn){
         }
         for(var i in results){
           var o = {
-            username: results[i].gp_username,
+            username: results[i].USER_NAME,
             gamepoint: results[i].gp_num,
             time: results[i].gp_time
           }

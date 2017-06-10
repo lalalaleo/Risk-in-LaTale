@@ -17,14 +17,16 @@ app.get('/', function (req, res) {
 });
 
 app.post('/login',function(req,res){
-  user.login(req.body.username,req.body.password,function(msg){
-    res.send(msg);
-  });
+  if(req.body.type=="login"){
+    user.login(req.body.username,req.body.password,function(msg){
+      res.send(msg);
+    });
+  }
 });
 
 app.post('/gamePoint',function(req,res){
   if(req.body.type=="add"){
-    gamePoint.add(req.body.username,req.body.gamePoint,function(msg){
+    gamePoint.add(req.body.userid,req.body.gamePoint,function(msg){
       res.send(msg);
     });
   }

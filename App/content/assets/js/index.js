@@ -37,7 +37,7 @@ var user = {
                 type: "post",
                 url: "login",
                 dataType: "JSON",
-                data: "username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
+                data: "type=login&username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
                 success: function(data){
                     if(data.result == "true"){
                         sessionStorage.user_id=$(".login").children("input[name='username']").val();
