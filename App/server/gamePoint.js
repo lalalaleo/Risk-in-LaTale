@@ -28,7 +28,6 @@ exports.getTop = function(fn){
         }
         for(var i in results){
           var o = {
-            no: i+1,
             username: results[i].gp_username,
             gamepoint: results[i].gp_num,
             time: results[i].gp_time

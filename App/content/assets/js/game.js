@@ -49,10 +49,24 @@ var gamePoint = {
       dataType: "JSON",
       data: "type=getTop&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
       success: function(data){
-        //已经获取到了所有数据
-
-
-
+        for(var i in data.data){
+          var no = 1+parseInt(i);
+          var src="";
+          switch(no){
+            case 1: src="src='./content/image/moster/lm_sister.png'";break;
+            case 2: src="src='./content/image/moster/lm_sister.png'";break;
+            case 3: src="src='./content/image/moster/lm_sister.png'";break;
+            default : src="";
+          }
+          $(".gameTop .list").append("<tr>"+
+            "<td><img "+src+" /></td>"+
+            "<td>"+no+"</td>"+
+            "<td>"+data.data[i].username+"</td>"+
+            "<td>"+data.data[i].gamepoint+"</td>"+
+            "<td></td>"+
+            "</tr>"
+          );
+        }
       }
     });
   }

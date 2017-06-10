@@ -58,7 +58,6 @@ var user = {
         runGame(data_maps, DOMDisplay);
         userInfo.load();
         gameTop.load();
-        gamePoint.getTop();
     }
 }
 
@@ -108,5 +107,7 @@ var gameTop = {
         var html = document.getElementById("page_gameTop").innerHTML;
         var source = html.replace(reg, function (node, key) { return {}[key]; });
         $("body").append(source);
+        $(".gameTop .list").children().remove();
+        gamePoint.getTop();
     }
 }
