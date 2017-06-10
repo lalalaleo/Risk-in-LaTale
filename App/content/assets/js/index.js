@@ -1,5 +1,5 @@
-//登陆
-var login = {
+//用户[登陆]
+var user = {
     load : function(){
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
         var html = document.getElementById("page_login").innerHTML;
@@ -12,13 +12,11 @@ var login = {
         });
         $("#btn_login").click(function(){
             if($(".dialog").length==0){
-                login.next();
+                user.next();
             }
         });
         if(sessionStorage.user_name!=null){
-            $("#login_page").remove();
-            runGame(data_maps, DOMDisplay);
-            userInfo.load();
+            user.login();
         }
     },
     next : function(){
@@ -44,9 +42,7 @@ var login = {
                     if(data.result == "true"){
                         sessionStorage.user_id=$(".login").children("input[name='username']").val();
                         sessionStorage.user_name=data.username;
-                        $("#login_page").remove();
-                        runGame(data_maps, DOMDisplay);
-                        userInfo.load();
+                        user.login();
                     }
                     else {
                         dialog.load("用户名或密码错误！");
@@ -57,6 +53,12 @@ var login = {
             });
         }
     },
+    login: function(){
+        $("#login_page").remove();
+        runGame(data_maps, DOMDisplay);
+        userInfo.load();
+        gamePoint.getTop();
+    }
 }
 
 //提示框
@@ -93,6 +95,6 @@ var userInfo = {
         $("#userInfo_page").remove();
         sessionStorage.removeItem("user_id");
         sessionStorage.removeItem("user_name");
-        login.load();
+        user.load();
     }
 }

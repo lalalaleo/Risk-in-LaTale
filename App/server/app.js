@@ -23,8 +23,13 @@ app.post('/login',function(req,res){
 });
 
 app.post('/gamePoint',function(req,res){
-  if(req.body.type="add"){
+  if(req.body.type=="add"){
     gamePoint.add(req.body.username,req.body.gamePoint,function(msg){
+      res.send(msg);
+    });
+  }
+  if(req.body.type=="getTop"){
+    gamePoint.getTop(function(msg){
       res.send(msg);
     });
   }

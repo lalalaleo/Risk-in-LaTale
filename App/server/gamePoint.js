@@ -17,12 +17,25 @@ exports.add = function(username,gamepoint,fn){
   });
 }
 
-exports.getTop = function(){
+exports.getTop = function(fn){
     var sql = 'SELECT * FROM gamepoint ORDER BY gp_num DESC,gp_time limit 10';
     connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     else {
-        
+        var Obj = {
+          result: "true",
+          data: []
+        }
+        for(var i in results){
+          var o = {
+            no: i+1,
+            username: results[i].gp_username,
+            gamepoint: results[i].gp_num,
+            time: results[i].gp_time
+          }
+          Obj.data.push(o);
+        }
+        fn(Obj);
     }
     return 0;
   });

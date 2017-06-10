@@ -38,8 +38,20 @@ var gamePoint = {
       type: "POST",
       url: "gamePoint",
       dataType: "JSON",
-      data: "username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      data: "type=add&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      success: function(data){}
+    });
+  },
+  getTop: function(){
+    $.ajax({
+      type: "POST",
+      url: "gamePoint",
+      dataType: "JSON",
+      data: "type=getTop&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
       success: function(data){
+        //已经获取到了所有数据
+
+
 
       }
     });
