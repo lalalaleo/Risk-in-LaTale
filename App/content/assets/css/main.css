@@ -143,7 +143,6 @@
     border: 5px solid Khaki ;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.9);
-    font-size: 18px;
     text-align: center;
     padding: 20px 20px;
     box-sizing: border-box;    
@@ -152,30 +151,45 @@
     font-size: 32px;
     font-weight: bold;
 }
-.gameTop .li {
+.gameTop .list {
     color: gray;
+    text-align: left;
+    font-size: 18px;
 }
-.gameTop .li:first-child {
+.gameTop .list tr {
+    height: 40px;
+}
+.gameTop .list tr:first-child {
     color: gold;
     font-weight: bold;
 }
-.gameTop .li:nth-child(2) {
+.gameTop .list tr:nth-child(2) {
     color: #F17A60;
     font-weight: bold;
 }
-.gameTop .li:nth-child(3) {
+.gameTop .list tr:nth-child(3) {
     color: skyblue;
     font-weight: bold;
 }
-.gameTop .li span:first-child {
-    font-size: 20px;
-    width: 100px;
+.gameTop .list tr td:nth-child(1) {
+    width: 30px;
 }
-/*分割线*/
-.gameTop .li p {
+.gameTop .list tr td:nth-child(1) img {
+    max-width: 30px;
+    max-height: 30px;
+}
+.gameTop .list tr td:nth-child(2) {
+    font-size: 20px;
+    width: 30px;
+}
+.gameTop .list tr td:nth-child(3) {
+    font-size: 18px;
     width: 200px;
-    height: 1px;
-    background-color: gold ;
-    margin-left: auto;
-    margin-right: auto;
+}
+.gameTop .list tr td:nth-child(4) {
+    font-size: 20px;
+    width: 30px;
+}
+.gameTop .list tr td:nth-child(5) {
+    width: 30px;
 }
