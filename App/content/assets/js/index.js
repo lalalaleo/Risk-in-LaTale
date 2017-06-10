@@ -23,19 +23,19 @@ var user = {
         var username = $(".login").children("input[name='username']").val();
         var password = $(".login").children("input[name='password']").val();
         if(username.length==0){
-            dialog.load("用户名不能为空",1);
+            dialog.load("用户名不能为空",1,null);
             $(".login").children("input[name='username']").val("");
             $(".login").children("input[name='password']").val("");
         }
         else if(password.length<6){
-            dialog.load("密码至少需要6位",1);
+            dialog.load("密码至少需要6位",1,null);
             $(".login").children("input[name='username']").val("");
             $(".login").children("input[name='password']").val("");
         }
         else {
             $.ajax({
                 type: "post",
-                url: "login",
+                url: "user",
                 dataType: "JSON",
                 data: "type=login&username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
                 success: function(data){
@@ -45,7 +45,7 @@ var user = {
                         user.login();
                     }
                     else {
-                        dialog.load("用户名或密码错误！",1);
+                        dialog.load("用户名或密码错误！",1,null);
                         $(".login").children("input[name='username']").val("");
                         $(".login").children("input[name='password']").val("");
                     }
@@ -63,7 +63,7 @@ var user = {
 
 //提示框
 var dialog = {
-    load: function(content,type){
+    load: function(content,type,fn){
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
         var html = "";
         var source;
@@ -75,7 +75,16 @@ var dialog = {
                 break;
             }
             case 2:{
-
+                html=document.getElementById("page_dialog_2").innerHTML;
+                source = html.replace(reg, function (node, key) { return {"title":content}[key]; });
+                $("body").append(source);
+                $(".dialog_input div .cancel").click(function(){
+                    $("#dialog_page").click();
+                });
+                $(".dialog_input div .ok").click(function(){
+                    fn($(".dialog_input input").val());
+                });
+                break;
             }
             default :{
 
@@ -83,6 +92,9 @@ var dialog = {
         }
         $("#dialog_page").click(function(){
             $("#dialog_page").remove();
+        });
+        $("#dialog_page").children("div").click(function(){
+            event.stopPropagation();
         });
     }
 }
@@ -103,6 +115,23 @@ var userInfo = {
         $(".userInfo .userName").text(sessionStorage.user_name);
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
+        $(".userInfo .userName").click(function(){dialog.load("修改用户名",2,userInfo.changeUserName)});
+    },
+    changeUserName:function(username){
+        $.ajax({
+            type: "post",
+            url: "user",
+            dataType: "JSON",
+            data: "type=changeUserName&userid="+sessionStorage.user_id+"&username="+username,
+            success: function(data){
+                if(data.result=="ok"){
+                    sessionStorage.user_name = username;
+                    $(".userInfo .userName").text(username);
+                    gameTop.load();
+                    $("#dialog_page").click();
+                }
+            }
+        });
     },
     signOut: function(){
         $(".world").children().remove();

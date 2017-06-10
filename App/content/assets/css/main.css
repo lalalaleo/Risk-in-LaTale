@@ -88,6 +88,68 @@
     box-sizing: border-box;
 }
 
+.dialog_input {
+    overflow: hidden;
+    max-width: 600px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 1);
+    text-align: center;
+    padding: 40px 60px;
+    box-sizing: border-box;
+}
+.dialog_input .title {
+    margin: 0;
+    font-weight: bold;
+}
+.dialog_input input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+    color:#8f8f8f;
+    padding-left: 15px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_input input:focus {
+    border-color: #aaaaaa;
+    background-color: rgba(229, 242, 13, 0.2);
+}
+.dialog_input button {
+    width: 90px;
+    height: 30px;
+    padding: 0 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_input .ok{
+    border: 1px solid #F17A60;
+    background-color: #F17A60;
+    color:white;
+}
+.dialog_input .ok:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:#F17A60;
+}
+.dialog_input .cancel{
+    border: 1px solid skyblue;
+    background-color: skyblue;
+    color:white;
+}
+.dialog_input .cancel:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:skyblue;
+}
+
 
 /*用户信息卡片*/
 .userInfo {

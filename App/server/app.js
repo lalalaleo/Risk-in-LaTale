@@ -16,9 +16,14 @@ app.get('/', function (req, res) {
   res.sendfile("index.html");
 });
 
-app.post('/login',function(req,res){
+app.post('/user',function(req,res){
   if(req.body.type=="login"){
     user.login(req.body.username,req.body.password,function(msg){
+      res.send(msg);
+    });
+  }
+  else if(req.body.type=="changeUserName"){
+    user.changeUserName(req.body.userid,req.body.username,function(msg){
       res.send(msg);
     });
   }
@@ -30,7 +35,7 @@ app.post('/gamePoint',function(req,res){
       res.send(msg);
     });
   }
-  if(req.body.type=="getTop"){
+  else if(req.body.type=="getTop"){
     gamePoint.getTop(function(msg){
       res.send(msg);
     });
