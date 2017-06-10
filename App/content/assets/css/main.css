@@ -70,7 +70,11 @@
     color : #8f8f8f;
 }
 
-.dialog {
+/*对话框*/
+#dialog_page {
+    color: rgba(0, 0, 0, 0.8);
+}
+.dialog_default {
     overflow: hidden;
     max-width: 600px;
     position:relative;
@@ -82,9 +86,6 @@
     text-align: center;
     padding: 40px 60px;
     box-sizing: border-box;
-}
-.dialog .content {
-    color: rgba(0, 0, 0, 0.8);
 }
 
 

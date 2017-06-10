@@ -230,13 +230,13 @@ function runGame(plans, Display) {
       if (status == "lost"){
         // startLevel(n);
         gamePoint.sendToSever();
-        dialog.load("你输了！");
+        dialog.load("你输了！",1);
       }
       else if (n < plans.length - 1)
         startLevel(n + 1);
       else{
         gamePoint.sendToSever();
-        dialog.load("你赢了！");
+        dialog.load("你赢了！",1);
       }
     });
   }

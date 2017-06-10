@@ -23,12 +23,12 @@ var user = {
         var username = $(".login").children("input[name='username']").val();
         var password = $(".login").children("input[name='password']").val();
         if(username.length==0){
-            dialog.load("用户名不能为空");
+            dialog.load("用户名不能为空",1);
             $(".login").children("input[name='username']").val("");
             $(".login").children("input[name='password']").val("");
         }
         else if(password.length<6){
-            dialog.load("密码至少需要6位");
+            dialog.load("密码至少需要6位",1);
             $(".login").children("input[name='username']").val("");
             $(".login").children("input[name='password']").val("");
         }
@@ -45,7 +45,7 @@ var user = {
                         user.login();
                     }
                     else {
-                        dialog.load("用户名或密码错误！");
+                        dialog.load("用户名或密码错误！",1);
                         $(".login").children("input[name='username']").val("");
                         $(".login").children("input[name='password']").val("");
                     }
@@ -63,11 +63,24 @@ var user = {
 
 //提示框
 var dialog = {
-    load: function(content){
+    load: function(content,type){
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-        var html = document.getElementById("page_dialog").innerHTML;
-        var source = html.replace(reg, function (node, key) { return {"content":content}[key]; });
-        $("body").append(source);
+        var html = "";
+        var source;
+        switch(type){
+            case 1:{
+                html=document.getElementById("page_dialog_1").innerHTML;
+                source = html.replace(reg, function (node, key) { return {"content":content}[key]; });
+                $("body").append(source);
+                break;
+            }
+            case 2:{
+
+            }
+            default :{
+
+            }
+        }
         $("#dialog_page").click(function(){
             $("#dialog_page").remove();
         });
