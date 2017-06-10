@@ -86,3 +86,110 @@
 .dialog .content {
     color: rgba(0, 0, 0, 0.8);
 }
+
+.userInfo {
+    overflow: hidden;
+    position:absolute;
+    min-width: 200px;
+    max-width: 300px;
+    left: 60px;
+    border: 5px solid white;
+    border-radius: 20px;
+    background: rgba(135, 206, 235, 0.9);
+    text-align: center;
+    padding: 20px 50px;
+    box-sizing: border-box;
+}
+.userInfo .avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    margin: 10px;
+}
+.userInfo .userName {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+}
+.userInfo .gamePoint {
+    color: white;
+    font-size: 56px;
+    margin: 20px;
+    font-weight: bold;
+}
+.userInfo .exit {
+    margin-top: 10px;
+    padding: 3px 12px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid white;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    outline-style: none;
+}
+.userInfo .exit:hover {
+    border-color: #F17A60;
+    color: #F17A60;
+}
+
+/*排行榜TOP10*/
+.gameTop {
+    overflow: hidden;
+    position:absolute;
+    min-width: 200px;
+    max-width: 400px;
+    right: 20px;
+    border: 5px solid Khaki ;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 20px 20px;
+    box-sizing: border-box;    
+}
+.gameTop .title {
+    font-size: 32px;
+    font-weight: bold;
+}
+.gameTop .list {
+    color: gray;
+    text-align: left;
+    font-size: 18px;
+}
+.gameTop .list tr {
+    height: 40px;
+}
+.gameTop .list tr:first-child {
+    color: gold;
+    font-weight: bold;
+}
+.gameTop .list tr:nth-child(2) {
+    color: #F17A60;
+    font-weight: bold;
+}
+.gameTop .list tr:nth-child(3) {
+    color: skyblue;
+    font-weight: bold;
+}
+.gameTop .list tr td:nth-child(1) {
+    width: 30px;
+}
+.gameTop .list tr td:nth-child(1) img {
+    max-width: 30px;
+    max-height: 30px;
+}
+.gameTop .list tr td:nth-child(2) {
+    font-size: 20px;
+    width: 30px;
+}
+.gameTop .list tr td:nth-child(3) {
+    font-size: 18px;
+    width: 200px;
+}
+.gameTop .list tr td:nth-child(4) {
+    font-size: 20px;
+    width: 30px;
+}
+.gameTop .list tr td:nth-child(5) {
+    width: 30px;
+}

@@ -93,7 +93,7 @@ Map.prototype.playerTouched = function(type, actor) {
       return actor.type == "coin";
     })) {
       this.status = "won";
-      this.finishDelay = 1;
+      this.finishDelay = 0.5; //胜利后停留时间
     }
   }
 };

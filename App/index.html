@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  
   <script src="./content/assets/js/jquery-3.2.1.min.js"></script>
   <script src="./content/assets/js/index.js"></script>
   <script src="./content/assets/js/map.js"></script>
@@ -17,7 +16,7 @@
     <div id="world" class="world"></div>
     <script>
       $(document).ready(function(){
-        login.load();
+        user.load();
       });
     </script>
 </body>
@@ -38,6 +37,27 @@
   <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
     <div class="dialog">
       <p class="content">[content]</p>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_userInfo">
+  <div class="page" id = "userInfo_page">
+    <div class="userInfo">
+      <img class="avatar" src="./content/image/avatar/Warriors.bmp" />
+      <p class="userName">-</p>
+      <p class="gamePoint">0</p>
+      <button class="exit">登出</button>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_gameTop">
+  <div class="page" id = "gameTop_page">
+    <div class="gameTop">
+      <p class="title">TOP 10</p>
+      <table class="list" border=0>
+      </table>
     </div>
   </div> 
 </script>
