@@ -38,7 +38,7 @@ var gamePoint = {
       type: "POST",
       url: "gamePoint",
       dataType: "JSON",
-      data: "type=add&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      data: "type=add&userid="+sessionStorage.user_id+"&gamePoint="+gamePoint.num,
       success: function(data){}
     });
   },
