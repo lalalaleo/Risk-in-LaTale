@@ -87,6 +87,8 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
+
+/*用户信息卡片*/
 .userInfo {
     overflow: hidden;
     position:absolute;

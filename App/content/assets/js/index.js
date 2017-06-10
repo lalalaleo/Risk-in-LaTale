@@ -54,8 +54,8 @@ var user = {
         }
     },
     login: function(){
-        $("#login_page").remove();
         runGame(data_maps, DOMDisplay);
+        $("#login_page").remove();
         userInfo.load();
         gameTop.load();
     }
@@ -82,19 +82,22 @@ var dialog = {
 
 var userInfo = {
     load: function(){
+        $(".userInfo").remove();
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
         var html = document.getElementById("page_userInfo").innerHTML;
         var source = html.replace(reg, function (node, key) { return {}[key]; });
-        $("body").append(source);
+        $("#page").append(source);
         $(".userInfo .userName").text(sessionStorage.user_name);
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
     },
     signOut: function(){
         $(".world").children().remove();
-        $("#userInfo_page").remove();
+        $(".page").children().remove();
         sessionStorage.removeItem("user_id");
         sessionStorage.removeItem("user_name");
+        gamePoint.num = 0;
+        gamePoint.levePoint = null;
         user.load();
     }
 }
@@ -106,7 +109,7 @@ var gameTop = {
         var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
         var html = document.getElementById("page_gameTop").innerHTML;
         var source = html.replace(reg, function (node, key) { return {}[key]; });
-        $("body").append(source);
+        $("#page").append(source);
         $(".gameTop .list").children().remove();
         gamePoint.getTop();
     }
