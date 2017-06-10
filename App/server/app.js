@@ -17,9 +17,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/login',function(req,res){
-  user.login(req.body.username,req.body.password,function(msg){
-    res.send(msg);
-  });
+  if(req.body.type=="login"){
+    user.login(req.body.username,req.body.password,function(msg){
+      res.send(msg);
+    });
+  }
 });
 
 app.post('/gamePoint',function(req,res){
