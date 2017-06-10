@@ -109,7 +109,7 @@ var dialog = {
                     $("#dialog_page").click();
                 });
                 $(".dialog_upload div .ok").click(function(){
-                    fn();
+                    fn($("#file"));
                 });
                 break;
             }
@@ -162,8 +162,27 @@ var userInfo = {
             }
         });
     },
-    uploadAvatar: function(){
-
+    uploadAvatar: function(file){
+        var formData = new FormData();
+        formData.append('file',file.files[0]);
+        $.ajax({
+            url: '/uploadAvatar',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                if(200 === data.code) {
+                    $('#result').html("上传成功！");
+                    $('#img').attr('src',data.data);
+                } 
+                else {
+                    $('#result').html("上传失败！");
+                }
+                console.log('imgUploader upload success');
+            }
+        });
     },
     signOut: function(){
         $(".world").children().remove();

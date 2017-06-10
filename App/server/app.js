@@ -5,6 +5,18 @@ var user = require('./user.js');
 var gamePoint = require('./gamePoint.js');
 var url = require('url');
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb){
+        cb(null, './public/images')
+    },
+    filename: function (req, file, cb){
+        cb(null, file.originalname)
+    }
+});
+var upload = multer({
+    storage: storage
+});
+
 app.use(express.static("../"));
 
 app.use(bodyParser.urlencoded({
@@ -27,6 +39,14 @@ app.post('/user',function(req,res){
       res.send(msg);
     });
   }
+});
+
+app.post('/uploadAvatar',function(req,res){
+  var url = 'http://' + req.headers.host + '/images/' + req.file.originalname
+  res.json({
+      code : 200,
+      data : url
+  })
 });
 
 app.post('/gamePoint',function(req,res){
