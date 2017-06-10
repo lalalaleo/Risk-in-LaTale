@@ -42,6 +42,7 @@ var user = {
                     if(data.result == "true"){
                         sessionStorage.user_id=$(".login").children("input[name='username']").val();
                         sessionStorage.user_name=data.username;
+                        sessionStorage.user_avatar=data.useravatar;
                         user.login();
                     }
                     else {
@@ -112,6 +113,7 @@ var userInfo = {
         var html = document.getElementById("page_userInfo").innerHTML;
         var source = html.replace(reg, function (node, key) { return {}[key]; });
         $("#page").append(source);
+        $(".userInfo .avatar").attr("src","./content/image/avatar/"+sessionStorage.user_avatar);
         $(".userInfo .userName").text(sessionStorage.user_name);
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
@@ -138,6 +140,7 @@ var userInfo = {
         $(".page").children().remove();
         sessionStorage.removeItem("user_id");
         sessionStorage.removeItem("user_name");
+        sessionStorage.removeItem("user_avatar");
         gamePoint.num = 0;
         gamePoint.levePoint = null;
         user.load();
