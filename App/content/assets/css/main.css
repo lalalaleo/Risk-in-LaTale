@@ -132,3 +132,50 @@
     border-color: #F17A60;
     color: #F17A60;
 }
+
+/*排行榜TOP10*/
+.gameTop {
+    overflow: hidden;
+    position:absolute;
+    min-width: 200px;
+    max-width: 400px;
+    right: 20px;
+    border: 5px solid Khaki ;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    text-align: center;
+    padding: 20px 20px;
+    box-sizing: border-box;    
+}
+.gameTop .title {
+    font-size: 32px;
+    font-weight: bold;
+}
+.gameTop .li {
+    color: gray;
+}
+.gameTop .li:first-child {
+    color: gold;
+    font-weight: bold;
+}
+.gameTop .li:nth-child(2) {
+    color: #F17A60;
+    font-weight: bold;
+}
+.gameTop .li:nth-child(3) {
+    color: skyblue;
+    font-weight: bold;
+}
+.gameTop .li span:first-child {
+    font-size: 20px;
+    width: 100px;
+}
+/*分割线*/
+.gameTop .li p {
+    width: 200px;
+    height: 1px;
+    background-color: gold ;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -57,6 +57,7 @@ var user = {
         $("#login_page").remove();
         runGame(data_maps, DOMDisplay);
         userInfo.load();
+        gameTop.load();
         gamePoint.getTop();
     }
 }
@@ -96,5 +97,16 @@ var userInfo = {
         sessionStorage.removeItem("user_id");
         sessionStorage.removeItem("user_name");
         user.load();
+    }
+}
+
+//排行榜
+
+var gameTop = {
+    load: function(){
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var html = document.getElementById("page_gameTop").innerHTML;
+        var source = html.replace(reg, function (node, key) { return {}[key]; });
+        $("body").append(source);
     }
 }
