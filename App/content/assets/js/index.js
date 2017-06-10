@@ -87,6 +87,32 @@ var dialog = {
                 });
                 break;
             }
+            case 3:{
+                html=document.getElementById("page_dialog_3").innerHTML;
+                source = html.replace(reg, function (node, key) { return {"title":content}[key]; });
+                $("body").append(source);
+                $("#file").change(function(){
+                    var reader = new FileReader();
+                    if($("#file").val()!=""){
+                        $(".dialog_upload label").text("Re Choose");
+                    }
+                    else{
+                        $(".dialog_upload label").text("Choose a Image");
+                    }
+                    reader.onload = function(e){
+                        $(".dialog_upload .img_box").css("display","block");
+                        $(".dialog_upload img").attr("src",e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                });
+                $(".dialog_upload div .cancel").click(function(){
+                    $("#dialog_page").click();
+                });
+                $(".dialog_upload div .ok").click(function(){
+                    fn();
+                });
+                break;
+            }
             default :{
 
             }
@@ -118,6 +144,7 @@ var userInfo = {
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
         $(".userInfo .userName").click(function(){dialog.load("修改用户名",2,userInfo.changeUserName)});
+        $(".userInfo .avatar").click(function(){dialog.load("上传图片作为头像",3,userInfo.uploadAvatar)});
     },
     changeUserName:function(username){
         $.ajax({
@@ -134,6 +161,9 @@ var userInfo = {
                 }
             }
         });
+    },
+    uploadAvatar: function(){
+
     },
     signOut: function(){
         $(".world").children().remove();

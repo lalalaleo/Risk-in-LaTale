@@ -88,6 +88,7 @@
     box-sizing: border-box;
 }
 
+
 .dialog_input {
     overflow: hidden;
     max-width: 600px;
@@ -150,6 +151,93 @@
     color:skyblue;
 }
 
+
+.dialog_upload {
+    overflow: hidden;
+    max-width: 600px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 1);
+    text-align: center;
+    padding: 40px 60px;
+    box-sizing: border-box;
+}
+.dialog_upload .title {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.dialog_upload .img_box {
+    margin-bottom: 20px;
+    display: none;
+}
+.dialog_upload img {
+    width: 200px;
+    border-radius: 20px;
+    border: 1px solid skyblue;
+}
+.dialog_upload input {
+     width: 0.1px; 
+    height: 0.1px; 
+    opacity: 0; 
+    overflow: hidden; 
+    position: absolute; 
+    z-index: -1;
+}
+.dialog_upload label {
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    background-color: yellow;
+    color: gold;
+}
+.dialog_upload label:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+.dialog_upload .rechoose {
+    width:120px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    background-color: yellow;
+    color: gold;
+    display: none;
+}
+.dialog_upload .rechoose:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+.dialog_upload .btn_box {
+    margin-top: 10px;
+}
+.dialog_upload button {
+    width: 90px;
+    height: 30px;
+    padding: 0 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_upload .ok{
+    border: 1px solid #F17A60;
+    background-color: #F17A60;
+    color:white;
+}
+.dialog_upload .ok:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:#F17A60;
+}
+.dialog_upload .cancel{
+    border: 1px solid skyblue;
+    background-color: skyblue;
+    color:white;
+}
+.dialog_upload .cancel:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:skyblue;
+}
 
 /*用户信息卡片*/
 .userInfo {
