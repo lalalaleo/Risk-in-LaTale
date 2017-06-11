@@ -16,7 +16,7 @@ connection.connect(function(error,res){
 });
 
 exports.login = function(userid,password,fn){
-  var sql = 'SELECT NICKNAME,USER_AVATAR from USER WHERE USER_ID="'+userid+'" AND PASSWORD="'+password+'"';
+  var sql = 'SELECT NICKNAME,USER_AVATAR from user WHERE USER_ID="'+userid+'" AND PASSWORD="'+password+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length==0) {
