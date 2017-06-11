@@ -109,7 +109,7 @@ var dialog = {
                     $("#dialog_page").click();
                 });
                 $(".dialog_upload div .ok").click(function(){
-                    fn($("#file"));
+                    fn();
                 });
                 break;
             }
@@ -162,9 +162,11 @@ var userInfo = {
             }
         });
     },
-    uploadAvatar: function(file){
+    uploadAvatar: function(){
+        var file = document.getElementById("file").files[0];
         var formData = new FormData();
-        formData.append('file',file.files[0]);
+        formData.append("file",file);
+        formData.append("userid",sessionStorage.user_id);
         $.ajax({
             url: '/uploadAvatar',
             type: 'POST',
@@ -173,14 +175,15 @@ var userInfo = {
             contentType: false,
             processData: false,
             success: function(data){
-                if(200 === data.code) {
-                    $('#result').html("上传成功！");
-                    $('#img').attr('src',data.data);
+                if(data.result=="ok") {
+                    sessionStorage.user_avatar=data.filePath;
+                    $(".userInfo .avatar").attr("src","./content/image/avatar/"+sessionStorage.user_avatar);
+                    gameTop.load();
+                    $("#dialog_page").click();
                 } 
                 else {
-                    $('#result').html("上传失败！");
+                    alert("error");
                 }
-                console.log('imgUploader upload success');
             }
         });
     },

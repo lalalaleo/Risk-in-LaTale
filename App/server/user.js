@@ -37,3 +37,14 @@ exports.changeUserName = function(userid,username,fn){
     return 0;
   });
 }
+
+exports.updateAvatar = function(userid,avatar,fn){
+  var sql = 'UPDATE user SET USER_Avatar = "'+avatar+'" WHERE USER_ID= "'+userid+'"';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    else{
+      fn("ok");
+    }
+    return 0;
+  });
+}

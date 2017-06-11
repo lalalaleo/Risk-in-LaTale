@@ -1,21 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 var app = express();
 var user = require('./user.js');
 var gamePoint = require('./gamePoint.js');
 var url = require('url');
+var path = require('path');
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb){
-        cb(null, './public/images')
-    },
-    filename: function (req, file, cb){
-        cb(null, file.originalname)
-    }
-});
-var upload = multer({
-    storage: storage
-});
 
 app.use(express.static("../"));
 
@@ -28,6 +19,29 @@ app.get('/', function (req, res) {
   res.sendfile("index.html");
 });
 
+
+//选择diskStorage存储
+const storage = multer.diskStorage({
+ destination: function (req, file, cb) {
+  cb(null, path.resolve('../content/image/avatar'));
+ },
+ filename: function (req, file, cb) {
+  cb(null, Date.now() + path.extname(file.originalname));//增加了文件的扩展名
+ }
+});
+
+var upload = multer({storage: storage});
+// 头像上传
+app.post('/uploadAvatar', upload.single('file'), function(req, res, next) {
+  user.updateAvatar(req.body.userid,path.basename(req.file.path),function(msg){
+    res.send({
+      result: msg,
+      filePath: path.basename(req.file.path),
+    });
+  });
+});
+
+//----------------------------------------------------------------------------
 app.post('/user',function(req,res){
   if(req.body.type=="login"){
     user.login(req.body.username,req.body.password,function(msg){
@@ -39,14 +53,6 @@ app.post('/user',function(req,res){
       res.send(msg);
     });
   }
-});
-
-app.post('/uploadAvatar',function(req,res){
-  var url = 'http://' + req.headers.host + '/images/' + req.file.originalname
-  res.json({
-      code : 200,
-      data : url
-  })
 });
 
 app.post('/gamePoint',function(req,res){
