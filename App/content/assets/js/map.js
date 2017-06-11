@@ -14,6 +14,12 @@ function Map(plan) {
         this.actors.push(new Actor(new Vector(x, y), ch));
       else if (ch == "x")
         fieldType = "wall";
+      else if (ch == "X")
+        fieldType = "grass";
+      else if (ch == "Z")
+        fieldType = "ice";
+      else if (ch == "H")
+        fieldType = "huaji";
       else if(ch == "!")
         fieldType = "trap";
       gridLine.push(fieldType);
@@ -85,6 +91,10 @@ Map.prototype.playerTouched = function(type, actor) {
     this.status = "lost";
     this.finishDelay = 1;
   }
+  else if (type == "portal" && this.status == null) {
+    this.status = "won";
+    this.finishDelay = 0.2;
+  }
   else if (type == "coin") {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
@@ -93,7 +103,7 @@ Map.prototype.playerTouched = function(type, actor) {
       return actor.type == "coin";
     })) {
       this.status = "won";
-      this.finishDelay = 0.5; //胜利后停留时间
+      this.finishDelay = 0.2; //胜利后停留时间
     }
   }
 };

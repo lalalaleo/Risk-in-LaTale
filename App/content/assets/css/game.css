@@ -18,14 +18,30 @@ html,body {
                  border-spacing: 0;   }
 .background td { padding: 0;          }
 .wall {
+  background-image: url(../../image/material/ground.png);
+  background-size: cover;
+}
+.grass {
   background-image: url(../../image/material/grass.png);
+  background-size: cover;
+}
+.ice {
+  background-image: url(../../image/material/ice.png);
+  background-size: cover;
+}
+.huaji {
+  background-image: url(../../image/material/huaji.png);
   background-size: cover;
 }
 
 .actor  { position: absolute;  }
-.coin   { background: rgb(241, 229, 89); }
+.coin   {
+  background: rgb(241, 229, 89);
+  border-radius: 9px;
+}
 .trap {
-  background-color: red;
+  background-image: url(../../image/material/trap.png);
+  background-size: cover;
 }
 .man {
   background-image: url(../../image/man/r_1.png);
@@ -47,6 +63,14 @@ html,body {
 .moster {
   background-image: url(../../image/moster/lm_sister.png);
   background-size: cover;
+}
+.Moster {
+  background-image: url(../../image/moster/lm_sister.png);
+  background-size: cover;
+}
+.portal {
+  background-image: url(../../image/material/portal.png);
+  background-size: cover;  
 }
 .lost .player {
 }

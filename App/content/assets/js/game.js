@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------//
-
-
 var World = {
   unitSize:32,
-  gravity:80
+  gravity:80,
+  XSpeed:9,
+  YSpeed:27
 }
 //坐标
 function Vector(x, y) {
@@ -19,6 +19,8 @@ Vector.prototype.times = function(factor) {
 var actorSign = {
   "@": Man,
   "o": Coin,
+  "C":portal,
+  "s":moster,
   "S":Moster
 };
 
@@ -228,15 +230,24 @@ function runGame(plans, Display) {
   function startLevel(n) {
     runLevel(new Map(plans[n]), Display, function(status) {
       if (status == "lost"){
-        // startLevel(n);
         gamePoint.sendToSever();
-        dialog.load("你输了！",1,null);
+        dialog.load("╮(╯▽╰)╭ 你输了",1,null);
+        gamePoint.num = 0;
+        gamePoint.levePoint = null;
+        userInfo.load();
+        gameTop.load();
+        runGame(data_maps, DOMDisplay);
       }
       else if (n < plans.length - 1)
         startLevel(n + 1);
       else{
         gamePoint.sendToSever();
-        dialog.load("你赢了！",1,null);
+        dialog.load("(★ ω ★) 更多内容仍在开发中",1,null);
+        gamePoint.num = 0;
+        gamePoint.levePoint = null;
+        userInfo.load();
+        gameTop.load();
+        runGame(data_maps, DOMDisplay);
       }
     });
   }

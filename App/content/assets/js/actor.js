@@ -1,12 +1,12 @@
 //人物
 function Man(pos) {
-  this.XSpeed = 9; //移动速度
-  this.YSpeed = 30; //跳跃高度
+  this.XSpeed = World.XSpeed; //移动速度
+  this.YSpeed = World.YSpeed; //跳跃高度
   this.pos = pos.plus(new Vector(0, -0.5));
   this.size = new Vector(1, 1.5);
   this.speed = new Vector(0, 0);
   this.FPS = function(){
-    return 72/this.XSpeed;
+    return 124/this.XSpeed;
   }
 }
 Man.prototype.type = "man";
@@ -18,13 +18,17 @@ Man.prototype.moveX = function(step, map, keys) {
   this.speed.x = 0;
   if (keys.left) {
     this.speed.x -= this.XSpeed;
-    moveFlag++;
     this.direction = "left";
+    if(!keys.right&&!keys.up){
+      moveFlag++;
+    }
   }
   if (keys.right) {
     this.speed.x += this.XSpeed;
-    moveFlag++;
     this.direction = "right";
+    if(!keys.left&&!keys.up){
+      moveFlag++;
+    }
   }
   var motion = new Vector(this.speed.x * step, 0);
   var newPos = this.pos.plus(motion);
@@ -96,7 +100,7 @@ Man.prototype.moveAnimation = function(rect) {
 //金币
 function Coin(pos) {
   this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));
-  this.size = new Vector(0.6, 0.6);
+  this.size = new Vector(0.6, 0.7);
   this.wobble = Math.random() * Math.PI * 2;
 }
 Coin.prototype.type = "coin";
@@ -114,16 +118,31 @@ Coin.prototype.act = function(step) {
 
 
 //怪物
-function Moster(pos) {
+function moster(pos) {
   this.pos = pos.plus(new Vector(0, 0));
   this.size = new Vector(1, 1);
 }
-Moster.prototype.type = "moster";
+moster.prototype.type = "moster";
+moster.prototype.act = function(step) {
+};
 
 
+function Moster(pos) {
+  this.pos = pos.plus(new Vector(0, -2));
+  this.size = new Vector(3, 3);
+}
+Moster.prototype.type = "Moster";
 Moster.prototype.act = function(step) {
 };
 
 
 
 // ----------------------------------------------------------------------------------------------------------------------//
+
+function portal(pos) {
+  this.pos = pos.plus(new Vector(0, 0));
+  this.size = new Vector(1, 1);
+}
+portal.prototype.type = "portal";
+portal.prototype.act = function(step) {
+};
