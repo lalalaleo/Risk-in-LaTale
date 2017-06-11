@@ -61,6 +61,7 @@ var user = {
             $("#login_page").remove();
             userInfo.load();
             gameTop.load();
+            helper.load();
         },
         register: function(){
             $("#login_page").remove();
@@ -133,6 +134,7 @@ var user = {
             $("#register_page").remove();
             userInfo.load();
             gameTop.load();
+            helper.load();
         },
         login: function(){
             $("#register_page").remove();
@@ -288,5 +290,17 @@ var gameTop = {
         $("#page").append(source);
         $(".gameTop .list").children().remove();
         gamePoint.getTop();
+    }
+}
+
+
+//helper
+
+var helper = {
+    load: function(){
+        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+        var html = document.getElementById("page_helper").innerHTML;
+        var source = html.replace(reg, function (node, key) { return {}[key]; });
+        $("#page").append(source);
     }
 }
