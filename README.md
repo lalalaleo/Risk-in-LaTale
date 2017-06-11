@@ -5,6 +5,6 @@ v1.0.0
 
 ## Demo
 
-www.lalalaleo.com/Risk_in_LaTale
+www.lalalaleo.com:8888
 
 游戏仍在开发中
