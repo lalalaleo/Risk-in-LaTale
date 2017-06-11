@@ -1,64 +1,66 @@
 //用户[登陆]
 var user = {
-    load : function(){
-        var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-        var html = document.getElementById("page_login").innerHTML;
-        var source = html.replace(reg, function (node, key) { return {}[key]; });
-        $("body").append(source);
-        $(".login").children("input[name='password']").keypress(function(){
-            if(event.which == 13){
-                $("#btn_login").click();
-            }
-        });
-        $("#btn_login").click(function(){
-            if($(".dialog").length==0){
-                user.next();
-            }
-        });
-        if(sessionStorage.user_name!=null){
-            user.login();
-        }
-    },
-    next : function(){
-        var username = $(".login").children("input[name='username']").val();
-        var password = $(".login").children("input[name='password']").val();
-        if(username.length==0){
-            dialog.load("用户名不能为空",1,null);
-            $(".login").children("input[name='username']").val("");
-            $(".login").children("input[name='password']").val("");
-        }
-        else if(password.length<6){
-            dialog.load("密码至少需要6位",1,null);
-            $(".login").children("input[name='username']").val("");
-            $(".login").children("input[name='password']").val("");
-        }
-        else {
-            $.ajax({
-                type: "post",
-                url: "user",
-                dataType: "JSON",
-                data: "type=login&username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
-                success: function(data){
-                    if(data.result == "true"){
-                        sessionStorage.user_id=$(".login").children("input[name='username']").val();
-                        sessionStorage.user_name=data.username;
-                        sessionStorage.user_avatar=data.useravatar;
-                        user.login();
-                    }
-                    else {
-                        dialog.load("用户名或密码错误！",1,null);
-                        $(".login").children("input[name='username']").val("");
-                        $(".login").children("input[name='password']").val("");
-                    }
+    login: {
+        load:function(){
+            var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+            var html = document.getElementById("page_login").innerHTML;
+            var source = html.replace(reg, function (node, key) { return {}[key]; });
+            $("body").append(source);
+            $(".login").children("input[name='password']").keypress(function(){
+                if(event.which == 13){
+                    $("#btn_login").click();
                 }
             });
+            $("#btn_login").click(function(){
+                if($(".dialog").length==0){
+                    user.login.next();
+                }
+            });
+            if(sessionStorage.user_name!=null){
+                user.login.ok();
+            }
+        },
+        next:function(){
+            var username = $(".login").children("input[name='username']").val();
+            var password = $(".login").children("input[name='password']").val();
+            if(username.length==0){
+                dialog.load("用户名不能为空",1,null);
+                $(".login").children("input[name='username']").val("");
+                $(".login").children("input[name='password']").val("");
+            }
+            else if(password.length<6){
+                dialog.load("密码至少需要6位",1,null);
+                $(".login").children("input[name='username']").val("");
+                $(".login").children("input[name='password']").val("");
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "user",
+                    dataType: "JSON",
+                    data: "type=login&username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
+                    success: function(data){
+                        if(data.result == "true"){
+                            sessionStorage.user_id=$(".login").children("input[name='username']").val();
+                            sessionStorage.user_name=data.username;
+                            sessionStorage.user_avatar=data.useravatar;
+                            user.login.ok();
+                        }
+                        else {
+                            dialog.load("用户名或密码错误！",1,null);
+                            $(".login").children("input[name='username']").val("");
+                            $(".login").children("input[name='password']").val("");
+                        }
+                    }
+                });
+            }
+        },
+        ok:function(){
+            runGame(data_maps, DOMDisplay);
+            $("#login_page").remove();
+            userInfo.load();
+            gameTop.load();
         }
-    },
-    login: function(){
-        runGame(data_maps, DOMDisplay);
-        $("#login_page").remove();
-        userInfo.load();
-        gameTop.load();
     }
 }
 
@@ -195,7 +197,7 @@ var userInfo = {
         sessionStorage.removeItem("user_avatar");
         gamePoint.num = 0;
         gamePoint.levePoint = null;
-        user.load();
+        user.login.load();
     }
 }
 
