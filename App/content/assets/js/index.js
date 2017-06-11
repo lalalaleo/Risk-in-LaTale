@@ -27,24 +27,22 @@ var user = {
             var userid = $(".login").children("input[name='userid']").val();
             var password = $(".login").children("input[name='password']").val();
             if(userid.length==0){
-                dialog.load("用户名不能为空",1,null);
-                $(".login").children("input[name='userid']").val("");
-                $(".login").children("input[name='password']").val("");
+                dialog.load("User ID can not be empty.",1,null);
+                $(".login").children("input").val("");
             }
             else if(password.length<6){
-                dialog.load("密码至少需要6位",1,null);
-                $(".login").children("input[name='userid']").val("");
-                $(".login").children("input[name='password']").val("");
+                dialog.load("Password length must be longer than 6.",1,null);
+                $(".login").children("input").val("");
             }
             else {
                 $.ajax({
                     type: "post",
                     url: "user",
                     dataType: "JSON",
-                    data: "type=login&userid="+$(".login").children("input[name='userid']").val()+"&password="+$(".login").children("input[name='password']").val(),
+                    data: "type=login&userid="+userid+"&password="+password,
                     success: function(data){
                         if(data.result == "true"){
-                            sessionStorage.user_id=$(".login").children("input[name='userid']").val();
+                            sessionStorage.user_id=userid;
                             sessionStorage.nickname=data.nickname;
                             sessionStorage.user_avatar=data.useravatar;
                             user.login.ok();
@@ -75,20 +73,66 @@ var user = {
             var html = document.getElementById("page_register").innerHTML;
             var source = html.replace(reg, function (node, key) { return {}[key]; });
             $("body").append(source);
-            $(".login").children("input[name='password']").keypress(function(){
+            $(".register").children("input[name='rePassword']").keypress(function(){
                 if(event.which == 13){
-                    $("#btn_login").click();
+                    $("#btn_register").click();
                 }
+            });
+            $("#btn_register").click(function(){
+                if($(".dialog").length == 0)
+                    user.register.next();
             });
             $("#btn_login").click(function(){
                 user.register.login();
             });
         },
         next: function(){
-            
+            var userid = $(".register").children("input[name='userid']").val();
+            var nickname = $(".register").children("input[name='nickname']").val();
+            var password = $(".register").children("input[name='password']").val();
+            var rePassword = $(".register").children("input[name='rePassword']").val();
+            if(userid.length == 0){
+                dialog.load("User ID can not be empty.",1,null);
+                $(".register").children("input").val("");
+            }
+            else if(nickname.length == 0){
+                dialog.load("Nickname can not be empty.",1,null);
+                $(".register").children("input").val("");
+            }
+            else if(password.length<6){
+                dialog.load("Password length must be longer than 5.",1,null);
+                $(".register").children("input").val("");
+            }
+            else if(password!=rePassword){
+                dialog.load("Two password inputs are different.",1,null);
+                $(".register").children("input").val("");
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "user",
+                    dataType: "JSON",
+                    data: "type=register&userid="+userid+"&nickname="+nickname+"&password="+password,
+                    success: function(data){
+                        if(data.result == "true"){
+                            sessionStorage.user_id=userid;
+                            sessionStorage.nickname=nickname;
+                            sessionStorage.user_avatar=data.useravatar;
+                            user.register.ok();
+                        }
+                        else if(data.result == "false") {
+                            dialog.load("用户名已存在.",1,null);
+                            $(".login").children("input").val("");
+                        }
+                    }
+                });
+            }
         },
         ok: function(){
-
+            runGame(data_maps, DOMDisplay);
+            $("#register_page").remove();
+            userInfo.load();
+            gameTop.load();
         },
         login: function(){
             $("#register_page").remove();

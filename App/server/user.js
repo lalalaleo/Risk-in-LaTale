@@ -54,14 +54,14 @@ exports.register = function(userid,nickname,password,fn){
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length>0){
-      fn({result:"error_1"});
+      fn({result:"false"});
     }
     else {
       sql = 'INSERT INTO user VALUES ("'+userid+'", "'+nickname+'", "'+password+'", "default.png")';
       connection.query(sql, function (error, results, fields){
         if (error) throw error;
         else {
-          fn({result:"ok"});
+          fn({result:"true",useravatar:"default.png"});
         }
       });
     }
