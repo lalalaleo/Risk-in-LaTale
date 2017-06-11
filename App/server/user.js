@@ -50,10 +50,10 @@ exports.updateAvatar = function(userid,avatar,fn){
 }
 
 exports.register = function(userid,nickname,password,fn){
-  var sql = 'SELECT userid FROM user WHERE USER_ID="'+userid+'"';
+  var sql = 'SELECT count(*) as number FROM user WHERE USER_ID="'+userid+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
-    if(results.length>0){
+    if(results.number[0]>0){
       fn({result:"false"});
     }
     else {
