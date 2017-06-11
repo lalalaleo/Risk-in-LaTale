@@ -18,7 +18,7 @@ exports.add = function(userid,gamepoint,fn){
 }
 
 exports.getTop = function(fn){
-    var sql = 'SELECT USER_AVATAR,gamepoint.gp_id,user.USER_NAME,gamepoint.gp_num,gp_time FROM gamepoint,user WHERE gamepoint.gp_userid=user.USER_ID group by gp_num desc,gp_time limit 10;';
+    var sql = 'SELECT USER_AVATAR,gamepoint.gp_id,user.NICKNAME,gamepoint.gp_num,gp_time FROM gamepoint,user WHERE gamepoint.gp_userid=user.USER_ID group by gp_num desc,gp_time limit 10;';
     connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     else {
@@ -28,7 +28,7 @@ exports.getTop = function(fn){
         }
         for(var i in results){
           var o = {
-            username: results[i].USER_NAME,
+            nickname: results[i].NICKNAME,
             gamepoint: results[i].gp_num,
             time: results[i].gp_time,
             avatar: results[i].USER_AVATAR

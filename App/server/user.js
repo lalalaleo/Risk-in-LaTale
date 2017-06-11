@@ -16,19 +16,19 @@ connection.connect(function(error,res){
 });
 
 exports.login = function(userid,password,fn){
-  var sql = 'SELECT USER_NAME,USER_AVATAR from USER WHERE USER_ID="'+userid+'" AND PASSWORD="'+password+'"';
+  var sql = 'SELECT NICKNAME,USER_AVATAR from USER WHERE USER_ID="'+userid+'" AND PASSWORD="'+password+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length==0) {
       fn({result:"false"});
     }
-    else fn({result:"true",username:results[0].USER_NAME,useravatar: results[0].USER_AVATAR});
+    else fn({result:"true",nickname:results[0].NICKNAME,useravatar: results[0].USER_AVATAR});
     return 0;
   });
 }
 
-exports.changeUserName = function(userid,username,fn){
-  var sql = 'UPDATE user SET USER_NAME = "'+username+'" WHERE USER_ID= "'+userid+'"';
+exports.changeNickname = function(userid,nickname,fn){
+  var sql = 'UPDATE user SET NICKNAME = "'+nickname+'" WHERE USER_ID= "'+userid+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     else{
@@ -49,15 +49,15 @@ exports.updateAvatar = function(userid,avatar,fn){
   });
 }
 
-exports.register = function(userid,username,password,fn){
-  var sql = 'SELECT * FROM user WHERE USER_ID="'+username+'"';
+exports.register = function(userid,nickname,password,fn){
+  var sql = 'SELECT * FROM user WHERE USER_ID="'+nickname+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length>0){
       fn({result:"error_1"});
     }
     else {
-      sql = 'INSERT INTO user VALUES ("'+userid+'", "'+username+'", "'+password+'", "default.png")';
+      sql = 'INSERT INTO user VALUES ("'+userid+'", "'+nickname+'", "'+password+'", "default.png")';
       connection.query(sql, function (error, results, fields){
         if (error) throw error;
         else {

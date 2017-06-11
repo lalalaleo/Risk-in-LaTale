@@ -47,7 +47,7 @@ var gamePoint = {
       type: "POST",
       url: "gamePoint",
       dataType: "JSON",
-      data: "type=getTop&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      data: "type=getTop&nickname="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
       success: function(data){
         for(var i in data.data){
           var no = 1+parseInt(i);
@@ -61,7 +61,7 @@ var gamePoint = {
           $(".gameTop .list").append("<tr>"+
             "<td>"+no+"</td>"+
             "<td><img src=./content/image/avatar/"+data.data[i].avatar+" /></td>"+
-            "<td>"+data.data[i].username+"</td>"+
+            "<td>"+data.data[i].nickname+"</td>"+
             "<td>"+data.data[i].gamepoint+"</td>"+
             "<td><img "+src+" /></td>"+
             "</tr>"

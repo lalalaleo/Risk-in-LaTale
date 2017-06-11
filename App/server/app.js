@@ -50,12 +50,12 @@ app.post('/user',function(req,res){
     });
   }
   else if(req.body.type=="register"){
-    user.register(req.body.userid,req.body.username,req.body.password,function(msg){
+    user.register(req.body.userid,req.body.nickname,req.body.password,function(msg){
       res.send(msg);
     });
   }
-  else if(req.body.type=="changeUserName"){
-    user.changeUserName(req.body.userid,req.body.username,function(msg){
+  else if(req.body.type=="changeNickname"){
+    user.changeNickname(req.body.userid,req.body.nickname,function(msg){
       res.send(msg);
     });
   }

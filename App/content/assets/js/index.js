@@ -19,7 +19,7 @@ var user = {
             $("#btn_register").click(function(){
                 user.login.register();
             });
-            if(sessionStorage.user_name!=null){
+            if(sessionStorage.nickname!=null){
                 user.login.ok();
             }
         },
@@ -45,7 +45,7 @@ var user = {
                     success: function(data){
                         if(data.result == "true"){
                             sessionStorage.user_id=$(".login").children("input[name='userid']").val();
-                            sessionStorage.user_name=data.username;
+                            sessionStorage.nickname=data.nickname;
                             sessionStorage.user_avatar=data.useravatar;
                             user.login.ok();
                         }
@@ -84,8 +84,12 @@ var user = {
                 user.register.login();
             });
         },
-        next: function(){},
-        ok: function(){},
+        next: function(){
+            
+        },
+        ok: function(){
+
+        },
         login: function(){
             $("#register_page").remove();
             user.login.load();
@@ -171,22 +175,22 @@ var userInfo = {
         var source = html.replace(reg, function (node, key) { return {}[key]; });
         $("#page").append(source);
         $(".userInfo .avatar").attr("src","./content/image/avatar/"+sessionStorage.user_avatar);
-        $(".userInfo .userName").text(sessionStorage.user_name);
+        $(".userInfo .userName").text(sessionStorage.nickname);
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
-        $(".userInfo .userName").click(function(){dialog.load("Update User Name",2,userInfo.changeUserName)});
+        $(".userInfo .userName").click(function(){dialog.load("Update Nickname",2,userInfo.changeNickname)});
         $(".userInfo .avatar").click(function(){dialog.load("Update Avatar",3,userInfo.uploadAvatar)});
     },
-    changeUserName:function(username){
+    changeNickname:function(nickname){
         $.ajax({
             type: "post",
             url: "user",
             dataType: "JSON",
-            data: "type=changeUserName&userid="+sessionStorage.user_id+"&username="+username,
+            data: "type=changeNickname&userid="+sessionStorage.user_id+"&nickname="+nickname,
             success: function(data){
                 if(data.result=="ok"){
-                    sessionStorage.user_name = username;
-                    $(".userInfo .userName").text(username);
+                    sessionStorage.nickname = nickname;
+                    $(".userInfo .userName").text(nickname);
                     gameTop.load();
                     $("#dialog_page").click();
                 }
@@ -222,7 +226,7 @@ var userInfo = {
         $(".world").children().remove();
         $(".page").children().remove();
         sessionStorage.removeItem("user_id");
-        sessionStorage.removeItem("user_name");
+        sessionStorage.removeItem("nickname");
         sessionStorage.removeItem("user_avatar");
         gamePoint.num = 0;
         gamePoint.levePoint = null;
