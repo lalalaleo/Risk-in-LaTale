@@ -50,7 +50,7 @@ exports.updateAvatar = function(userid,avatar,fn){
 }
 
 exports.register = function(userid,nickname,password,fn){
-  var sql = 'SELECT * FROM user WHERE USER_ID="'+nickname+'"';
+  var sql = 'SELECT userid FROM user WHERE USER_ID="'+userid+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length>0){
