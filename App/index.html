@@ -26,10 +26,11 @@
   <div class="page" id="login_page">
     <div class="login">
         <p class="title">LOGIN</p>
-        <input type="text" name="username" autocomplete="off" placeholder="User Name" maxlength=20 value="" />
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
         <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
-        <button id="btn_login" class="btn_login">GO</button>
-        <p class="annotation">暂时不提供账号注册</p>
+        <button id="btn_login" class="btn_login">Sign in</button>
+        <label id="btn_register" class="btn_register">I have no account</label>
+        <!--<p class="annotation">暂时不提供账号注册</p>-->
     </div>
   </div>
 </script>
@@ -38,10 +39,12 @@
   <div class="page" id="register_page">
     <div class="register">
         <p class="title">REGISTER</p>
-        <input type="text" name="username" autocomplete="off" placeholder="User Name" maxlength=20 value="" />
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
+        <input type="text" name="nickname" autocomplete="off" placeholder="Nickname " maxlength=20 value="" />
         <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
-        <button id="btn_login" class="btn_login">GO</button>
-        <p class="annotation">暂时不提供账号注册</p>
+        <input type="password" name="rePassword" autocomplete="off" placeholder="Re Password" maxlength=20 value="" />
+        <button id="btn_register" class="btn_register">Create my account</button>
+        <label id="btn_login" class="btn_login">I already have an account</label>
     </div>
   </div>
 </script>
@@ -91,7 +94,7 @@
       <img class="avatar" />
       <p class="userName">-</p>
       <p class="gamePoint">0</p>
-      <button class="exit">登出</button>
+      <button class="exit">Sign Out</button>
     </div>
   <!--</div> -->
 </script>

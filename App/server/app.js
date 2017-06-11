@@ -45,7 +45,7 @@ app.post('/uploadAvatar', upload.single('file'), function(req, res, next) {
 
 app.post('/user',function(req,res){
   if(req.body.type=="login"){
-    user.login(req.body.username,req.body.password,function(msg){
+    user.login(req.body.userid,req.body.password,function(msg){
       res.send(msg);
     });
   }

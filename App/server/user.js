@@ -15,8 +15,8 @@ connection.connect(function(error,res){
 	console.log('Connection sucessfully')
 });
 
-exports.login = function(username,password,fn){
-  var sql = 'SELECT USER_NAME,USER_AVATAR from USER WHERE USER_ID="'+username+'" AND PASSWORD="'+password+'"';
+exports.login = function(userid,password,fn){
+  var sql = 'SELECT USER_NAME,USER_AVATAR from USER WHERE USER_ID="'+userid+'" AND PASSWORD="'+password+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     if(results.length==0) {

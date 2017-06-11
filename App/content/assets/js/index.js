@@ -16,21 +16,24 @@ var user = {
                     user.login.next();
                 }
             });
+            $("#btn_register").click(function(){
+                user.login.register();
+            });
             if(sessionStorage.user_name!=null){
                 user.login.ok();
             }
         },
         next:function(){
-            var username = $(".login").children("input[name='username']").val();
+            var userid = $(".login").children("input[name='userid']").val();
             var password = $(".login").children("input[name='password']").val();
-            if(username.length==0){
+            if(userid.length==0){
                 dialog.load("用户名不能为空",1,null);
-                $(".login").children("input[name='username']").val("");
+                $(".login").children("input[name='userid']").val("");
                 $(".login").children("input[name='password']").val("");
             }
             else if(password.length<6){
                 dialog.load("密码至少需要6位",1,null);
-                $(".login").children("input[name='username']").val("");
+                $(".login").children("input[name='userid']").val("");
                 $(".login").children("input[name='password']").val("");
             }
             else {
@@ -38,17 +41,17 @@ var user = {
                     type: "post",
                     url: "user",
                     dataType: "JSON",
-                    data: "type=login&username="+$(".login").children("input[name='username']").val()+"&password="+$(".login").children("input[name='password']").val(),
+                    data: "type=login&userid="+$(".login").children("input[name='userid']").val()+"&password="+$(".login").children("input[name='password']").val(),
                     success: function(data){
                         if(data.result == "true"){
-                            sessionStorage.user_id=$(".login").children("input[name='username']").val();
+                            sessionStorage.user_id=$(".login").children("input[name='userid']").val();
                             sessionStorage.user_name=data.username;
                             sessionStorage.user_avatar=data.useravatar;
                             user.login.ok();
                         }
                         else {
                             dialog.load("用户名或密码错误！",1,null);
-                            $(".login").children("input[name='username']").val("");
+                            $(".login").children("input[name='userid']").val("");
                             $(".login").children("input[name='password']").val("");
                         }
                     }
@@ -60,6 +63,32 @@ var user = {
             $("#login_page").remove();
             userInfo.load();
             gameTop.load();
+        },
+        register: function(){
+            $("#login_page").remove();
+            user.register.load();
+        }
+    },
+    register: {
+        load: function(){
+            var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+            var html = document.getElementById("page_register").innerHTML;
+            var source = html.replace(reg, function (node, key) { return {}[key]; });
+            $("body").append(source);
+            $(".login").children("input[name='password']").keypress(function(){
+                if(event.which == 13){
+                    $("#btn_login").click();
+                }
+            });
+            $("#btn_login").click(function(){
+                user.register.login();
+            });
+        },
+        next: function(){},
+        ok: function(){},
+        login: function(){
+            $("#register_page").remove();
+            user.login.load();
         }
     }
 }
@@ -145,8 +174,8 @@ var userInfo = {
         $(".userInfo .userName").text(sessionStorage.user_name);
         $(".userInfo .gamePoint").text(gamePoint.num);
         $(".userInfo .exit").click(userInfo.signOut);
-        $(".userInfo .userName").click(function(){dialog.load("修改用户名",2,userInfo.changeUserName)});
-        $(".userInfo .avatar").click(function(){dialog.load("上传图片作为头像",3,userInfo.uploadAvatar)});
+        $(".userInfo .userName").click(function(){dialog.load("Update User Name",2,userInfo.changeUserName)});
+        $(".userInfo .avatar").click(function(){dialog.load("Update Avatar",3,userInfo.uploadAvatar)});
     },
     changeUserName:function(username){
         $.ajax({
