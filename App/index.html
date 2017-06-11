@@ -14,9 +14,10 @@
 </head>
 <body>
     <div id="world" class="world"></div>
+    <div id="page" class="page"></div>
     <script>
       $(document).ready(function(){
-        user.load();
+        user.login.load();
       });
     </script>
 </body>
@@ -25,41 +26,87 @@
   <div class="page" id="login_page">
     <div class="login">
         <p class="title">LOGIN</p>
-        <input type="text" name="username" autocomplete="off" placeholder="User Name" maxlength=20 value="" />
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
         <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
-        <button id="btn_login" class="btn_login">GO</button>
-        <p class="annotation">暂时不提供账号注册</p>
+        <button id="btn_login" class="btn_login">Sign in</button>
+        <label id="btn_register" class="btn_register">I have no account</label>
+        <!--<p class="annotation">暂时不提供账号注册</p>-->
     </div>
   </div>
 </script>
 
-<script type="text/html" id="page_dialog">
+<script type="text/html" id="page_register">
+  <div class="page" id="register_page">
+    <div class="register">
+        <p class="title">REGISTER</p>
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
+        <input type="text" name="nickname" autocomplete="off" placeholder="Nickname " maxlength=20 value="" />
+        <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
+        <input type="password" name="rePassword" autocomplete="off" placeholder="Re Password" maxlength=20 value="" />
+        <button id="btn_register" class="btn_register">Create my account</button>
+        <label id="btn_login" class="btn_login">I already have an account</label>
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id="page_dialog_1">
   <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
-    <div class="dialog">
+    <div class="dialog_default">
       <p class="content">[content]</p>
     </div>
   </div> 
 </script>
 
-<script type="text/html" id="page_userInfo">
-  <div class="page" id = "userInfo_page">
-    <div class="userInfo">
-      <img class="avatar" src="./content/image/avatar/Warriors.bmp" />
-      <p class="userName">-</p>
-      <p class="gamePoint">0</p>
-      <button class="exit">登出</button>
+<script type="text/html" id="page_dialog_2">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog_input">
+      <p class="title">[title]</p>
+      <input type="text" autocomplete="off" placeholder="Input..." maxlength=20 value="" />
+      <div>
+        <button class="cancel">Cancel</button>
+        <button class="ok">OK</button>
+      </div>
     </div>
   </div> 
 </script>
 
+<script type="text/html" id="page_dialog_3">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog_upload">
+      <p class="title">[title]</p>
+      <div class="img_box"><img /></div>
+      <input type="file" name="file" accept="image/png,image/bmp,image/jpeg" id="file" />
+      <label for="file">Choose a Image</label>
+      <div>
+        <button class="rechoose">Re Choose</button>
+      </div>
+      <div class="btn_box">
+        <button class="cancel">Cancel</button>
+        <button class="ok">Upload</button>
+      </div>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_userInfo">
+  <!--<div class="page" id = "userInfo_page">-->
+    <div class="userInfo">
+      <img class="avatar" />
+      <p class="userName">-</p>
+      <p class="gamePoint">0</p>
+      <button class="exit">Sign Out</button>
+    </div>
+  <!--</div> -->
+</script>
+
 <script type="text/html" id="page_gameTop">
-  <div class="page" id = "gameTop_page">
+  <!--<div class="page" id = "gameTop_page">-->
     <div class="gameTop">
       <p class="title">TOP 10</p>
       <table class="list" border=0>
       </table>
     </div>
-  </div> 
+  <!--</div> -->
 </script>
 
 </html>

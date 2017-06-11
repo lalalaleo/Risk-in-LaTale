@@ -47,7 +47,7 @@ var gamePoint = {
       type: "POST",
       url: "gamePoint",
       dataType: "JSON",
-      data: "type=getTop&username="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
+      data: "type=getTop&nickname="+sessionStorage.user_name+"&gamePoint="+gamePoint.num,
       success: function(data){
         for(var i in data.data){
           var no = 1+parseInt(i);
@@ -59,11 +59,11 @@ var gamePoint = {
             default : src="";
           }
           $(".gameTop .list").append("<tr>"+
-            "<td><img "+src+" /></td>"+
             "<td>"+no+"</td>"+
-            "<td>"+data.data[i].username+"</td>"+
+            "<td><img src=./content/image/avatar/"+data.data[i].avatar+" /></td>"+
+            "<td>"+data.data[i].nickname+"</td>"+
             "<td>"+data.data[i].gamepoint+"</td>"+
-            "<td></td>"+
+            "<td><img "+src+" /></td>"+
             "</tr>"
           );
         }
@@ -230,13 +230,13 @@ function runGame(plans, Display) {
       if (status == "lost"){
         // startLevel(n);
         gamePoint.sendToSever();
-        dialog.load("你输了！");
+        dialog.load("你输了！",1,null);
       }
       else if (n < plans.length - 1)
         startLevel(n + 1);
       else{
         gamePoint.sendToSever();
-        dialog.load("你赢了！");
+        dialog.load("你赢了！",1,null);
       }
     });
   }

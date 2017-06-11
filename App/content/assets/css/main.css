@@ -8,6 +8,7 @@
     justify-content:center;
     align-items:center;
 }
+/*登陆*/
 .login {
     overflow: hidden;
     width: 400px;
@@ -65,12 +66,93 @@
     background-color: rgba(0, 0, 0, 0.75);
     color:rgba(255, 255, 255, 0.75);
 }
+.login .btn_register {
+    display: block;
+    margin-top: 20px;
+    font-size: 10px;
+    color : #8f8f8f;
+}
+.login .btn_register:hover {
+    color : skyblue;
+}
 .login .annotation {
     font-size: 10px;
     color : #8f8f8f;
 }
 
-.dialog {
+/*注册*/
+.register {
+    overflow: hidden;
+    width: 400px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 0.8);
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+.register .title {
+    margin: 0;
+    line-height: 72px;
+    font-size: 48px;
+    font-style: normal;
+    letter-spacing: 10px;
+}
+.register input {
+    width: 280px;
+    height: 30px;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+    color:#8f8f8f;
+    padding-left: 15px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.register input:focus {
+    border-color: #aaaaaa;
+    background-color: rgba(229, 242, 13, 0.2);
+}
+.register input::-webkit-input-placeholder {
+    color:#aaaaaa;
+}
+.register .btn_register {
+    width: 200px;
+    height: 30px;
+    padding: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    background-color: rgba(255, 255, 255, 0.75);
+    color:rgba(0, 0, 0, 0.75);
+    outline-style: none;
+    box-sizing: border-box;
+}
+.register .btn_register:hover {
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
+    color:rgba(255, 255, 255, 0.75);
+}
+.register .btn_login {
+    display: block;
+    margin-top: 20px;
+    font-size: 10px;
+    color : #8f8f8f;
+}
+.register .btn_login:hover {
+    color : skyblue;
+}
+
+/*对话框*/
+#dialog_page {
+    color: rgba(0, 0, 0, 0.8);
+}
+.dialog_default {
     overflow: hidden;
     max-width: 600px;
     position:relative;
@@ -83,10 +165,159 @@
     padding: 40px 60px;
     box-sizing: border-box;
 }
-.dialog .content {
-    color: rgba(0, 0, 0, 0.8);
+
+
+.dialog_input {
+    overflow: hidden;
+    max-width: 600px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 1);
+    text-align: center;
+    padding: 40px 60px;
+    box-sizing: border-box;
+}
+.dialog_input .title {
+    margin: 0;
+    font-weight: bold;
+}
+.dialog_input input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0);
+    color:#8f8f8f;
+    padding-left: 15px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_input input:focus {
+    border-color: #aaaaaa;
+    background-color: rgba(229, 242, 13, 0.2);
+}
+.dialog_input button {
+    width: 90px;
+    height: 30px;
+    padding: 0 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_input .ok{
+    border: 1px solid #F17A60;
+    background-color: #F17A60;
+    color:white;
+}
+.dialog_input .ok:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:#F17A60;
+}
+.dialog_input .cancel{
+    border: 1px solid skyblue;
+    background-color: skyblue;
+    color:white;
+}
+.dialog_input .cancel:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:skyblue;
 }
 
+
+.dialog_upload {
+    overflow: hidden;
+    max-width: 600px;
+    position:relative;
+    margin-left : auto;
+    margin-right : auto;
+    border: 5px solid skyblue;
+    border-radius: 20px;
+    background: rgba(255, 255,255, 1);
+    text-align: center;
+    padding: 40px 60px;
+    box-sizing: border-box;
+}
+.dialog_upload .title {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.dialog_upload .img_box {
+    margin-bottom: 20px;
+    display: none;
+}
+.dialog_upload img {
+    width: 200px;
+    border-radius: 20px;
+    border: 1px solid skyblue;
+}
+.dialog_upload input {
+     width: 0.1px; 
+    height: 0.1px; 
+    opacity: 0; 
+    overflow: hidden; 
+    position: absolute; 
+    z-index: -1;
+}
+.dialog_upload label {
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    background-color: yellow;
+    color: gold;
+}
+.dialog_upload label:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+.dialog_upload .rechoose {
+    width:120px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    background-color: yellow;
+    color: gold;
+    display: none;
+}
+.dialog_upload .rechoose:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+.dialog_upload .btn_box {
+    margin-top: 10px;
+}
+.dialog_upload button {
+    width: 90px;
+    height: 30px;
+    padding: 0 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline-style: none;
+    box-sizing: border-box;
+}
+.dialog_upload .ok{
+    border: 1px solid #F17A60;
+    background-color: #F17A60;
+    color:white;
+}
+.dialog_upload .ok:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:#F17A60;
+}
+.dialog_upload .cancel{
+    border: 1px solid skyblue;
+    background-color: skyblue;
+    color:white;
+}
+.dialog_upload .cancel:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color:skyblue;
+}
+
+/*用户信息卡片*/
 .userInfo {
     overflow: hidden;
     position:absolute;
@@ -172,15 +403,17 @@
     font-weight: bold;
 }
 .gameTop .list tr td:nth-child(1) {
-    width: 30px;
-}
-.gameTop .list tr td:nth-child(1) img {
-    max-width: 30px;
-    max-height: 30px;
-}
-.gameTop .list tr td:nth-child(2) {
     font-size: 20px;
     width: 50px;
+}
+
+.gameTop .list tr td:nth-child(2) {
+    width: 50px;
+}
+.gameTop .list tr td:nth-child(2) img {
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 30px;
 }
 .gameTop .list tr td:nth-child(3) {
     font-size: 18px;
@@ -192,4 +425,8 @@
 }
 .gameTop .list tr td:nth-child(5) {
     width: 30px;
+}
+.gameTop .list tr td:nth-child(5) img {
+    max-width: 30px;
+    max-height: 30px;
 }
