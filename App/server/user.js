@@ -48,3 +48,22 @@ exports.updateAvatar = function(userid,avatar,fn){
     return 0;
   });
 }
+
+exports.register = function(userid,username,password,fn){
+  var sql = 'SELECT * FROM user WHERE USER_ID="'+username+'"';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    if(results.length>0){
+      fn({result:"error_1"});
+    }
+    else {
+      sql = 'INSERT INTO user VALUES ("'+userid+'", "'+username+'", "'+password+'", "default.png")';
+      connection.query(sql, function (error, results, fields){
+        if (error) throw error;
+        else {
+          fn({result:"ok"});
+        }
+      });
+    }
+  });
+}

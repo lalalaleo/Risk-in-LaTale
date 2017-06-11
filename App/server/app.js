@@ -31,6 +31,8 @@ const storage = multer.diskStorage({
 });
 
 var upload = multer({storage: storage});
+
+
 // 头像上传
 app.post('/uploadAvatar', upload.single('file'), function(req, res, next) {
   user.updateAvatar(req.body.userid,path.basename(req.file.path),function(msg){
@@ -41,10 +43,14 @@ app.post('/uploadAvatar', upload.single('file'), function(req, res, next) {
   });
 });
 
-//----------------------------------------------------------------------------
 app.post('/user',function(req,res){
   if(req.body.type=="login"){
     user.login(req.body.username,req.body.password,function(msg){
+      res.send(msg);
+    });
+  }
+  else if(req.body.type=="register"){
+    user.register(req.body.userid,req.body.username,req.body.password,function(msg){
       res.send(msg);
     });
   }
