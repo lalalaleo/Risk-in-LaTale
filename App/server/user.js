@@ -53,7 +53,7 @@ exports.register = function(userid,nickname,password,fn){
   var sql = 'SELECT count(*) as number FROM user WHERE USER_ID="'+userid+'"';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
-    if(results.number[0]>0){
+    if(results[0].number>0){
       fn({result:"false"});
     }
     else {
