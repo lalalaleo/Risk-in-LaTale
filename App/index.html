@@ -1,33 +1,125 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Rist in LaTele</title>
-    <style>
-        body {
-            background-image: url(./image/background_latale.jpg);
-            background-size:cover;
-        }
-        .title_box {
-            margin-top: 200px;
-            width: 300px;
-            height: 100px;
-            border-radius: 10px;
-            background-color: black;
-        }
-        .title {
-            font-size: 48px;
-            line-height: 100px;
-            color:white;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="./content/assets/css/main.css" />
+  <meta charset="UTF-8">
+  <script src="./content/assets/js/jquery-3.2.1.min.js"></script>
+  <script src="./content/assets/js/index.js"></script>
+  <script src="./content/assets/js/map.js"></script>
+  <script src="./content/assets/js/actor.js"></script>
+  <script src="./content/assets/js/data.js"></script>
+  <script src="./content/assets/js/game.js"></script>
+  <link rel="stylesheet" href="./content/assets/css/game.css">
+  <link rel="stylesheet" href="./content/assets/css/main.css">
+  <title>Risk in LaTale</title>
 </head>
 <body>
-    <center>
-        <div class="title_box">
-            <p class="title">施工中...</p>
-        </div>
-    </center>
+    <div id="world" class="world"></div>
+    <div id="page" class="page"></div>
+    <script>
+      $(document).ready(function(){
+        user.login.load();
+      });
+    </script>
 </body>
+
+<script type="text/html" id="page_login">
+  <div class="page" id="login_page">
+    <div class="login">
+        <p class="title">LOGIN</p>
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
+        <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
+        <button id="btn_login" class="btn_login">Sign in</button>
+        <label id="btn_register" class="btn_register">I have no account</label>
+        <!--<p class="annotation">暂时不提供账号注册</p>-->
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id="page_register">
+  <div class="page" id="register_page">
+    <div class="register">
+        <p class="title">REGISTER</p>
+        <input type="text" name="userid" autocomplete="off" placeholder="User ID" maxlength=20 value="" />
+        <input type="text" name="nickname" autocomplete="off" placeholder="Nickname " maxlength=20 value="" />
+        <input type="password" name="password" autocomplete="off" placeholder="Password" maxlength=20 value="" />
+        <input type="password" name="rePassword" autocomplete="off" placeholder="Re Password" maxlength=20 value="" />
+        <button id="btn_register" class="btn_register">Create my account</button>
+        <label id="btn_login" class="btn_login">I already have an account</label>
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id="page_dialog_1">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog_default">
+      <p class="content">[content]</p>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_dialog_2">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog_input">
+      <p class="title">[title]</p>
+      <input type="text" autocomplete="off" placeholder="Input..." maxlength=20 value="" />
+      <div>
+        <button class="cancel">Cancel</button>
+        <button class="ok">OK</button>
+      </div>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_dialog_3">
+  <div class="page" id = "dialog_page" style="background-color:rgba(0,0,0,0.5)">
+    <div class="dialog_upload">
+      <p class="title">[title]</p>
+      <div class="img_box"><img /></div>
+      <input type="file" name="file" accept="image/png,image/bmp,image/jpeg" id="file" />
+      <label for="file">Choose a Image</label>
+      <div>
+        <button class="rechoose">Re Choose</button>
+      </div>
+      <div class="btn_box">
+        <button class="cancel">Cancel</button>
+        <button class="ok">Upload</button>
+      </div>
+    </div>
+  </div> 
+</script>
+
+<script type="text/html" id="page_userInfo">
+  <div class="userInfo">
+    <img class="avatar" />
+    <p class="userName">-</p>
+    <p class="gamePoint">0</p>
+    <button class="exit">Sign Out</button>
+  </div>
+</script>
+
+<script type="text/html" id="page_gameTop">
+  <div class="gameTop">
+    <p class="title">TOP 10</p>
+    <table class="list" border=0>
+    </table>
+  </div>
+</script>
+
+<script type="text/html" id="page_helper">
+  <div class="helper">
+    <div class="item">
+      <div>←</div>
+      <div>向左移动</div>
+    </div>
+    <div class="item">
+      <div>→</div>
+      <div>向右移动</div>
+    </div>
+    <div class="item">
+      <div>C</div>
+      <div>跳跃</div>
+    </div>
+  </div>
+</script>
+
 </html>
