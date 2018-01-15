@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "author": "Leo.Hu",
   "description": {
-    "mysql": "latest"
-  },
-  "repository": "https://github.com/lalalaleo/Risk-in-LaTale",
-  "dependencies": {
+    "mysql": "latest",
     "express": "^4.15.3",
     "multer": "^1.3.0"
-  }
+  },
+  "repository": "https://github.com/lalalaleo/Risk-in-LaTale",
 }
