@@ -10,6 +10,6 @@ Version：1.1.0
 
 ## Demo
 
-www.lalalaleo.com:8888
+[Risk in LaTale](http://www.lalalaleo.com/Risk-in-LaTale/)
 
 游戏仍在开发中，未来，不定期开发..
